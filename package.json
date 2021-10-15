@@ -43,6 +43,7 @@
     "react-redux": "^7.2.5",
     "redux": "^4.1.1",
     "sequelize": "^6.7.0",
+    "sequelize-cli": "^6.2.0",
     "supertest": "^6.1.6",
     "vite": "^2.6.4"
   },
