@@ -1,0 +1,100 @@
+{
+  "name": "hellohealth",
+  "version": "1.0.0",
+  "description": "# HelloHealth",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --detectOpenHandles --runInBand --forceExit",
+    "test:watch": "jest --onlyChanged --watch",
+    "test:db:connection": "jest **/**/db-connection.test.js",
+    "lint:check": "eslint . --ext .js",
+    "pretest:placeholder": "NODE_ENV=test sequelize db:drop && NODE_ENV=test sequelize db:create && NODE_ENV=test sequelize db:migrate && NODE_ENV=test sequelize db:seed:undo:all && NODE_ENV=test sequelize db:seed:all",
+    "server-start": "nodemon server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Blue-Ocean-Team-1/HelloHealth.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Blue-Ocean-Team-1/HelloHealth/issues"
+  },
+  "homepage": "https://github.com/Blue-Ocean-Team-1/HelloHealth#readme",
+  "dependencies": {
+    "@material-ui/core": "^4.12.3",
+    "axios": "^0.23.0",
+    "compression": "^1.7.4",
+    "express": "^4.17.1",
+    "joi": "^17.4.2",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.13",
+    "pg": "^8.7.1",
+    "pg-hstore": "^2.3.4",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-redux": "^7.2.5",
+    "redux": "^4.1.1",
+    "sequelize": "^6.7.0",
+    "supertest": "^6.1.6"
+  },
+  "devDependencies": {
+    "dotenv": "^10.0.0",
+    "eslint": "^8.0.1",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.25.2",
+    "husky": "^7.0.2",
+    "i": "^0.3.7",
+    "jest": "^27.2.5",
+    "lint-staged": "^11.2.3",
+    "npm": "^8.1.0",
+    "sequelize-test-helpers": "^1.4.2"
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "es2015": true
+    },
+    "ignorePatterns": [
+      "folderName/"
+    ],
+    "extends": [
+      "airbnb-base"
+    ],
+    "rules": {
+      "no-console": "off",
+      "no-undef": "off",
+      "no-unused-vars": "off"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,css,json,md}": [
+      "prettier --write"
+    ],
+    "*.js": [
+      "eslint --fix"
+    ]
+  },
+  "prettier": {
+    "useTabs": false,
+    "tabWidth": 2,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "bracketSpacing": true
+  },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "./server/test-utils/suiteSetup.js"
+    ],
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
+  }
+}
