@@ -34,6 +34,7 @@
     "@mui/material": "^5.0.4",
     "@vitejs/plugin-react": "^1.0.0",
     "axios": "^0.23.0",
+    "chai": "^4.3.4",
     "compression": "^1.7.4",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
@@ -103,7 +104,10 @@
   },
   "jest": {
     "collectCoverage": true,
-    "coverageReporters": ["json", "html"],
+    "coverageReporters": [
+      "json",
+      "html"
+    ],
     "setupFilesAfterEnv": [
       "./server/test-utils/suiteSetup.js"
     ],
