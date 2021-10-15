@@ -8,14 +8,12 @@ const server = require('./server');
 //   console.log(`Server is currently listening on http://localhost:${process.env.DEV_PORT}`);
 // });
 
-const app = express();
-
 const PORT = config.PORT || 8000;
 
 if (config.NODE_ENV !== 'test') {
-  app.listen(PORT, () => {
+  server.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`);
   });
 }
 
-module.exports.app = app;
+module.exports.app = server;
