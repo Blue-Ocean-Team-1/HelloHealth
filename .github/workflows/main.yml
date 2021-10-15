@@ -16,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node: ['14', '16']
+        node: ['14'] # ['12', '14', '16']
         os: [ubuntu-latest]
 
     services:
@@ -59,7 +59,7 @@ jobs:
       # - name: ⛏️ Build
       #   run: npm run build
 
-      - name: Publish to coveralls.io
+      - name: 🌪️ Publish to coveralls.io
         uses: coverallsapp/github-action@v1.1.2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
