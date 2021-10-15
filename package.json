@@ -107,7 +107,8 @@
     "collectCoverage": true,
     "coverageReporters": [
       "json",
-      "html"
+      "html",
+      "lcov"
     ],
     "setupFilesAfterEnv": [
       "./server/test-utils/suiteSetup.js"
