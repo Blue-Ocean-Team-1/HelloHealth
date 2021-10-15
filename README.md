@@ -1,6 +1,4 @@
-# Blue Ocean Project
-
-[![CI](https://github.com/Blue-Ocean-Team-1/HelloHealth/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/Blue-Ocean-Team-1/HelloHealth/actions/workflows/main.yml)
+# Blue Ocean Project [![CI](https://github.com/Blue-Ocean-Team-1/HelloHealth/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/Blue-Ocean-Team-1/HelloHealth/actions/workflows/main.yml) [![Coverage Status](https://coveralls.io/repos/github/Blue-Ocean-Team-1/HelloHealth/badge.svg?branch=main)](https://coveralls.io/github/Blue-Ocean-Team-1/HelloHealth?branch=main)
 
 # HelloHealth
 
