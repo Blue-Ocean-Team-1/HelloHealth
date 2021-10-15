@@ -61,9 +61,9 @@ jobs:
 
       - name: 🔮 Report test coverage
         uses: artiomtr/jest-coverage-report-action@v2.0-rc.5
-          with:
-            github-token: ${{ secrets.GITHUB_TOKEN }}
-            threshold: 60 # optional parameter
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          threshold: 60 # optional parameter
 
       - name: 🌪️ Publish to coveralls.io
         uses: coverallsapp/github-action@v1.1.2
