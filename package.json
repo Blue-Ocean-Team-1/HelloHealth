@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest --detectOpenHandles --runInBand --forceExit",
     "test:watch": "jest --onlyChanged --watch",
+    "test:coverage": "jest --coverage",
     "test:db:connection": "jest --detectOpenHandles --runInBand --forceExit **/**/db-connection.test.js",
     "lint:check": "eslint . --ext .js",
     "pretest": "NODE_ENV=test npm run ORM db:drop && NODE_ENV=test npm run ORM db:create && NODE_ENV=test npm run ORM db:migrate && NODE_ENV=test npm run ORM db:seed:undo:all && NODE_ENV=test npm run ORM db:seed:all",
@@ -26,7 +27,11 @@
   },
   "homepage": "https://github.com/Blue-Ocean-Team-1/HelloHealth#readme",
   "dependencies": {
+    "@emotion/react": "^11.4.1",
+    "@emotion/styled": "^11.3.0",
     "@material-ui/core": "^4.12.3",
+    "@mui/icons-material": "^5.0.4",
+    "@mui/material": "^5.0.4",
     "@vitejs/plugin-react": "^1.0.0",
     "axios": "^0.23.0",
     "compression": "^1.7.4",
@@ -97,6 +102,8 @@
     "bracketSpacing": true
   },
   "jest": {
+    "collectCoverage": true,
+    "coverageReporters": ["json", "html"],
     "setupFilesAfterEnv": [
       "./server/test-utils/suiteSetup.js"
     ],
