@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { auth, db } from '../config/firebase.js';
+import { auth, db } from '../config/firebase';
 
 export const AuthContext = React.createContext();
 
@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    auth.onAuthStateChanged(function (user) {
+    auth.onAuthStateChanged((user) => {
       if (user) {
         setCurrentUser(user);
       } else {
@@ -52,11 +52,11 @@ export const AuthProvider = ({ children }) => {
   const signupUser = async (name, email, password) => {
     try {
       const res = await auth.createUserWithEmailAndPassword(email, password);
-      const user = res.user;
-      await db.collection("users").add({
+      const { user } = res;
+      await db.collection('users').add({
         uid: user.uid,
         name,
-        authProvider: "local",
+        authProvider: 'local',
         email,
       });
     } catch (err) {
@@ -68,7 +68,7 @@ export const AuthProvider = ({ children }) => {
   const sendPasswordResetEmail = async (email) => {
     try {
       await auth.sendPasswordResetEmail(email);
-      alert("Password reset link sent!");
+      alert('Password reset link sent!');
     } catch (err) {
       console.error(err);
       alert(err.message);

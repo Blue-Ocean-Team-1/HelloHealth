@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -7,15 +7,14 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import useStyles from './styles.js';
+import useStyles from './styles';
 
 function Header() {
-
   const classes = useStyles();
 
   return (
     <div>
-      <Box bgcolor="primary.main" sx={{ flexGrow: 1 }}>
+      <Box sx={{ flexGrow: 1 }}>
         <AppBar className={classes.navbar} position="static" >
           <Toolbar>
             <IconButton
@@ -35,7 +34,7 @@ function Header() {
         </AppBar>
       </Box>
     </div>
-  )
+  );
 }
 
-export default Header
+export default Header;

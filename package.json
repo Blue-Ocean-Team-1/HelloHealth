@@ -45,6 +45,7 @@
     "nodemon": "^2.0.13",
     "pg": "^8.7.1",
     "pg-hstore": "^2.3.4",
+    "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.5",
@@ -81,6 +82,13 @@
       "no-console": "off",
       "no-undef": "off",
       "no-unused-vars": "off"
+    },
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true
+      },
+      "ecmaVersion": 12,
+      "sourceType": "module"
     }
   },
   "husky": {
