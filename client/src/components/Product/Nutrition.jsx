@@ -26,12 +26,11 @@ export default function Nutrition() {
 
   return (
     <>
-      <h1>Nutrition</h1>
+      <Typography variant="h1">Nutrition</Typography>
       <Box>
         <Grid
         container
         spacing={2}
-
         >
           <Grid item xs={6} className={`${classes.nutritionBottom} ${classes.nutritionRight}`}>
             <Typography variant="h6" sx={{ flexGrow: 1 }}>
@@ -66,5 +65,3 @@ export default function Nutrition() {
     </>
   );
 }
-
-
