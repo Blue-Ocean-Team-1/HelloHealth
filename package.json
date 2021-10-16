@@ -15,7 +15,8 @@
     "vite:start": "vite",
     "vite:dev": "vite build --watch",
     "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "prepare": "husky install"
   },
   "repository": {
     "type": "git",
