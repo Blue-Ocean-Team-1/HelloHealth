@@ -1,8 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App.jsx';
+import { MainProvider } from './context/MainContext.jsx';
 
 ReactDOM.render(
-  <App />,
+  <MainProvider>
+    <App />
+  </MainProvider>,
   document.getElementById('root'),
 );
