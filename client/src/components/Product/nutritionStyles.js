@@ -20,12 +20,36 @@ export default makeStyles(() => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  facts: {
+    border: '1px solid black',
+    margin: '20px',
+    float: 'left',
+    width: '280px;',
+    padding: '0.5rem',
+  },
+  factsTitle: {
+    fontWeight: 'bold',
+    fontSize: '2rem',
+    margin: '0 0 0.25rem 0',
+  },
+  factsHeader: {
+    borderBottom: '10px solid black',
+    padding: '0 0 0.25rem 0',
+    margin: '0 0 0.5rem 0',
+  },
+  smallInfo: {
+    fontWeight: 'normal',
+    textAlign: 'left',
+    padding: '0.25rem 0',
+    borderTop: '1px solid black',
+    whiteSpace: 'nowrap',
+  },
+  factsTable: {
+    width: '100%',
+    border: '0',
+  },
+  priceText: {
+    paddingTop: '1em',
+    textAlign: 'center',
+  },
 }));
-
-// {
-// border-right: 1px solid #e2e2e2;
-//   border-right-width: 1px;
-//     border-right-style: solid;
-//     border-right-color: rgb(226, 226, 226);
-// border-bottom: 1px solid #e2e2e2;
-// }
