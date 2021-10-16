@@ -70,7 +70,9 @@ export const AuthProvider = ({ children }) => {
 
   const logoutUser = (callback = () => { }) => {
     auth.signOut();
-    callback();
+    if (typeof callback === 'function') {
+      callback();
+    }
   };
 
   const value = {
