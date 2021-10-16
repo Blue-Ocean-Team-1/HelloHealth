@@ -35,13 +35,17 @@ $ npm install
 - Edit the `SERVER_URL` to be your host url
 
 ```
-// Express server
+// Express Server
 
 $ npm run server-start
 
 // Client (Vite) Server for Development
 
 $ npm run dev
+
+// Serve Client files (Separate Terminal) for Development
+
+$ npm run vite:watch
 
 // Used to create Bundle ONLY USE for Production
 

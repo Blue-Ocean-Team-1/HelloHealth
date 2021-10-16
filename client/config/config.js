@@ -5,13 +5,13 @@ dotenv.config();
 const config = {
   DATABASE_URL: process.env.DATABASE_URL,
   FIREBASE_CONFIG: {
-    apiKey: process.env.apiKey,
-    authDomain: process.env.authDomain,
-    projectId: process.env.projectId,
-    storageBucket: process.env.storageBucket,
-    messagingSenderId: process.env.messagingSenderId,
-    appId: process.env.appId,
-    measurementId: process.env.measurementId,
+    apiKey: process.env.REACT_APP_FIREBASE_apiKey,
+    authDomain: process.env.REACT_APP_FIREBASE_authDomain,
+    projectId: process.env.REACT_APP_FIREBASE_projectId,
+    storageBucket: process.env.REACT_APP_FIREBASE_storageBucket,
+    messagingSenderId: process.env.REACT_APP_FIREBASE_messagingSenderId,
+    appId: process.env.REACT_APP_FIREBASE_appId,
+    measurementId: process.env.REACT_APP_FIREBASE_measurementId,
   },
 };
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -8,7 +9,8 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import useStyles from './styles';
-import useMainContext from '../context/MainContext';
+import useMainContext from '../context/MainContext.jsx';
+import { LOGIN } from '../../config/pageRoutes';
 
 function Navigation() {
   const classes = useStyles();
@@ -40,9 +42,14 @@ function Navigation() {
           <Button onClick={handlePageChange} name="farms" variant="contained">
             Farms
           </Button>
-          <Button onClick={handlePageChange} name="account" variant="contained">
+          {/* <Button onClick={handlePageChange} name="account" variant="contained">
             Account
-          </Button>
+          </Button> */}
+          <Link to={LOGIN}>
+            <Button name="farms" variant="contained">
+              Account
+            </Button>
+          </Link>
           <Button onClick={handlePageChange} name="cart">
             <ShoppingCartIcon />
           </Button>
