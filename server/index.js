@@ -1,12 +1,11 @@
-require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const path = require('path');
-const config = require('./config/config');
+const config = require('./config/config.js');
 
 const server = express();
-const PORT = config.PORT || 8000;
+const PORT = config.PORT || 6000;
 
 const corsOptions = {
   origin: 'http://localhost:3000',
