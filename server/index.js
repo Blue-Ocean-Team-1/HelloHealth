@@ -1,28 +1,18 @@
 const express = require('express');
-const morgan = require('morgan');
-const cors = require('cors');
-const path = require('path');
-const config = require('./config/config.js');
+const config = require('./config/config');
+const server = require('./server');
 
-const server = express();
-const PORT = config.PORT || 6000;
+// Vite Setup Goes here ...
 
-const corsOptions = {
-  origin: 'http://localhost:3000',
-  optionsSuccessStatus: 200,
-  credentials: true,
-};
+// server.listen(process.env.DEV_PORT, () => {
+//   console.log(Server is currently listening on http://localhost:${process.env.DEV_PORT});
+// });
 
-server.use(cors(corsOptions));
-// app.use(express.static(path.join(__dirname, 'dist', 'client')));
-
-server.get('/hello', (req, res) => {
-  res.status(200).send('hello');
-});
+const SERVER_PORT = config.SERVER_PORT || 6000;
 
 if (config.NODE_ENV !== 'test') {
-  server.listen(PORT, () => {
-    console.log(`Server listening on port ${PORT}`);
+  server.listen(SERVER_PORT, () => {
+    console.log(`Server listening on port ${SERVER_PORT}`);
   });
 }
 
