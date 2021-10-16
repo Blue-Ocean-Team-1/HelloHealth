@@ -31,7 +31,8 @@ $ npm install
 
 **Server Setup**
 
-After cloning down the repo create a `.env` file in the root directory and copy contents of `.env.sample` over.
+- After cloning down the repo create a `.env` file in the root directory and copy contents of `.env.sample` over.
+- Edit the `SERVER_URL` to be your host url
 
 ```
 // Express server
