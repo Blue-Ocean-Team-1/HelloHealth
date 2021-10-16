@@ -124,7 +124,7 @@
     ],
     "setupFilesAfterEnv": [
       "./server/test-utils/suiteSetup.js",
-      "client/test-utils/jest-setup.js"
+      "./client/test-utils/jest-setup.js"
     ],
     "testEnvironment": "node",
     "coveragePathIgnorePatterns": [
