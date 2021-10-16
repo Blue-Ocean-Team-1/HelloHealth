@@ -5,6 +5,11 @@
  */
 
 import Joi from 'joi';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const enviromentObj = process.env;
 
 const envVarsSchema = Joi.object()
   .keys({
@@ -19,7 +24,7 @@ const envVarsSchema = Joi.object()
   })
   .unknown();
 
-const { value: envVars, error } = envVarsSchema.prefs({ errors: { label: 'key' } }).validate(import.meta.env);
+const { value: envVars, error } = envVarsSchema.prefs({ errors: { label: 'key' } }).validate(enviromentObj);
 
 if (error) {
   throw new Error(`Config validation error: ${error.message}`);
