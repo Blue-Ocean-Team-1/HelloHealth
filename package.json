@@ -32,6 +32,7 @@
     "@material-ui/core": "^4.12.3",
     "@mui/icons-material": "^5.0.4",
     "@mui/material": "^5.0.4",
+    "@testing-library/jest-dom": "^5.14.1",
     "@vitejs/plugin-react": "^1.0.0",
     "axios": "^0.23.0",
     "chai": "^4.3.4",
@@ -121,7 +122,8 @@
       "lcov"
     ],
     "setupFilesAfterEnv": [
-      "./server/test-utils/suiteSetup.js"
+      "./server/test-utils/suiteSetup.js",
+      "client/src/test-utils/jest-setup.js"
     ],
     "testEnvironment": "node",
     "coveragePathIgnorePatterns": [
