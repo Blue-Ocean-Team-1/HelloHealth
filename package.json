@@ -12,7 +12,8 @@
     "pretest": "NODE_ENV=test npm run ORM db:drop && NODE_ENV=test npm run ORM db:create && NODE_ENV=test npm run ORM db:migrate && NODE_ENV=test npm run ORM db:seed:undo:all && NODE_ENV=test npm run ORM db:seed:all",
     "ORM": "sequelize --options-path=server/config/options.js",
     "server-start": "nodemon server/index.js",
-    "dev": "vite",
+    "vite:start": "vite",
+    "vite:dev": "vite build --watch",
     "build": "vite build",
     "serve": "vite preview"
   },
