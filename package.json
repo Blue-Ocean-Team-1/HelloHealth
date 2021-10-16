@@ -123,12 +123,13 @@
       "lcov"
     ],
     "setupFilesAfterEnv": [
-      "./server/test-utils/suiteSetup.js",
-      "./client/test-utils/jest-setup.js"
+      "<rootDir>/server/test-utils/suiteSetup.js",
+      "<rootDir>/client/test-utils/setupSuite.js"
     ],
     "testEnvironment": "node",
     "coveragePathIgnorePatterns": [
-      "/node_modules/"
+      "/node_modules/",
+      "/*.test.js/"
     ]
   }
 }
