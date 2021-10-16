@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
-import Navigation from './Navigation';
-import ProductsPage from './Pages/ProductsPage';
-import BoxPage from './Pages/BoxPage';
-import FarmsPage from './Pages/FarmsPage';
-import CartPage from './Pages/CartPage';
-import AccountPage from './Pages/AccountPage';
+import { Switch, Route } from 'react-router-dom';
+import Navigation from './Navigation.jsx';
+import ProductsPage from './Pages/ProductsPage.jsx';
+import BoxPage from './Pages/BoxPage.jsx';
+import FarmsPage from './Pages/FarmsPage.jsx';
+import CartPage from './Pages/CartPage.jsx';
+import AccountPage from './Pages/AccountPage.jsx';
 // import useAuth from '../context/AuthContext.jsx';
-import useMainContext from '../context/MainContext';
+import useMainContext from '../context/MainContext.jsx';
+import * as routeConstants from '../../config/pageRoutes';
 
 export default function App() {
   const { page } = useMainContext();
@@ -22,20 +24,25 @@ export default function App() {
       .catch((err) => console.error(err));
   }, []);
 
-  const renderPage = () => {
-    if (page === 'home') {
-      return <ProductsPage />;
-    } if (page === 'box') {
-      return <BoxPage />;
-    } if (page === 'farms') {
-      return <FarmsPage />;
-    } if (page === 'cart') {
-      return <CartPage />;
-    } if (page === 'account') {
-      return <AccountPage />;
-    }
-    return <ProductsPage />;
-  };
+  const renderPage = () => (
+    <Switch>
+      <Route path={routeConstants.HOME}>
+        <ProductsPage />
+      </Route>
+      <Route path={routeConstants.BOX}>
+        <BoxPage />
+      </Route>
+      <Route path={routeConstants.FARMS}>
+        <FarmsPage />
+      </Route>
+      <Route path={routeConstants.CART}>
+        <CartPage />
+      </Route>
+      <Route path={routeConstants.ACCOUNT}>
+        <AccountPage />
+      </Route>
+    </Switch>
+  );
 
   return (
     <>
