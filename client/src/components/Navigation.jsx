@@ -8,7 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import useStyles from './styles';
-import useMainContext from '../context/MainContext';
+import useMainContext from '../context/MainContext.jsx';
 
 function Navigation() {
   const classes = useStyles();
