@@ -7,6 +7,7 @@ import BoxPage from './Pages/BoxPage.jsx';
 import FarmsPage from './Pages/FarmsPage.jsx';
 import CartPage from './Pages/CartPage.jsx';
 import AccountPage from './Pages/AccountPage.jsx';
+import LoginPage from './Pages/LoginPage.jsx';
 // import useAuth from '../context/AuthContext.jsx';
 import useMainContext from '../context/MainContext.jsx';
 import * as routeConstants from '../config/pageRoutes';
@@ -26,7 +27,7 @@ export default function App() {
 
   const renderPage = () => (
     <Switch>
-      <Route path={routeConstants.HOME}>
+      <Route exact path={routeConstants.HOME}>
         <ProductsPage />
       </Route>
       <Route path={routeConstants.BOX}>
@@ -40,6 +41,9 @@ export default function App() {
       </Route>
       <Route path={routeConstants.ACCOUNT}>
         <AccountPage />
+      </Route>
+      <Route path={routeConstants.LOGIN}>
+        <LoginPage />
       </Route>
     </Switch>
   );
