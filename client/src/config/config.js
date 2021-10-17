@@ -15,7 +15,7 @@ const envVarsSchema = Joi.object()
   .keys({
     NODE_ENV: Joi.string().required(),
     SERVER_URL: Joi.string().default('http://localhost:8001'),
-    VITE_APP_FIREBASE_apiKey: Joi.string(),
+    VITE_APP_FIREBASE_apiKey: Joi.string().default('placeholderTestKey'),
     VITE_APP_FIREBASE_authDomain: Joi.string(),
     VITE_APP_FIREBASE_projectId: Joi.string(),
     VITE_APP_FIREBASE_storageBucket: Joi.string(),

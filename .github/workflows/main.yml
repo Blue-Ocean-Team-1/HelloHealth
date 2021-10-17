@@ -9,7 +9,6 @@ on:
 env:
   CI: true
   DATABASE_URL: postgresql://postgres:postgres@0.0.0.0:5432/test_db
-  VITE_APP_FIREBASE_apiKey: 'placeholderTestKey'
 
 jobs:
   ci:
