@@ -64,7 +64,6 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           threshold: 60 # optional parameter
-          skip-step: all
 
       - name: 🌪️ Publish to coveralls.io
         uses: coverallsapp/github-action@v1.1.2
