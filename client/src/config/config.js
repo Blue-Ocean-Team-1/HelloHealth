@@ -13,6 +13,7 @@ const enviromentObj = process.env;
 
 const envVarsSchema = Joi.object()
   .keys({
+    NODE_ENV: Joi.string().required(),
     SERVER_URL: Joi.string().default('http://localhost:8001'),
     VITE_APP_FIREBASE_apiKey: Joi.string(),
     VITE_APP_FIREBASE_authDomain: Joi.string(),
@@ -31,6 +32,7 @@ if (error) {
 }
 
 const config = {
+  NODE_ENV: envVars.NODE_ENV,
   SERVER_URL: envVars.SERVER_URL,
   firebaseConfig: {
     apiKey: envVars.VITE_APP_FIREBASE_apiKey,

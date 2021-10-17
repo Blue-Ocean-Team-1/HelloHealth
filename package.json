@@ -4,9 +4,9 @@
   "description": "# HelloHealth",
   "main": "index.js",
   "scripts": {
-    "test": "jest --detectOpenHandles --runInBand --forceExit",
-    "test:watch": "jest --onlyChanged --watch",
-    "test:coverage": "jest --coverage",
+    "test": "NODE_ENV=test jest --detectOpenHandles --runInBand --forceExit",
+    "test:watch": "NODE_ENV=test jest --onlyChanged --watch",
+    "test:coverage": "NODE_ENV=test jest --coverage",
     "test:db:connection": "jest --detectOpenHandles --runInBand --forceExit **/**/db-connection.test.js",
     "lint:check": "eslint . --ext .js",
     "pretest": "NODE_ENV=test npm run ORM db:drop && NODE_ENV=test npm run ORM db:create && NODE_ENV=test npm run ORM db:migrate && NODE_ENV=test npm run ORM db:seed:undo:all && NODE_ENV=test npm run ORM db:seed:all",
