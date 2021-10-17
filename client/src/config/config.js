@@ -14,13 +14,13 @@ const enviromentObj = process.env;
 const envVarsSchema = Joi.object()
   .keys({
     SERVER_URL: Joi.string().default('http://localhost:8001'),
-    VITE_APP_FIREBASE_apiKey: Joi.string().required(),
-    VITE_APP_FIREBASE_authDomain: Joi.string().required(),
-    VITE_APP_FIREBASE_projectId: Joi.string().required(),
-    VITE_APP_FIREBASE_storageBucket: Joi.string().required(),
-    VITE_APP_FIREBASE_messagingSenderId: Joi.string().required(),
-    VITE_APP_FIREBASE_appId: Joi.string().required(),
-    VITE_APP_FIREBASE_measurementId: Joi.string().required(),
+    VITE_APP_FIREBASE_apiKey: Joi.string(),
+    VITE_APP_FIREBASE_authDomain: Joi.string(),
+    VITE_APP_FIREBASE_projectId: Joi.string(),
+    VITE_APP_FIREBASE_storageBucket: Joi.string(),
+    VITE_APP_FIREBASE_messagingSenderId: Joi.string(),
+    VITE_APP_FIREBASE_appId: Joi.string(),
+    VITE_APP_FIREBASE_measurementId: Joi.string(),
   })
   .unknown();
 
