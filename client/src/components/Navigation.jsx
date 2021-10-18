@@ -1,6 +1,7 @@
 import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
+import Link from '@mui/material/Link';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -8,7 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import useStyles from './styles';
-import useMainContext from '../context/MainContext';
+import useMainContext from '../context/MainContext.jsx';
 
 function Navigation() {
   const classes = useStyles();
@@ -44,7 +45,7 @@ function Navigation() {
             Account
           </Button>
           <Button onClick={handlePageChange} name="cart">
-            <ShoppingCartIcon />
+            <ShoppingCartIcon sx={{ pointerEvents: 'none' }} />
           </Button>
         </Toolbar>
       </AppBar>
