@@ -7,6 +7,7 @@ module.exports = {
       testMatch: [
         '<rootDir>/client/**/*.test.js?(x)',
       ],
+      transformIgnorePatterns: ['node_modules/(?!.*?/es/.*\\.js)'],
       // collectCoverage: true,
       // coverageReporters: [
       //   'json',
@@ -28,6 +29,7 @@ module.exports = {
       testMatch: [
         '<rootDir>/server/**/*.test.js?(x)',
       ],
+      transformIgnorePatterns: ['node_modules/(?!.*?/es/.*\\.js)'],
       // collectCoverage: true,
       // coverageReporters: [
       //   'json',

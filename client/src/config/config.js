@@ -5,11 +5,15 @@
  */
 
 import Joi from 'joi';
+import dotenv from 'dotenv';
 
-const envObj = process.env;
+dotenv.config();
+
+const enviromentObj = process.env;
 
 const envVarsSchema = Joi.object()
   .keys({
+    NODE_ENV: Joi.string().required(),
     SERVER_URL: Joi.string().default('http://localhost:8001'),
     VITE_APP_FIREBASE_apiKey: Joi.string().default('placeholderAPIKey'),
     VITE_APP_FIREBASE_authDomain: Joi.string(),
@@ -21,13 +25,14 @@ const envVarsSchema = Joi.object()
   })
   .unknown();
 
-const { value: envVars, error } = envVarsSchema.prefs({ errors: { label: 'key' } }).validate(envObj);
+const { value: envVars, error } = envVarsSchema.prefs({ errors: { label: 'key' } }).validate(enviromentObj);
 
 if (error) {
   throw new Error(`Config validation error: ${error.message}`);
 }
 
 const config = {
+  NODE_ENV: envVars.NODE_ENV,
   SERVER_URL: envVars.SERVER_URL,
   firebaseConfig: {
     apiKey: envVars.VITE_APP_FIREBASE_apiKey,
