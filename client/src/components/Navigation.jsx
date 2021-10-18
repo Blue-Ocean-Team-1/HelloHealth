@@ -10,8 +10,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import useStyles from './styles';
 import useMainContext from '../context/MainContext.jsx';
-<<<<<<< HEAD
-=======
 import useAuth from '../context/AuthContext.jsx';
 
 import {
@@ -21,7 +19,6 @@ import {
   FARMS,
   CART,
 } from '../config/pageRoutes';
->>>>>>> a05f6a0d33d276ddb6edfbd7d5a42d9db9b134c2
 
 function Navigation() {
   const classes = useStyles();

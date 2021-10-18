@@ -15,11 +15,26 @@ const data = {
   productId: 392,
   productType: 'Produce',
   nutritionFacts: {
-    calories: 255,
-    protein: 105,
-    fat: 179,
-    fiber: 278,
-    carbs: 217,
+    serving_size: 5,
+    calories: 334,
+    caloriesFat: 166,
+    fat: 321,
+    fatPerc: 2,
+    satFat: 69,
+    satFatPerc: 17,
+    transFat: 92,
+    transFatPerc: 21,
+    protein: 291,
+    dietaryFiber: 172,
+    dietaryFiberPerc: 4,
+    carbohydrates: 161,
+    carbohydratesPerc: 10,
+    cholesterol: 36,
+    cholesterolPerc: 14,
+    sodium: 49,
+    sodiumPerc: 13,
+    sugars: 7,
+    sugarsPerc: 7,
   },
 };
 
@@ -34,7 +49,7 @@ export default function Nutrition() {
       );
     }
     return (
-        <div>
+        <div className={classes.label}>
           <section className={classes.facts}>
             <header className={classes.factsHeader}>
               <h1 className={classes.factsTitle}>Nutrition Facts</h1>
@@ -52,10 +67,10 @@ export default function Nutrition() {
               <tbody>
                 <tr>
                   <td className="names" colSpan="2">
-                    <b>Calories</b> 200
+                    <b>Calories</b> {data.nutritionFacts.calories}g
                   </td>
                   <td>
-                    Calories from Fat 130
+                    <b>Calories from Fat</b> {data.nutritionFacts.caloriesFat}g
                   </td>
                 </tr>
                 <tr className={classes.thickRow}>
@@ -65,81 +80,71 @@ export default function Nutrition() {
                 </tr>
                 <tr>
                   <td className="names" colSpan="3">
-                    <th>
-                    Total Fat
-                    </th>
-                    <td>
-                    14g
-                    </td>
+                    <b>Total Fat</b> {data.nutritionFacts.fat}g
                   </td>
                   <td>
-                    <b>22%</b>
+                    <b>{data.nutritionFacts.fatPerc}%</b>
                   </td>
                 </tr>
                 <tr>
                   <td className="names" colSpan="3">
-                    <th>
-                    <b>Saturated Fat</b>
-                    </th>
-                    <td>
-                    9g
-                    </td>
+                    <b>Saturated Fat</b> {data.nutritionFacts.satFat}g
                   </td>
                   <td>
-                    <b>22%</b>
+                    <b>{data.nutritionFacts.satFatPerc}%</b>
                   </td>
                 </tr>
                 <tr>
                   <td className="names" colSpan="3">
-                    <b>Trans Fat</b> 0g
+                    <b>Trans Fat</b> {data.nutritionFacts.transFat}g
                   </td>
                   <td>
-                    <b>0%</b>
+                    <b>{data.nutritionFacts.transFatPerc}%</b>
                   </td>
                 </tr>
                 <tr>
                   <td className="names" colSpan="3">
-                    <b>Cholesterol</b> 55mg
+                    <b>Cholesterol</b> {data.nutritionFacts.cholesterol}g
                   </td>
                   <td>
-                    <b>18%</b>
+                    <b>{data.nutritionFacts.cholesterolPerc}%</b>
                   </td>
                 </tr>
                 <tr>
                   <td className="names" colSpan="3">
-                  <b>Sodium</b> 40mg
+                  <b>Sodium</b> {data.nutritionFacts.sodium}g
                   </td>
                     <td>
-                      <b>2%</b>
+                      <b>{data.nutritionFacts.sodiumPerc}%</b>
                     </td>
                 </tr>
                 <tr>
                   <td className="names" colSpan="3">
-                    <b>Carbohydrate</b> 17g
+                    <b>Carbohydrate</b> {data.nutritionFacts.carbohydrates}g
                   </td>
                   <td>
-                    <b>6%</b>
+                    <b>{data.nutritionFacts.carbohydratesPerc}%</b>
                   </td>
                 </tr>
                 <tr>
                   <td className="names" colSpan="3">
-                    <b>Dietary Fiber</b> 1g
+                    <b>Dietary Fiber</b> {data.nutritionFacts.dietaryFiber}g
                   </td>
                   <td>
-                    <b>4%</b>
+                    <b>{data.nutritionFacts.dietaryFiberPerc}%</b>
                   </td>
                 </tr>
                 <tr>
                   <td className="names" colSpan="3">
-                    <b>Sugars</b> 14mg
+                    <b>Sugars</b> {data.nutritionFacts.sugars}g
                   </td>
                   <td>
-                    <b>6%</b>
+                    <b>{data.nutritionFacts.sugarsPerc}%</b>
                   </td>
                 </tr>
                 <tr>
                   <td className="names" colSpan="3">
-                    <b>Protein</b> 3g
+                    <b>Protein</b> {data.nutritionFacts.protein}g
                   </td>
                   <td>
                     <b>5%</b>
@@ -150,7 +155,7 @@ export default function Nutrition() {
             <table className={classes.factsTableGrid}>
               <tbody>
                 <tr>
-                  <td colSpan="2">
+                  <td colSpan="2" className={classes.smallInfo}>
                     Vitamin A
                     <b> 10%</b>
                   </td>
@@ -193,7 +198,7 @@ export default function Nutrition() {
           </Grid>
           <Grid item xs={6} className={classes.nutritionBottom}>
             <Typography variant="h6" sx={{ flexGrow: 1 }}>
-              Carbs: {data.nutritionFacts.carbs}g
+              Carbs: {data.nutritionFacts.carbohydrates}g
             </Typography>
           </Grid>
           <Grid item xs={6} className={`${classes.nutritionBottom} ${classes.nutritionRight}`} >
