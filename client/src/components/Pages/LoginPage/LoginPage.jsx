@@ -156,9 +156,11 @@ const LoginPage = () => {
             </form>
             <Button variant="contained" onClick={handleEmailPassSubmit}>Continue</Button>
 
-            <Typography variant="body1">{'Don\'t'} have an account? </Typography>
+            <Typography variant="body1">No account? </Typography>
             <Button onClick={(e) => { e.preventDefault(); toggleLoginSignup(); }}>Sign Up</Button>
-            <Button onClick={(e) => { e.preventDefault(); handleForgotPassword(); }}>Forgot your password?</Button>
+            <Button onClick={(e) => { e.preventDefault(); handleForgotPassword(); }}>
+              Forgot your password?
+            </Button>
           </FormContainer>
         </>
       )}
@@ -177,7 +179,6 @@ const LoginPage = () => {
         </Stack>
       </FormContainer>
     </>
-
   );
 };
 

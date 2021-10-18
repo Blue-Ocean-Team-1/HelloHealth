@@ -12,6 +12,11 @@ describe('<Page />', () => {
     render(<LoginPage />);
   });
 
+  it('renders a button', () => {
+    // "Use Dark Theme" text is only shown when the light theme is active
+    expect(screen.getByText('Sign In With Google')).toBeTruthy();
+  });
+
   // describe("when page is initialized", () => {
   //   it("then shows the light theme by default", () => {
   //     // "Use Dark Theme" text is only shown when the light theme is active
