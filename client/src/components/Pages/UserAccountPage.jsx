@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from '@mui/material/Button';
+import { Link } from 'react-router-dom';
 import useAuth from '../../context/AuthContext.jsx';
 import { TRANSACTION } from '../../config/pageRoutes';
 
@@ -7,7 +8,7 @@ const UserAccountPage = () => {
   const { logoutUser, currentUser } = useAuth();
 
   const name = currentUser.displayName || 'Anonymous'; // stored in Firebase
-  const joinDate = '7 days ago';
+  // const joinDate = '7 days ago';
   const transactionId = '1241350';
 
   // HERE
@@ -23,18 +24,13 @@ const UserAccountPage = () => {
       <h1>Account Details</h1>
 
       <figure>
-        <img></img>
-        <button>Remove</button>
-      </figure>
-
-      <figure>
         <h4>Available Credit: {'$20'}</h4>
         <button>Share Code</button>
       </figure>
 
       <h5>{name}</h5>
 
-      <p>Joined: {joinDate}</p>
+      {/* <p>Joined: {joinDate}</p> */}
 
       <figure>
         <h3>Subscription:</h3>
@@ -51,7 +47,7 @@ const UserAccountPage = () => {
 
       <figure>
         <h3>Transactions:</h3>
-        {transactions.length > 0 ? (
+        {transactions.length === 0 ? (
           <p>No transactions found..</p>
         ) : (
           <>

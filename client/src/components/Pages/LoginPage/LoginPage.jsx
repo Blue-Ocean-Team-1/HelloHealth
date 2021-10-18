@@ -73,6 +73,7 @@ const LoginPage = () => {
 
   const [isLoginForm, setIsLoginForm] = useState(true);
   const [formEntries, setFormEntries] = useState({});
+  const [customerType, setCustomerType] = useState('customer');
   // const [isFarmerUser, setIsFarmerUser] = useState(false);
   const history = useHistory();
 
@@ -86,6 +87,10 @@ const LoginPage = () => {
   } = useAuth();
 
   const { userType, setUserType } = useMainContext();
+
+  const handleTypeChange = (e) => {
+    setCustomerType(e.target.value);
+  };
 
   const toggleLoginSignup = () => {
     setIsLoginForm(!isLoginForm);
@@ -129,6 +134,21 @@ const LoginPage = () => {
     <>
       {!isLoginForm ? (
         <>
+          <label>
+            Account Type
+            <select value={customerType} onChange={handleTypeChange}>
+              <option value={'customer'}>
+                Customer
+              </option>
+              <option value={'farmer'}>
+                Farmer
+              </option>
+              <option value={'nutritionist'}>
+                Nutritionist
+              </option>
+            </select>
+          </label>
+
           <FormContainer>
             <Typography variant="h4" gutterBottom component="div">Sign Up Page</Typography>
             <form>
@@ -144,6 +164,21 @@ const LoginPage = () => {
         </>
       ) : (
         <>
+          <label>
+            Account Type
+            <select value={customerType} onChange={handleTypeChange}>
+              <option value={'customer'}>
+                Customer
+              </option>
+              <option value={'farmer'}>
+                Farmer
+              </option>
+              <option value={'nutritionist'}>
+                Nutritionist
+              </option>
+            </select>
+          </label>
+
           <FormContainer>
             <Typography variant="h4" gutterBottom component="div">Login Page</Typography>
 
