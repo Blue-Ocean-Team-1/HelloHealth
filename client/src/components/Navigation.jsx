@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -9,10 +10,23 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import useStyles from './styles';
 import useMainContext from '../context/MainContext.jsx';
+<<<<<<< HEAD
+=======
+import useAuth from '../context/AuthContext.jsx';
+
+import {
+  ACCOUNT,
+  HOME,
+  BOX,
+  FARMS,
+  CART,
+} from '../config/pageRoutes';
+>>>>>>> a05f6a0d33d276ddb6edfbd7d5a42d9db9b134c2
 
 function Navigation() {
   const classes = useStyles();
   const { setPage } = useMainContext();
+  const { currentUser } = useAuth();
 
   const handlePageChange = (e) => {
     setPage(e.target.name);
@@ -31,24 +45,44 @@ function Navigation() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            HelloHealth (Sample Navbar)
-          </Typography>
-          <Button onClick={handlePageChange} name="box" variant="contained">
-            Box
-          </Button>
-          <Button onClick={handlePageChange} name="farms" variant="contained">
-            Farms
-          </Button>
-          <Button onClick={handlePageChange} name="account" variant="contained">
-            Account
-          </Button>
-          <Button onClick={handlePageChange} name="cart">
-            <ShoppingCartIcon />
-          </Button>
-        </Toolbar>
-      </AppBar>
-    </Box>
+          <Link to={HOME}>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              HelloHealth (Sample Navbar)
+            </Typography>
+          </Link>
+          <Link to={BOX}>
+            <Button name="box" variant="contained">
+              Box
+            </Button>
+          </Link>
+          <Link to={FARMS}>
+            <Button name="farms" variant="contained">
+              Farms
+            </Button>
+          </Link>
+          {
+            currentUser ? (
+              <Link to={ACCOUNT}>
+                <Button name="farms" variant="contained">
+                  Account
+                </Button>
+              </Link>
+            ) : (
+              <Link to={ACCOUNT}>
+                <Button name="farms" variant="contained">
+                  Log In
+                </Button>
+              </Link>
+            )
+          }
+          <Link to={CART}>
+            <Button onClick={handlePageChange} name="cart">
+              <ShoppingCartIcon />
+            </Button>
+          </Link>
+        </Toolbar >
+      </AppBar >
+    </Box >
   );
 }
 
