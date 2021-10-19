@@ -3,7 +3,6 @@ import Grid from '@mui/material/Grid';
 import MealCard from './MealCard.jsx';
 
 const MealList = () => {
-  // const [sizes, setSizes] = useState([]);
   const [selectedSize, setSelectedSize] = useState(null);
 
   const handleClick = (boxSize) => {
