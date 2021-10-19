@@ -31,6 +31,15 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
+db.customers = require('./models/modelFiles/customers')(sequelize, Sequelize);
+db.farms = require('./models/modelFiles/farms')(sequelize, Sequelize);
+db.messages = require('./models/modelFiles/messages')(sequelize, Sequelize);
+db.nutrition_facts = require('./models/modelFiles/nutrition_facts')(sequelize, Sequelize);
+db.product_category = require('./models/modelFiles/product_category')(sequelize, Sequelize);
+db.product_quantity = require('./models/modelFiles/product_quantity')(sequelize, Sequelize);
+db.products = require('./models/modelFiles/products')(sequelize, Sequelize);
+db.transactions = require('./models/modelFiles/transactions')(sequelize, Sequelize);
+
 const modelNames = Object.keys(models);
 modelNames.forEach((modelKey) => {
   db[modelKey] = models[modelKey];
