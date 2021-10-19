@@ -7,6 +7,7 @@
     "test": "jest --detectOpenHandles --runInBand --forceExit",
     "test:watch": "jest --onlyChanged --watch",
     "test:db:connection": "jest --detectOpenHandles --runInBand --forceExit **/**/db-connection.test.js",
+    "test:branch": "jest --coverage --changedSince=main --watch --coverageThreshold='{\"global\":{\"statements\":\"60\",\"branches\":\"60\",\"functions\":\"60\",\"lines\":\"60\"}}'",
     "lint:check": "eslint . --ext .js",
     "pretest": "NODE_ENV=test npm run ORM db:drop && NODE_ENV=test npm run ORM db:create && NODE_ENV=test npm run ORM db:migrate && NODE_ENV=test npm run ORM db:seed:undo:all && NODE_ENV=test npm run ORM db:seed:all",
     "ORM": "sequelize --options-path=server/config/options.js",
