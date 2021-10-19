@@ -56,21 +56,6 @@ const FormContainer = styled.div`
   justify-content: center;
 `;
 
-const FormFields = ({ formEntries, fieldsArr, handleChange }) => (
-  <>
-    {fieldsArr.map(({ name, placeholder }, i) => (
-      <TextField
-        key={i}
-        onChange={handleChange}
-        type={name}
-        name={name}
-        value={formEntries[name] || ''}
-        placeholder={placeholder}
-      />
-    ))}
-  </>
-);
-
 const LoginPage = () => {
   const classes = useStyles();
 
@@ -151,11 +136,11 @@ const LoginPage = () => {
   return (
     <>
       {!customerType ? (
-        <Grid container alignItems="center" justify="space-between">
+        <Grid container alignItems="center" justifyContent="space-between">
           <Grid style={{ margin: '2em' }}>
             <label>
-              <Grid container xs={9} direction={'column'} spacing={2} >
-                <Grid spacing={3} >
+              <Grid container direction={'column'} spacing={2} >
+                <Grid spacing={3} container>
                   <Typography variant="body1">To log in or sign up, please select account type below: </Typography>
                 </Grid>
                 <Select sx={{ mt: 2 }} label="Customer Type" value={typeSelection} onChange={handleTypeChange} >

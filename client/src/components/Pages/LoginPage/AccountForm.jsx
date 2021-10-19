@@ -30,9 +30,9 @@ const FormContainer = styled.div`
 `;
 
 const FormFields = ({ formEntries, fieldsArr, handleChange }) => (
-  <Grid>
+  <Grid container>
     {fieldsArr.map(({ name, placeholder }, i) => (
-      <Grid container spacing={8} alignItems="flex-end">
+      <Grid container spacing={8} alignItems="flex-end" key={name}>
         <Grid item md={true} sm={true} xs={true}>
           <TextField
             key={i}
@@ -69,8 +69,8 @@ const AccountForm = (props) => {
 
   return (
     <Paper style={{ marginTop: '3em' }}>
-      <Grid container spacing={8} justify="center" direction="row">
-        <Grid item style={{ backgroundColor: '#f4f4f4' }} justify="center">
+      <Grid container spacing={8} justifyContent="center" direction="row">
+        <Grid item style={{ backgroundColor: '#f4f4f4' }}>
           <Grid container spacing={2} alignItems="flex-end">
             <Typography variant="h4" gutterBottom component="div">
               {title}
@@ -83,15 +83,15 @@ const AccountForm = (props) => {
             formEntries={formEntries}
           />
 
-          <Grid container justify="center" >
+          <Grid container justifyContent="center" >
             <Button sx={{ mt: 4, mb: 3 }} variant="contained" onClick={handleEmailPassSubmit}>Continue</Button>
           </Grid>
 
-          <Grid container justify="center" style={{ marginTop: '10px' }}>
+          <Grid container justifyContent="center" style={{ marginTop: '10px' }}>
             <Typography onClick={toggleLoginSignup} variant="button">{typeMessage} <a href="#">{redirectName}</a></Typography>
           </Grid>
 
-          <Grid container justify="center" style={{ marginTop: '10px' }}>
+          <Grid container justifyContent="center" style={{ marginTop: '10px' }}>
             {props.children && (<>{props.children}</>)}
           </Grid>
 

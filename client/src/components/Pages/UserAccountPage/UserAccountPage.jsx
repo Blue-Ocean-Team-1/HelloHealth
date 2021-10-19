@@ -1,8 +1,8 @@
 import React from 'react';
 import Button from '@mui/material/Button';
 import { Link } from 'react-router-dom';
-import useAuth from '../../context/AuthContext.jsx';
-import { TRANSACTION } from '../../config/pageRoutes';
+import useAuth from '../../../context/AuthContext.jsx';
+import { TRANSACTION } from '../../../config/pageRoutes';
 
 const UserAccountPage = () => {
   const { logoutUser, currentUser } = useAuth();
@@ -31,7 +31,7 @@ const UserAccountPage = () => {
       <h5>{name}</h5>
 
       <figure>
-        <h3>Subscription:</h3>
+        <h3>Subscription</h3>
         {/* HERE */}
         <select>
           <option value={'active'}>
@@ -44,14 +44,14 @@ const UserAccountPage = () => {
       </figure>
 
       <figure>
-        <h3>Transactions:</h3>
+        <h3>Transactions</h3>
         {
           transactions.length === 0 ? (
             <p>No transactions found..</p>
           ) : (
             <>
               {transactions.map(({ id }) => (
-                <div>
+                <div key={id}>
                   <p>Transaction ID: {id}</p>
                   <p>Total: {'$14.99'}</p>
                   <Link to={`${TRANSACTION}?=${id}`}>View</Link>
