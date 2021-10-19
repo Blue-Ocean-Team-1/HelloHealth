@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import {
+  TextField,
+  Grid,
+  Paper,
+  AppBar,
+  Typography,
+  Toolbar,
+  Link,
+  Box,
+} from '@material-ui/core';
+import styled from 'styled-components';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
-import styled from 'styled-components';
-import { Grid, Typography } from '@material-ui/core';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 import useMainContext from '../../../context/MainContext.jsx';
 import useAuth from '../../../context/AuthContext.jsx';
 import { HOME } from '../../../config/pageRoutes';
@@ -38,6 +45,30 @@ const SignupFormFields = [
   },
 ];
 
+const FormContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+  align-items: center;
+  justify-content: center;
+`;
+
+const FormFields = ({ formEntries, fieldsArr, handleChange }) => (
+  <>
+    {fieldsArr.map(({ name, placeholder }, i) => (
+      <TextField
+        key={i}
+        onChange={handleChange}
+        type={name}
+        name={name}
+        value={formEntries[name] || ''}
+        placeholder={placeholder}
+      />
+    ))}
+  </>
+);
+
 const LoginPage = () => {
   const classes = useStyles();
 
@@ -45,6 +76,7 @@ const LoginPage = () => {
   const [formEntries, setFormEntries] = useState({});
   const [customerType, setCustomerType] = useState('');
   const [typeSelection, setTypeSelection] = useState('');
+  // const [isFarmerUser, setIsFarmerUser] = useState(false);
   const history = useHistory();
 
   const {
