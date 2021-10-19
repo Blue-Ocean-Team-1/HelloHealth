@@ -7,7 +7,7 @@ import PaginationItem from '@mui/material/PaginationItem';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import producsListDummyData from './productsHelpers/productsSampleData.json';
-import ProductView from './productsHelpers/ProductView.jsx';
+import ProductCardView from './productsHelpers/ProductCardView.jsx';
 
 export default function ProductsPage() {
   const style = { ul: { justifyContent: 'center' }, svg: { pointerEvents: 'none' } };
@@ -59,15 +59,13 @@ export default function ProductsPage() {
 
   const renderProductList = (productList) => (
     productList.map((product) => (
-      <ProductView product={product} />
+      <ProductCardView key={product.id} product={product} />
     )));
   return (
     <Container maxWidth="xl">
-      <h1>Products Page</h1>
-      <Grid container spacing={2}>
-        <Grid container item justifyContent="flex-start" spacing={2}>
-          {renderProductList(currentProductsList)}
-        </Grid>
+      <h1>{`Products Page > ${page}`}</h1>
+      <Grid container item justifyContent="flex-start" spacing={2}>
+        {renderProductList(currentProductsList)}
       </Grid>
       <Box my={5} sx={style}>
         <Pagination

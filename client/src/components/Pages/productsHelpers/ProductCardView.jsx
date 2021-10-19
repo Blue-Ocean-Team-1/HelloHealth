@@ -6,8 +6,13 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+import { Link } from 'react-router-dom';
+import useMainContext from '../../../context/MainContext.jsx';
 
-export default function ProductView({ product }) {
+import { PRODUCT } from '../../../config/pageRoutes';
+
+export default function ProductCardView({ product }) {
+  const { id } = product;
   const productName = product.product_name;
   const productDescription = product.product_description;
   const productCost = product.product_cost;
@@ -15,8 +20,14 @@ export default function ProductView({ product }) {
   const productInventory = product.product_inventory;
   const productRating = product.product_rating;
 
+  const { setCurrentProduct } = useMainContext();
+
+  const handleClick = () => {
+    setCurrentProduct(product);
+  };
+
   return (
-    <Grid xl={2} lg={3} md={4} sm={6} xs={12} item spacing={2}>
+    <Grid xl={2} lg={3} md={4} sm={6} xs={12} item>
       <Card>
         <CardMedia
           component="img"
@@ -26,7 +37,7 @@ export default function ProductView({ product }) {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            {productName}
+            <Link onClick={handleClick} to={`${PRODUCT}${id}`}>{productName}</Link>
           </Typography>
           <Typography variant="body2" color="text.secondary">
             {productDescription}
