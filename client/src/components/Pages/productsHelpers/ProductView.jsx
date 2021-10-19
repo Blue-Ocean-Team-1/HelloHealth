@@ -16,8 +16,8 @@ export default function ProductView({ product }) {
   const productRating = product.product_rating;
 
   return (
-    <Grid item spacing={5}>
-      <Card sx={{ width: 250 }}>
+    <Grid xl={2} lg={3} md={4} sm={6} xs={12} item spacing={2}>
+      <Card>
         <CardMedia
           component="img"
           height="140"

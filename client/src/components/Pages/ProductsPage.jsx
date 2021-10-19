@@ -1,21 +1,60 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Pagination from '@mui/material/Pagination';
 import PaginationItem from '@mui/material/PaginationItem';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import producsListDummyData from './productsHelpers/productsSampleData.json';
 import ProductView from './productsHelpers/ProductView.jsx';
 
 export default function ProductsPage() {
-  const style = { ul: { justifyContent: 'center' } };
-  const pageCount = Math.floor(producsListDummyData.length / 20);
-  const [currentProductsList, setCurrentProductsList] = useState(producsListDummyData.slice(0, 20));
-  let productStart; let productEnd;
-  const handlePageChange = (pageSelected) => {
-    productStart = (pageSelected - 1) * 20;
-    productEnd = productStart + 20;
-    setCurrentProductsList(producsListDummyData.slice(productStart, productEnd));
+  const style = { ul: { justifyContent: 'center' }, svg: { pointerEvents: 'none' } };
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
+
+  const numProds = 18;
+  const pageCount = Math.floor(producsListDummyData.length / numProds);
+  const [currentProductsList, setCurrentProductsList] = useState(
+    producsListDummyData.slice(0, numProds),
+  );
+  const [page, setPage] = useState(1);
+
+  let productStart = 0; let productEnd = numProds;
+  const handlePageChange = (e) => {
+    e.preventDefault();
+    const pageSelected = Number(e.target.innerText);
+    if (e.target.innerText) {
+      setPage(pageSelected);
+      productStart = (pageSelected - 1) * numProds;
+      productEnd = productStart + numProds;
+      setCurrentProductsList(producsListDummyData.slice(productStart, productEnd));
+    } else {
+      const arrowNav = e.target.querySelector('svg').getAttribute('data-testid');
+      if (arrowNav === 'LastPageIcon') {
+        setCurrentProductsList(producsListDummyData.slice(-numProds));
+        setPage(pageCount);
+      }
+      if (arrowNav === 'FirstPageIcon') {
+        setCurrentProductsList(producsListDummyData.slice(0, numProds));
+        setPage(1);
+      }
+      if (arrowNav === 'NavigateNextIcon') {
+        const nextPage = page + 1;
+        setPage(nextPage);
+        productStart = nextPage > pageCount ? pageCount : (nextPage - 1) * numProds;
+        productEnd = productStart + numProds;
+        setCurrentProductsList(producsListDummyData.slice(productStart, productEnd));
+      }
+      if (arrowNav === 'NavigateBeforeIcon') {
+        const prevPage = page - 1;
+        setPage(prevPage);
+        productStart = prevPage > 0 ? (prevPage - 1) * numProds : 0;
+        productEnd = productStart + numProds;
+        setCurrentProductsList(producsListDummyData.slice(productStart, productEnd));
+      }
+    }
   };
 
   const renderProductList = (productList) => (
@@ -26,16 +65,16 @@ export default function ProductsPage() {
     <Container maxWidth="xl">
       <h1>Products Page</h1>
       <Grid container spacing={2}>
-        <Grid container item justifyContent="space-between" spacing={2}>
+        <Grid container item justifyContent="flex-start" spacing={2}>
           {renderProductList(currentProductsList)}
         </Grid>
       </Grid>
       <Box my={5} sx={style}>
         <Pagination
           count={pageCount}
-          variant="outlined" color="primary" size="large"
+          variant="outlined" color="primary" size={isSmallScreen ? 'small' : 'large'}
           showFirstButton showLastButton
-          onChange={(e) => handlePageChange(e.target.innerText)}
+          onChange={(e) => handlePageChange(e)}
         />
       </Box>
     </Container>
