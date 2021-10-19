@@ -23,7 +23,6 @@ const style = {
   p: 4,
 };
 
-
 export default function ProductEdit({ info }) {
   const [open, setOpen] = useState(false);
   const [submit, setSubmit] = useState(false);

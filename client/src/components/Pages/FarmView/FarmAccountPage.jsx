@@ -93,7 +93,9 @@ export default function FarmAccountPage() {
     <>
       <Grid>
         <Grid item xs={12} style={container}>
-          <img className={classes.banner} style={{ width: '1200px', height: '200px', objectFit: 'cover', maxWidth: '70vw', filter: 'grayscale(100%)', opacity: '30%' }} src={banner} />
+          <img className={classes.banner} style={{
+            width: '1200px', height: '200px', objectFit: 'cover', maxWidth: '70vw', filter: 'grayscale(100%)', opacity: '30%',
+          }} src={banner} />
           <div style={centered}><Typography variant="h2">{farmInfo.name}</Typography></div>
         </Grid>
         <Grid style={text}>
@@ -125,7 +127,7 @@ export default function FarmAccountPage() {
       </Grid>
         <Typography style={text} variant="h4">Browse Products</Typography>
       {products.map((product, index) => (
-        <FarmProductCard farmer={true} product={product} key={index} />
+        <FarmProductCard product={product} key={index} />
       ))}
     </>
   );
