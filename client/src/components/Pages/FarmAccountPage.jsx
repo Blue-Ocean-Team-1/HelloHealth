@@ -19,7 +19,7 @@ const farmInfo = {
   products: [{
     id: 1,
     product_name: 'Shrimp - 16/20, Iqf, Shell On',
-    product_description: 'Fusce posuere felis sed lacus. Morbi sem mauris, laoreet ut, rhoncus aliquet, pulvinar sed, nisl. Nunc rhoncus dui vel sem.',
+    product_description: 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.',
     product_cost: 24,
     product_inventory: 9,
     product_image: 'http://dummyimage.com/800x800.png/5fa2dd/ffffff',
@@ -88,27 +88,27 @@ export default function FarmAccountPage() {
         </Grid>
       </Grid>
       <Grid display="flex" justifyContent="center">
-        <ReactPlayer url={farmInfo.video_link} />
+        <ReactPlayer url={farmInfo.video_link} width="50vw" height="50vh" />
       </Grid>
         <Typography style={text} variant="h4">Browse Products</Typography>
-        <Grid container spacing={2}>
-          <Grid item xs={4}>
-            <img style={{maxWidth: '30vw'}} src={farmInfo.products[0].product_image}></img>
+      <Grid container spacing={0}>
+            <Grid item xs={4}>
+              <img style={{maxWidth: '30vw'}} src={farmInfo.products[0].product_image}></img>
+            </Grid>
+            <Grid container item xs={8} display="flex" direction="column" justifyContent="space-between">
+              <Typography variant="h6">
+              {farmInfo.products[0].product_name}
+              </Typography>
+              <Typography>
+              {farmInfo.products[0].product_description}
+              </Typography>
+            <Grid alignSelf="center">
+              <Button startIcon={<AddShoppingCartIcon />}>
+                Add to Cart
+              </Button>
+            </Grid>
           </Grid>
-          <Grid container item xs={8} display="flex" direction="column">
-            <Typography variant="h6">
-            {farmInfo.products[0].product_name}
-            </Typography>
-            <Typography>
-            {farmInfo.products[0].product_description}
-            </Typography>
-            <IconButton color="primary" aria-label="add to shopping cart">
-              <Grid item xs={12} align="flex-end">
-              <AddShoppingCartIcon />
-              </Grid>
-            </IconButton>
-          </Grid>
-        </Grid>
+      </Grid>
     </>
   );
 }
