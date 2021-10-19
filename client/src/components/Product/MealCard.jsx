@@ -6,11 +6,15 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
 import useStyles from './nutritionStyles';
-import Nutrition from './Nutrition';
+import Nutrition from './Nutrition.jsx';
 import NutritionModal from './NutritionModal.jsx';
 
 export default function MealCard({
-  handleClick, selectedSize, size, pepRec, price,
+  handleClick,
+  selectedSize,
+  size,
+  pepRec,
+  price,
 }) {
   const classes = useStyles();
 
@@ -55,32 +59,44 @@ export default function MealCard({
                 <Grid item>
               <Nutrition />
                 </Grid> */}
-                <Grid container xs={12} justifyContent='center' alignItems='center'>
+              <Grid
+                container
+                xs={12}
+                justifyContent="center"
+                alignItems="center"
+              >
                 <Grid item>
                   <NutritionModal />
                 </Grid>
               </Grid>
-            <Grid item xs={12}>
-              <Typography
-                className={classes.priceText}
-                variant="body2"
-                color="text.secondary"
-              >
-                ${price}
-              </Typography>
-            </Grid>
+              <Grid item xs={12}>
+                <Typography
+                  className={classes.priceText}
+                  variant="body2"
+                  color="text.secondary"
+                >
+                  ${price}
+                </Typography>
+              </Grid>
             </Grid>
           </CardContent>
         </CardActionArea>
         <CardActions>
-
           <Grid container spacing={0} direction="column" alignItems="center">
             {selectedSize === size ? (
-              <Button onClick={() => handleClick(size)} size="large" color="primary">
+              <Button
+                onClick={() => handleClick(size)}
+                size="large"
+                color="primary"
+              >
                 Selected
               </Button>
             ) : (
-              <Button onClick={() => handleClick(size)} size="large" color="primary">
+              <Button
+                onClick={() => handleClick(size)}
+                size="large"
+                color="primary"
+              >
                 Select This Plan
               </Button>
             )}
