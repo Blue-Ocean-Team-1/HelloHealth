@@ -40,9 +40,11 @@ db.product_quantity = require('./models/modelFiles/product_quantity')(sequelize,
 db.products = require('./models/modelFiles/products')(sequelize, Sequelize);
 db.transactions = require('./models/modelFiles/transactions')(sequelize, Sequelize);
 
-const modelNames = Object.keys(models);
-modelNames.forEach((modelKey) => {
-  db[modelKey] = models[modelKey];
-});
+// const modelNames = Object.keys(models);
+// modelNames.forEach((modelKey) => {
+//   db[modelKey] = models[modelKey];
+// });
+
+db.transactions.hasMany(db.customers, {as: 'transactions', foreignKey: 'id'});
 
 module.exports = db;
