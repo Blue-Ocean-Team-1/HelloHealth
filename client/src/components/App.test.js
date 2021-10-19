@@ -1,10 +1,7 @@
 import React from 'react';
 import App from './App.jsx';
 import {
-  render,
-  screen,
-  fireEvent,
-  getByLabelText,
+  render, screen, fireEvent, getByLabelText,
 } from '../../test-utils';
 
 describe('<App />', () => {
@@ -12,7 +9,7 @@ describe('<App />', () => {
     render(<App />);
   });
 
-  it('then shows the light theme by default', () => {
+  it('renders the company name', () => {
     expect(screen.getByText(/HelloHealth/i)).toBeTruthy();
   });
 });
