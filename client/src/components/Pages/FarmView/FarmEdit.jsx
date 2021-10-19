@@ -6,6 +6,7 @@ import ToggleButton from '@mui/material/ToggleButton';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 import TextField from '@mui/material/TextField';
 import Nutrition from '../../Product/Nutrition.jsx';
 
@@ -37,27 +38,42 @@ export default function FarmEdit() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-        <TextField
-          id="banner-image"
-          label="Banner Link"
-          multiline
-          maxRows={1}
-          fullWidth
-        />
-        <TextField
-          id="outlined-multiline-flexible"
-          label="About"
-          multiline
-          maxRows={8}
-          fullWidth
-        />
-        <TextField
-          id="livestream-link"
-          label="YouTube Live Link"
-          multiline
-          maxRows={1}
-          fullWidth
-        />
+        <FormLabel>Banner:
+          <TextField
+            id="banner-image"
+            label="Banner Link"
+            multiline
+            maxRows={1}
+            fullWidth
+          />
+         </FormLabel>
+        <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end' }}>
+          <Button>Update</Button>
+        </div>
+        <FormLabel>About:
+          <TextField
+            id="outlined-multiline-flexible"
+            label="About"
+            multiline
+            maxRows={8}
+            fullWidth
+          />
+        <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end' }}>
+          <Button>Update</Button>
+        </div>
+        </FormLabel>
+        <FormLabel>Video:
+          <TextField
+            id="livestream-link"
+            label="YouTube Live Link"
+            multiline
+            maxRows={1}
+            fullWidth
+          />
+         </FormLabel>
+         <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end' }}>
+          <Button>Update</Button>
+        </div>
         </Box>
       </Modal>
     </div>
