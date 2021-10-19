@@ -83,14 +83,12 @@ const AccountForm = (props) => {
             formEntries={formEntries}
           />
 
-          <Grid container justify="center" style={{ marginTop: '10px' }}>
-            <Button variant="contained" onClick={handleEmailPassSubmit}>Continue</Button>
+          <Grid container justify="center" >
+            <Button sx={{ mt: 4, mb: 3 }} variant="contained" onClick={handleEmailPassSubmit}>Continue</Button>
           </Grid>
 
-          <hr></hr>
-
           <Grid container justify="center" style={{ marginTop: '10px' }}>
-            <Typography onClick={toggleLoginSignup} variant="body1">{typeMessage} <a href="#">{redirectName}</a></Typography>
+            <Typography onClick={toggleLoginSignup} variant="button">{typeMessage} <a href="#">{redirectName}</a></Typography>
           </Grid>
 
           <Grid container justify="center" style={{ marginTop: '10px' }}>
@@ -99,7 +97,7 @@ const AccountForm = (props) => {
 
           <Grid >
             <FormContainer>
-              <Typography variant="body1">OR</Typography>
+              <Typography variant="body2">or</Typography>
               <Stack spacing={2}>
                 <Button variant="outlined" size="small" style={{ maxWidth: '200px' }} onClick={() => handleAccountSubmit(signInWithGoogle)}>
                   Sign In With Google

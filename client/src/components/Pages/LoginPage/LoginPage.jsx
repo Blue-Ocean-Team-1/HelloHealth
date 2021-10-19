@@ -118,30 +118,36 @@ const LoginPage = () => {
     <>
       {!customerType ? (
         <Grid container alignItems="center" justify="space-between">
-          <Grid item style={{ margin: '2em' }}>
+          <Grid style={{ margin: '2em' }}>
             <label>
-              <Typography variant="body1">To log in or sign up, please select account type below:</Typography>
-              <Select value={typeSelection} onChange={handleTypeChange} label="Customer Type">
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value={'customer'}>
-                  Customer
-                </MenuItem>
-                <MenuItem value={'farmer'}>
-                  Farmer
-                </MenuItem>
-                <MenuItem value={'nutritionist'}>
-                  Nutritionist
-                </MenuItem>
-              </Select>
+              <Grid container xs={9} direction={'column'} spacing={2} >
+                <Grid spacing={3} >
+                  <Typography variant="body1">To log in or sign up, please select account type below: </Typography>
+                </Grid>
+                <Select sx={{ mt: 2 }} label="Customer Type" value={typeSelection} onChange={handleTypeChange} >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={'customer'}>
+                    Customer
+                  </MenuItem>
+                  <MenuItem value={'farmer'}>
+                    Farmer
+                  </MenuItem>
+                  <MenuItem value={'nutritionist'}>
+                    Nutritionist
+                  </MenuItem>
+                </Select>
+              </Grid>
             </label>
-            <Button onClick={handleTypeChoose} variant="contained">Continue</Button>
+            <Button sx={{ mt: 3 }} onClick={handleTypeChoose} variant="contained">Continue</Button>
           </Grid>
         </Grid>
       ) : (
         <>
-          <Button onClick={() => setCustomerType('')} variant="contained">Back</Button>
+          <Grid style={{ margin: '2em' }}>
+            <Button size="small" onClick={() => setCustomerType('')} variant="contained" >Back</Button>
+          </Grid>
           {!isLoginForm ? (
             <AccountForm
               fieldsArr={SignupFormFields}
@@ -165,7 +171,8 @@ const LoginPage = () => {
             </AccountForm>
           )}
         </>
-      )}
+      )
+      }
     </>);
 };
 
