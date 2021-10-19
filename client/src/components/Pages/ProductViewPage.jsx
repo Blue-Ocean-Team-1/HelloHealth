@@ -26,8 +26,6 @@ export default function ProductViewPage() {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 
-  console.log(productInventory);
-
   const renderDropdown = () => (
     [...Array(productInventory + 1).keys()].map((i) => <MenuItem value={i}>{i}</MenuItem>)
   );
