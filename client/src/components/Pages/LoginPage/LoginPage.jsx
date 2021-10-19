@@ -10,13 +10,15 @@ import {
   Link,
   Box,
 } from '@material-ui/core';
+import styled from 'styled-components';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import useMainContext from '../../../context/MainContext.jsx';
 import useAuth from '../../../context/AuthContext.jsx';
 import { HOME } from '../../../config/pageRoutes';
 import useStyles from '../../styles';
-import styled from 'styled-components';
+import AccountForm from './AccountForm.jsx';
+import { user as userAPI } from '../../../api';
 
 const LoginFormFields = [
   {
@@ -87,6 +89,15 @@ const LoginPage = () => {
 
   const { userType, setUserType } = useMainContext();
 
+  const handleTypeChoose = () => {
+    setCustomerType(typeSelection);
+  };
+
+  const handleTypeChange = (e) => {
+    userAPI.uploadUserAccountType(customerType);
+    setTypeSelection(e.target.value);
+  };
+
   const toggleLoginSignup = () => {
     setIsLoginForm(!isLoginForm);
   };
@@ -109,6 +120,7 @@ const LoginPage = () => {
     } else {
       signupUser(name, email, password, () => {
         history.push(HOME);
+        userAPI.uploadUserAccountType(customerType);
       });
     }
   };
