@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
@@ -22,18 +23,23 @@ const style = {
   p: 4,
 };
 
-export default function FarmEdit({ info }) {
+
+export default function ProductEdit({ info }) {
   const [open, setOpen] = useState(false);
   const [submit, setSubmit] = useState(false);
-  const [banner, setBanner] = useState('');
-  const [about, setAbout] = useState(info);
-  const [video, setVideo] = useState('');
+  const [image, setImage] = useState('');
+  const [name, setName] = useState(info);
+  const [description, setDescription] = useState('');
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const onType = (e, set) => {
     set(e.target.value);
+  };
+
+  const handleImagePreview = (e) => {
+    setImage(URL.createObjectURL(e.target.files[0]));
   };
 
   return (
@@ -50,44 +56,37 @@ export default function FarmEdit({ info }) {
           <TextField
             id="banner-image"
             label="Banner Link"
-            value={banner}
+            value={name}
             multiline
             maxRows={1}
             fullWidth
-            onChange={(e) => onType(e, setBanner)}
+            onChange={(e) => onType(e, setName)}
           />
          </FormLabel>
         <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end' }}>
           <Button>Update</Button>
         </div>
-        <FormLabel>About:
+        <FormLabel>Description:
           <TextField
             id="outlined-multiline-flexible"
             label="About"
-            value={about}
             multiline
             maxRows={8}
             fullWidth
-            onChange={(e) => onType(e, setAbout)}
+            value={description}
+            onChange={(e) => onType(e, setDescription)}
           />
         <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end' }}>
           <Button>Update</Button>
         </div>
         </FormLabel>
-        <FormLabel>Video:
-          <TextField
-            id="livestream-link"
-            label="YouTube Live Link"
-            multiline
-            value={video}
-            maxRows={1}
-            fullWidth
-            onChange={(e) => onType(e, setVideo)}
-          />
-         </FormLabel>
-         <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end' }}>
-          <Button>Update</Button>
-        </div>
+        <FormLabel>
+          Product Image: {' '}
+          <input type="file" onChange={handleImagePreview} accept=".jpg,.png" />
+          <div>
+          <img style={{ objectFit: 'cover', width: '100px', height: '100px' }}src={image} />
+          </div>
+        </FormLabel>
         </Box>
       </Modal>
     </div>

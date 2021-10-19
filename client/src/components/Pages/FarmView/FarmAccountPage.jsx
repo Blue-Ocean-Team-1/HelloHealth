@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -13,6 +13,7 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import IconButton from '@mui/material/IconButton';
 import useStyles from './FarmAccountStyles';
 import FarmProductCard from '../../Product/FarmProductCard.jsx';
+import useMainContext from '../../../context/MainContext.jsx';
 import FarmEdit from './FarmEdit.jsx';
 
 const farmInfo = {
@@ -21,7 +22,7 @@ const farmInfo = {
   email: 'mdegnen0@admin.ch',
   name: 'Marcus Degnen',
   description: 'is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
-  profile_image: 'http://dummyimage.com/1600x500.png/cc0000/ffffff',
+  profile_image: 'https://images.unsplash.com/photo-1507103011901-e954d6ec0988?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
   farm_rating: 4,
   video_link: 'https://www.youtube.com/watch?v=0q0TXV8PyNY&ab_channel=ExploreFarmLife',
   products: [{
@@ -30,7 +31,7 @@ const farmInfo = {
     product_description: 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable.',
     product_cost: 24,
     product_inventory: 9,
-    product_image: 'http://dummyimage.com/800x800.png/5fa2dd/ffffff',
+    product_image: 'https://images.unsplash.com/photo-1601314002592-b8734bca6604?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1636&q=80',
     product_rating: 2,
     farm_id: 11,
   }, {
@@ -39,7 +40,7 @@ const farmInfo = {
     product_description: 'Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.',
     product_cost: 23.81,
     product_inventory: 4,
-    product_image: 'http://dummyimage.com/800x800.png/5fa2dd/ffffff',
+    product_image: 'https://images.unsplash.com/photo-1496116218417-1a781b1c416c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2070&q=80',
     product_rating: 4,
     farm_id: 11,
   }],
@@ -75,7 +76,8 @@ const initialState = {
 
 export default function FarmAccountPage() {
   const [edit, setEdit] = useState(false);
-  const [farmer, setFarmer] = useState(true);
+  const { userType, setUserType } = useMainContext();
+  // const [farmer, setFarmer] = useState(true);
   const classes = useStyles();
   // const [products, setProducts] = useState(farmInfo.products);
   const [info, setInfo] = useState(initialState);
@@ -89,19 +91,20 @@ export default function FarmAccountPage() {
 
   return (
     <>
-      <h1>Farm Account Page</h1>
       <Grid>
         <Grid item xs={12} style={container}>
-          <img style={{ maxWidth: '70vw', filter: 'grayscale(100%)', opacity: '10%' }} src={banner} />
-          <div style={centered}>{farmInfo.name}</div>
+          <img className={classes.banner} style={{ width: '1200px', height: '200px', objectFit: 'cover', maxWidth: '70vw', filter: 'grayscale(100%)', opacity: '30%' }} src={banner} />
+          <div style={centered}><Typography variant="h2">{farmInfo.name}</Typography></div>
         </Grid>
         <Grid style={text}>
+          <div style={container}>
           <StarRatings
             rating={rating}
             starRatedColor={'#5065A8'}
             numberOfStars={5}
             starDimension={'30px'}
             />
+          </div>
         </Grid>
         <Grid style={text}>
           <div>
@@ -113,16 +116,16 @@ export default function FarmAccountPage() {
             <Typography>
                 {about}
             </Typography>
-            <FarmEdit/>
+            {userType === 'farmer' ? <FarmEdit info={farmInfo.description} /> : <></>}
           </div>
         </Grid>
       </Grid>
       <Grid display="flex" justifyContent="center">
-        <ReactPlayer url={video} width="50vw" height="50vh" />
+        <ReactPlayer style={{ objectFit: 'cover' }} url={video}/>
       </Grid>
         <Typography style={text} variant="h4">Browse Products</Typography>
       {products.map((product, index) => (
-        <FarmProductCard product={product} key={index} />
+        <FarmProductCard farmer={true} product={product} key={index} />
       ))}
     </>
   );

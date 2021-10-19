@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -13,6 +13,8 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import IconButton from '@mui/material/IconButton';
 import useStyles from '../Pages/FarmView/FarmAccountStyles';
 import NutritionModal from './NutritionModal.jsx';
+import useMainContext from '../../context/MainContext.jsx';
+import ProductEdit from '../Pages/FarmView/ProductEdit.jsx';
 
 const text = {
   padding: '10px',
@@ -23,26 +25,22 @@ function FarmProductCard({ product }) {
   const [name, setName] = useState(product.product_name);
   const [description, setDescription] = useState(product.product_description);
   const productClass = useStyles();
+  const { userType, setUserType } = useMainContext();
   const handleQuantityChange = (e) => {
     setQuantity(e.target.value);
   };
 
-  return (
-    <Grid container spacing={0} className={productClass.productItem}>
-      <Grid item xs={4}>
-        <img style={{ maxWidth: '20vw' }} src={product.product_image}></img>
-      </Grid>
-      <Grid container item xs={8} display="flex" direction="column" justifyContent="space-between">
-        <Typography variant="h6">
-        {name}
-        </Typography>
-        <Typography style={text}>
-          <b>What makes this item fresh?</b>
-        </Typography>
-        <Typography>
-        {description}
-        </Typography>
-      <Grid alignSelf="center" style={text}>
+  const renderButton = () => {
+    if (userType === 'farmer') {
+      return (
+        <div style={{ display: 'flex' }}>
+          <NutritionModal />
+          <ProductEdit />
+        </div>
+      );
+    }
+    return (
+      <div>
         <div className={productClass.text}>
           <NutritionModal />
         </div>
@@ -62,6 +60,27 @@ function FarmProductCard({ product }) {
         <Button startIcon={<AddShoppingCartIcon />}>
           Add to Cart
         </Button>
+      </div>
+    );
+  };
+
+  return (
+    <Grid container spacing={0} className={productClass.productItem}>
+      <Grid item xs={4}>
+        <img style={{ objectFit: 'cover', width: '20vw', height: '20vh' }} src={product.product_image}></img>
+      </Grid>
+      <Grid container item xs={8} display="flex" direction="column" justifyContent="space-between">
+        <Typography variant="h6">
+        {name}
+        </Typography>
+        <Typography style={text}>
+          <b>What makes this item fresh?</b>
+        </Typography>
+        <Typography>
+        {description}
+        </Typography>
+      <Grid alignSelf="center" style={text}>
+        {renderButton()}
       </Grid>
     </Grid>
   </Grid>
