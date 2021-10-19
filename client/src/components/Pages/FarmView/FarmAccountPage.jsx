@@ -2,10 +2,18 @@ import React, { useState } from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 import StarRatings from 'react-star-ratings';
 import ReactPlayer from 'react-player';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import IconButton from '@mui/material/IconButton';
+import useStyles from './FarmAccountStyles';
+import FarmProductCard from '../../Product/FarmProductCard.jsx';
+import FarmEdit from './FarmEdit.jsx';
 
 const farmInfo = {
   id: 11,
@@ -19,7 +27,7 @@ const farmInfo = {
   products: [{
     id: 1,
     product_name: 'Shrimp - 16/20, Iqf, Shell On',
-    product_description: 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.',
+    product_description: 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable.',
     product_cost: 24,
     product_inventory: 9,
     product_image: 'http://dummyimage.com/800x800.png/5fa2dd/ffffff',
@@ -31,7 +39,7 @@ const farmInfo = {
     product_description: 'Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.',
     product_cost: 23.81,
     product_inventory: 4,
-    product_image: 'http://dummyimage.com/230x100.png/5fa2dd/ffffff',
+    product_image: 'http://dummyimage.com/800x800.png/5fa2dd/ffffff',
     product_rating: 4,
     farm_id: 11,
   }],
@@ -45,7 +53,7 @@ const container = {
 
 const centered = {
   position: 'absolute',
-  fontSize: '10vw',
+  fontSize: '5vw',
   color: 'black',
   top: '50%',
   left: '50%',
@@ -56,59 +64,66 @@ const text = {
   padding: '10px',
 };
 
+const initialState = {
+  products: farmInfo.products,
+  banner: farmInfo.profile_image,
+  about: farmInfo.description,
+  rating: farmInfo.farm_rating,
+  name: farmInfo.name,
+  video: farmInfo.video_link,
+};
+
 export default function FarmAccountPage() {
   const [edit, setEdit] = useState(false);
+  const [farmer, setFarmer] = useState(true);
+  const classes = useStyles();
+  // const [products, setProducts] = useState(farmInfo.products);
+  const [info, setInfo] = useState(initialState);
+  const {
+    banner, products, about, rating, name, video,
+  } = info;
+
+  const handleEdit = (e) => {
+    setInfo({ ...info, [e.target.name]: e.target.value });
+  };
+
   return (
     <>
       <h1>Farm Account Page</h1>
       <Grid>
         <Grid item xs={12} style={container}>
-          <img style={{maxWidth: '90vw', filter: 'grayscale(100%)', opacity: '10%'}} src={farmInfo.profile_image} />
+          <img style={{ maxWidth: '70vw', filter: 'grayscale(100%)', opacity: '10%' }} src={banner} />
           <div style={centered}>{farmInfo.name}</div>
         </Grid>
         <Grid style={text}>
-          Rating:
           <StarRatings
-            rating={farmInfo.farm_rating}
+            rating={rating}
             starRatedColor={'#5065A8'}
             numberOfStars={5}
+            starDimension={'30px'}
             />
         </Grid>
         <Grid style={text}>
           <div>
             <Typography>
-                <b>About</b> {farmInfo.name}
+                <b>About</b> {name}
             </Typography>
           </div>
           <div style={text}>
             <Typography>
-                {farmInfo.description}
+                {about}
             </Typography>
+            <FarmEdit/>
           </div>
         </Grid>
       </Grid>
       <Grid display="flex" justifyContent="center">
-        <ReactPlayer url={farmInfo.video_link} width="50vw" height="50vh" />
+        <ReactPlayer url={video} width="50vw" height="50vh" />
       </Grid>
         <Typography style={text} variant="h4">Browse Products</Typography>
-      <Grid container spacing={0}>
-            <Grid item xs={4}>
-              <img style={{maxWidth: '30vw'}} src={farmInfo.products[0].product_image}></img>
-            </Grid>
-            <Grid container item xs={8} display="flex" direction="column" justifyContent="space-between">
-              <Typography variant="h6">
-              {farmInfo.products[0].product_name}
-              </Typography>
-              <Typography>
-              {farmInfo.products[0].product_description}
-              </Typography>
-            <Grid alignSelf="center">
-              <Button startIcon={<AddShoppingCartIcon />}>
-                Add to Cart
-              </Button>
-            </Grid>
-          </Grid>
-      </Grid>
+      {products.map((product, index) => (
+        <FarmProductCard product={product} key={index} />
+      ))}
     </>
   );
 }

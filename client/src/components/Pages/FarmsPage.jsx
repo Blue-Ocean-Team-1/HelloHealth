@@ -1,5 +1,5 @@
 import React from 'react';
-import FarmAccountPage from './FarmAccountPage.jsx';
+import FarmAccountPage from './FarmView/FarmAccountPage.jsx';
 
 export default function FarmsPage() {
   return (
