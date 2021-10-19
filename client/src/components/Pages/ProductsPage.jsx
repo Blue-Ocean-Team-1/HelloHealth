@@ -6,7 +6,6 @@ export default function ProductsPage() {
     <>
       <Nutrition/>
       <h1>Products Page</h1>
-
     </>
   );
 }

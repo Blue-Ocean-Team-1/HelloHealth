@@ -52,4 +52,7 @@ export default makeStyles(() => ({
     paddingTop: '1em',
     textAlign: 'center',
   },
+  label: {
+    fontFamily: 'Helvetica Neue,Helvetica,Arial,sans-serif',
+  },
 }));

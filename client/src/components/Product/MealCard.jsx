@@ -53,12 +53,21 @@ export default function MealCard({
         </CardActionArea>
         <CardActions>
           <Grid container spacing={0} direction="column" alignItems="center">
+<<<<<<< HEAD
             {selectedSize === size ? (
               <Button onClick={() => handleClick(size)} size="large" color="primary">
                 Selected
               </Button>
             ) : (
               <Button onClick={() => handleClick(size)} size="large" color="primary">
+=======
+            {selected ? (
+              <Button onClick={handleSelect} size="large" color="primary">
+                Selected
+              </Button>
+            ) : (
+              <Button onClick={handleSelect} size="large" color="primary">
+>>>>>>> 4295cbd34ba57f2fa8fd15ffd801806c2ce3233e
                 Select This Plan
               </Button>
             )}
