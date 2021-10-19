@@ -44,7 +44,7 @@ export default function ProductCardView({ product }) {
             <span>{productCost}</span>
           </Typography>
         </CardContent>
-        <CardActions sx={{ justifyContent: 'flex-end'}}>
+        <CardActions sx={{ justifyContent: 'flex-end' }}>
           <Button size="small" variant="outlined" color="success">Add to Cart</Button>
         </CardActions>
       </Card>
