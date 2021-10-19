@@ -32,12 +32,22 @@ export default function MealCard({
                 xs={6}
                 className={`${classes.nutritionBottom} ${classes.nutritionRight}`}
               >
-                <Typography gutterBottom variant="overline" component="div" textAlign='center'>
+                <Typography
+                  gutterBottom
+                  variant="overline"
+                  component="div"
+                  textAlign="center"
+                >
                   {size}
                 </Typography>
               </Grid>
               <Grid item xs={6} className={classes.nutritionBottom}>
-                <Typography gutterBottom variant="overline" component="div" textAlign='center' >
+                <Typography
+                  gutterBottom
+                  variant="overline"
+                  component="div"
+                  textAlign="center"
+                >
                   {pepRec} people
                 </Typography>
               </Grid>
