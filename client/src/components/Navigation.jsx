@@ -88,7 +88,7 @@ function Navigation() {
 
           <Box sx={{ flexGrow: isSmallScreen ? 0 : 1, img: { filter: 'invert(1)' } }}>
             <Link to={HOME}>
-              <img src={logo} width={250} />
+              <img alt='HelloHealth' src={logo} width={250} />
             </Link>
           </Box>
           <Box sx={btnStyle} >
