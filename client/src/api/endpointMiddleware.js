@@ -32,26 +32,21 @@ const validDataObject = (object, expectedObj) => {
           return bodyVal.constructor === type;
         } else if (type === undefined) {
           return bodyVal.constructor === undefined;
+        } else {
+          return bodyVal === type;
         }
       })
 
       if (!oneValidType) {
         handleError(`Body should have key "${expectedKey}" with type of "${type}"`);
       }
-
-
-      //   if (!validDataType(object[expectedKey], expectedObj[expectedKey])) {
-      //     handleError(`Body should have key "${expectedKey}" with type of "${expectedObj[expectedKey].join(',')}"`)
-      //   }
-      // } else {
-      //   if (!validDataType(object[expectedKey], expectedObj[expectedKey])) {
-      //     handleError(`Body should have key "${expectedKey}" with type of "${expectedObj[expectedKey].join(',')}"`)
-      //   }
+    } else {
+      if (isConstructor(expectedDataType)) {
+        return bodyVal.constructor === expectedDataType;
+      } else {
+        return bodyVal === expectedDataType;
+      }
     }
-
-
-
-    if (object[expectedKey])
   }
   return true;
 };
