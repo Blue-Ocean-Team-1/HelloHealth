@@ -4,10 +4,15 @@ module.exports = {
       displayName: 'dom',
       testEnvironment: 'jsdom',
       // "extensionsToTreatAsEsm": [".jsx"],
-      testMatch: [
-        '<rootDir>/client/**/*.test.js?(x)',
-      ],
+      testMatch: ['<rootDir>/client/**/*.test.js?(x)'],
       transformIgnorePatterns: ['node_modules/(?!.*?/es/.*\\.js)'],
+      moduleNameMapper: {
+        '\\.(png|gif|ttf|eot|svg)$':
+          '<rootDir>/client/src/__mocks__/fileMock.js',
+      },
+      // transform: {
+      //   '^.+\\.svg$': '<rootDir>/svgTransform.js',
+      // },
       // collectCoverage: true,
       // coverageReporters: [
       //   'json',
@@ -26,9 +31,7 @@ module.exports = {
     {
       displayName: 'node',
       testEnvironment: 'node',
-      testMatch: [
-        '<rootDir>/server/**/*.test.js?(x)',
-      ],
+      testMatch: ['<rootDir>/server/**/*.test.js?(x)'],
       transformIgnorePatterns: ['node_modules/(?!.*?/es/.*\\.js)'],
       // collectCoverage: true,
       // coverageReporters: [

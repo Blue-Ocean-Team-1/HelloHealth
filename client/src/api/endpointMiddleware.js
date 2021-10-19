@@ -12,7 +12,6 @@ const isConstructor = (F) => {
     // eslint-disable-next-line no-new
     new F();
   } catch (err) {
-    // verify err is the expected error and then
     return false;
   }
   return true;
@@ -26,7 +25,7 @@ const validDataObject = (object, expectedObj) => {
 
     const expectedDataType = expectedObj[expectedKey];
     if (expectedDataType instanceof Array) {
-      const bodyVal = expectedObj[expectedKey];
+      const bodyVal = object[expectedKey];
 
       const oneValidType = expectedDataType.some((type) => {
         if (isConstructor(type)) {
@@ -39,7 +38,9 @@ const validDataObject = (object, expectedObj) => {
       });
 
       if (!oneValidType) {
-        handleError(`Body should have key "${expectedKey}" with type of "${type}"`);
+        handleError(
+          `Body should have key "${expectedKey}" with type of "${expectedDataType}", found "${bodyVal}"`
+        );
       }
     } else {
       if (isConstructor(expectedDataType)) {
@@ -67,7 +68,10 @@ const endpointMiddleware = (endpointKeys, data, method) => {
   let endpointUrl = config.SERVER_URL;
   let endpointObj = routes;
   endpointKeys.forEach((endpointKey) => {
-    if (endpointObj[endpointKey] === undefined || endpointObj[endpointKey].ENDPOINT === undefined) {
+    if (
+      endpointObj[endpointKey] === undefined ||
+      endpointObj[endpointKey].ENDPOINT === undefined
+    ) {
       handleError(`Route config missing: ${endpointUrl} + ${endpointKey}`);
     }
     const innerEndpoint = endpointObj[endpointKey];
@@ -75,14 +79,18 @@ const endpointMiddleware = (endpointKeys, data, method) => {
     endpointObj = innerEndpoint;
   });
 
-  const { METHOD: expectedMethod, PARAMS: expectedParams, BODY: expectedBody } = endpointObj;
+  const {
+    METHOD: expectedMethod,
+    PARAMS: expectedParams,
+    BODY: expectedBody,
+  } = endpointObj;
 
   if (expectedMethod instanceof Array) {
-    if (!(expectedMethod.includes(method))) {
-      handleError(`${endpointUrl}: Expected method: ${expectedMethod}`)
+    if (!expectedMethod.includes(method)) {
+      handleError(`${endpointUrl}: Expected method: ${expectedMethod}`);
     }
   } else if (expectedMethod !== method) {
-    handleError(`${endpointUrl}: Expected method: ${expectedMethod}`)
+    handleError(`${endpointUrl}: Expected method: ${expectedMethod}`);
   }
 
   let requestBody = {};
@@ -90,7 +98,11 @@ const endpointMiddleware = (endpointKeys, data, method) => {
   // Verify the parameters object
   if (expectedParams) {
     if (!data.params) {
-      handleError(`No parameters given, expected => ${JSON.stringify(Object.keys(expectedParams))}`);
+      handleError(
+        `No parameters given, expected => ${JSON.stringify(
+          Object.keys(expectedParams)
+        )}`
+      );
     } else if (validDataObject(data.params, expectedParams)) {
       // Should match key/value pairs
       requestBody.params = data.params;
@@ -105,24 +117,20 @@ const endpointMiddleware = (endpointKeys, data, method) => {
   }
 
   const options = {
-    method,
+    method: method.toLowerCase(),
     url: endpointUrl,
     data: requestBody,
   };
 
-  return (
-    axios(options)
-      .then((res) => res)
-      .catch((err) => {
-        // Handle the error, warning pop-up?
-        console.log(err);
-        // error(err);
-        return 'bad response';
-      })
-      .then((response) => (
-        response !== 'bad response' ? response : undefined
-      ))
-  );
+  return axios(options)
+    .then((res) => res)
+    .catch((err) => {
+      // Handle the error, warning pop-up?
+      console.log(err);
+      // error(err);
+      return 'bad response';
+    })
+    .then((response) => (response !== 'bad response' ? response : undefined));
 };
 
 export default endpointMiddleware;

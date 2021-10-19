@@ -8,6 +8,7 @@ import FarmsPage from './Pages/FarmsPage.jsx';
 import CartPage from './Pages/CartPage.jsx';
 import AccountPage from './Pages/AccountPage.jsx';
 import LoginPage from './Pages/LoginPage/LoginPage.jsx';
+import ProductViewPage from './Pages/ProductViewPage.jsx';
 // import useAuth from '../context/AuthContext.jsx';
 import useMainContext from '../context/MainContext.jsx';
 import useAuth from '../context/AuthContext.jsx';
@@ -20,7 +21,8 @@ export default function App() {
 
   // test endpoint and server connection
   useEffect(() => {
-    axios.get('http://localhost:8001/hello')
+    axios
+      .get('http://localhost:8001/hello')
       .then((result) => {
         console.log(result);
       })
@@ -42,18 +44,19 @@ export default function App() {
         <CartPage />
       </Route>
       <Route path={routeConstants.ACCOUNT}>
-        {currentUser ? (
-          <AccountPage />
-        ) : (
-          <LoginPage />
-        )}
+        {currentUser ? <AccountPage /> : <LoginPage />}
+      </Route>
+      <Route path={`${routeConstants.PRODUCT}`}>
+        <ProductViewPage />
       </Route>
     </Switch>
   );
 
   return (
     <>
-      <nav><Navigation /></nav>
+      <nav>
+        <Navigation />
+      </nav>
       <section>{renderPage()}</section>
     </>
   );
