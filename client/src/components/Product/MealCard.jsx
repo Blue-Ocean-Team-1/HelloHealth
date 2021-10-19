@@ -7,20 +7,15 @@ import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
 import useStyles from './nutritionStyles';
 
-export default function MealCard({ size, pepRec, price }) {
+export default function MealCard({
+  handleClick, selectedSize, size, pepRec, price,
+}) {
   const classes = useStyles();
-
-  // move this to meal list so only one can be selected?
-  const [selected, setSelected] = useState(false);
-
-  const handleSelect = () => {
-    setSelected(!selected);
-  };
 
   return (
     <>
       {console.log('size', size)}
-      <Card sx={{ maxWidth: 345 }}>
+      <Card sx={{ minWidth: 125 }} value={size}>
         <CardActionArea>
           <CardMedia
             component="img"
@@ -58,12 +53,12 @@ export default function MealCard({ size, pepRec, price }) {
         </CardActionArea>
         <CardActions>
           <Grid container spacing={0} direction="column" alignItems="center">
-            {selected ? (
-              <Button onClick={handleSelect} size="large" color="primary">
+            {selectedSize === size ? (
+              <Button onClick={() => handleClick(size)} size="large" color="primary">
                 Selected
               </Button>
             ) : (
-              <Button onClick={handleSelect} size="large" color="primary">
+              <Button onClick={() => handleClick(size)} size="large" color="primary">
                 Select This Plan
               </Button>
             )}

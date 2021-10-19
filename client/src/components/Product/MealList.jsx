@@ -4,6 +4,15 @@ import MealCard from './MealCard.jsx';
 
 const MealList = () => {
   // const [sizes, setSizes] = useState([]);
+  const [selectedSize, setSelectedSize] = useState(null);
+
+  const handleClick = (boxSize) => {
+    if (selectedSize === boxSize) {
+      setSelectedSize(null);
+    } else {
+      setSelectedSize(boxSize);
+    }
+  };
 
   const sizes = [
     {
@@ -25,10 +34,21 @@ const MealList = () => {
 
   return (
     <>
-      <Grid container spacing={0}>
+      <Grid
+        container
+        spacing={3}
+        direction="row"
+        justifyContent="space-evenly"
+        alignItems="center">
         {sizes.map((size, index) => (
-          <Grid item xs={4} key={index}>
-            <MealCard size={size.size} pepRec={size.pepRec} price={size.price} />
+          <Grid item xs={12} sm={4} md={4} key={index} align='center'>
+            <MealCard
+              size={size.size}
+              pepRec={size.pepRec}
+              price={size.price}
+              handleClick={handleClick}
+              selectedSize={selectedSize}
+            />
           </Grid>
         ))}
       </Grid>
