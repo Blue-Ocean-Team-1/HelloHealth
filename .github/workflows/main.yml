@@ -51,7 +51,7 @@ jobs:
         run: npm run test:db:connection
 
       - name: ✅  Run tests
-        run: npm run test -- --coverage --detectOpenHandles --runInBand --forceExit
+        run: npm run test -- --coverage
 
       - name: 🧽 Lint all files
         run: npm run lint:check
@@ -64,6 +64,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           threshold: 60 # optional parameter
+          test-script: npm run test -- --coverage --detectOpenHandles --runInBand --forceExit
 
       - name: 🌪️ Publish to coveralls.io
         uses: coverallsapp/github-action@v1.1.2
