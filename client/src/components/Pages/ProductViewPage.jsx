@@ -10,6 +10,8 @@ import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import StarRatings from 'react-star-ratings';
 import useMainContext from '../../context/MainContext.jsx';
+import Nutrition from '../Product/Nutrition.jsx';
+import MealList from '../Product/MealList.jsx';
 
 export default function ProductViewPage() {
   const { currentProduct } = useMainContext();
@@ -31,8 +33,8 @@ export default function ProductViewPage() {
   );
 
   return (
-    <Container size="md">
-      <Grid container spacing={2} sx={{ mt: 3 }}>
+    <Container size="md" sx={{ my: 3 }}>
+      <Grid container spacing={2} sx={{ my: 3 }}>
         <Grid item sm={6}><img width="100%" src={productImage} /></Grid>
         <Grid container item md={6}>
           <StarRatings
@@ -72,8 +74,9 @@ export default function ProductViewPage() {
             </Grid>
           </Grid>
         </Grid>
-        <p>{productRating}</p>
       </Grid>
+      <MealList/>
+      <Nutrition/>
     </Container>
   );
 }
