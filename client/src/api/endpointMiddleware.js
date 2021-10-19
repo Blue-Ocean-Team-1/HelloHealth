@@ -39,7 +39,7 @@ const validDataObject = (object, expectedObj) => {
 
       if (!oneValidType) {
         handleError(
-          `Body should have key "${expectedKey}" with type of "${expectedDataType}", found "${bodyVal}"`
+          `Body should have key "${expectedKey}" with type of "${expectedDataType}", found "${bodyVal}"`,
         );
       }
     } else {
@@ -69,8 +69,8 @@ const endpointMiddleware = (endpointKeys, data, method) => {
   let endpointObj = routes;
   endpointKeys.forEach((endpointKey) => {
     if (
-      endpointObj[endpointKey] === undefined ||
-      endpointObj[endpointKey].ENDPOINT === undefined
+      endpointObj[endpointKey] === undefined
+      || endpointObj[endpointKey].ENDPOINT === undefined
     ) {
       handleError(`Route config missing: ${endpointUrl} + ${endpointKey}`);
     }
@@ -100,8 +100,8 @@ const endpointMiddleware = (endpointKeys, data, method) => {
     if (!data.params) {
       handleError(
         `No parameters given, expected => ${JSON.stringify(
-          Object.keys(expectedParams)
-        )}`
+          Object.keys(expectedParams),
+        )}`,
       );
     } else if (validDataObject(data.params, expectedParams)) {
       // Should match key/value pairs
