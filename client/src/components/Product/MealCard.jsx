@@ -6,6 +6,8 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
 import useStyles from './nutritionStyles';
+import Nutrition from './Nutrition';
+import NutritionModal from './NutritionModal.jsx';
 
 export default function MealCard({
   handleClick, selectedSize, size, pepRec, price,
@@ -39,19 +41,29 @@ export default function MealCard({
                   {pepRec} people
                 </Typography>
               </Grid>
-              <Grid item xs={12}>
-                <Typography
-                  className={classes.priceText}
-                  variant="body2"
-                  color="text.secondary"
-                >
-                  ${price}
-                </Typography>
+              {/* <Grid container xs={12} alignItems='center'>
+                <Grid item>
+              <Nutrition />
+                </Grid> */}
+                <Grid container xs={12} justifyContent='center' alignItems='center'>
+                <Grid item>
+                  <NutritionModal />
+                </Grid>
               </Grid>
+            <Grid item xs={12}>
+              <Typography
+                className={classes.priceText}
+                variant="body2"
+                color="text.secondary"
+              >
+                ${price}
+              </Typography>
+            </Grid>
             </Grid>
           </CardContent>
         </CardActionArea>
         <CardActions>
+
           <Grid container spacing={0} direction="column" alignItems="center">
             {selectedSize === size ? (
               <Button onClick={() => handleClick(size)} size="large" color="primary">
