@@ -31,7 +31,7 @@ const FormContainer = styled.div`
 
 const FormFields = ({ formEntries, fieldsArr, handleChange }) => (
   <Grid container>
-    {fieldsArr.map(({ name, placeholder }, i) => (
+    {(fieldsArr || []).map(({ name, placeholder }, i) => (
       <Grid container spacing={8} alignItems="flex-end" key={name}>
         <Grid item md={true} sm={true} xs={true}>
           <TextField
