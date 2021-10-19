@@ -7,15 +7,16 @@ const handleError = (errStr) => {
   throw new Error(errStr);
 };
 
-const isConstructor = (f) => {
+const isConstructor = (F) => {
   try {
-    new f();
+    // eslint-disable-next-line no-new
+    new F();
   } catch (err) {
     // verify err is the expected error and then
     return false;
   }
   return true;
-}
+};
 
 const validDataObject = (object, expectedObj) => {
   // iterate over expected keys
@@ -30,12 +31,12 @@ const validDataObject = (object, expectedObj) => {
       const oneValidType = expectedDataType.some((type) => {
         if (isConstructor(type)) {
           return bodyVal.constructor === type;
-        } else if (type === undefined) {
-          return bodyVal.constructor === undefined;
-        } else {
-          return bodyVal === type;
         }
-      })
+        if (type === undefined) {
+          return bodyVal.constructor === undefined;
+        }
+        return bodyVal === type;
+      });
 
       if (!oneValidType) {
         handleError(`Body should have key "${expectedKey}" with type of "${type}"`);
@@ -43,9 +44,8 @@ const validDataObject = (object, expectedObj) => {
     } else {
       if (isConstructor(expectedDataType)) {
         return bodyVal.constructor === expectedDataType;
-      } else {
-        return bodyVal === expectedDataType;
       }
+      return bodyVal === expectedDataType;
     }
   }
   return true;
@@ -105,7 +105,7 @@ const endpointMiddleware = (endpointKeys, data, method) => {
   }
 
   const options = {
-    method: method,
+    method,
     url: endpointUrl,
     data: requestBody,
   };
