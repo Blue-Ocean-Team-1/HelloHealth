@@ -1,18 +1,17 @@
 import React from 'react';
 import App from './App.jsx';
 import {
-  render,
-  screen,
-  fireEvent,
-  getByLabelText,
+  render, screen, fireEvent, getByLabelText,
 } from '../../test-utils';
 
-describe('<App />', () => {
-  beforeEach(() => {
-    render(<App />);
-  });
+// jest.mock('./HelloHealth.svg');
 
-  it('then shows the light theme by default', () => {
-    expect(screen.getByText(/HelloHealth/i)).toBeTruthy();
+describe('<App />', () => {
+  // beforeEach(() => {
+  //   render(<App />);
+  // });
+
+  it('Shows renders without an error', () => {
+    render(<App />);
   });
 });
