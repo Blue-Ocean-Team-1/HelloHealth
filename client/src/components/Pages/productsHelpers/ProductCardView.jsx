@@ -28,7 +28,7 @@ export default function ProductCardView({ product }) {
 
   return (
     <Grid xl={2} lg={3} md={4} sm={6} xs={12} item>
-      <Card>
+      <Card sx={{ a: { textDecoration: 'none', color: 'black' } }}>
         <CardMedia
           component="img"
           height="140"
@@ -40,11 +40,12 @@ export default function ProductCardView({ product }) {
             <Link onClick={handleClick} to={`${PRODUCT}${id}`}>{productName}</Link>
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {productDescription}
+            <p>{productDescription}</p>
+            <span>{productCost}</span>
           </Typography>
         </CardContent>
-        <CardActions>
-          <Button size="small">Add to Cart</Button>
+        <CardActions sx={{ justifyContent: 'flex-end'}}>
+          <Button size="small" variant="outlined" color="success">Add to Cart</Button>
         </CardActions>
       </Card>
     </Grid>
