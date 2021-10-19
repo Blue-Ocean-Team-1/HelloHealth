@@ -8,6 +8,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import StarRatings from 'react-star-ratings';
 import useMainContext from '../../context/MainContext.jsx';
 
 export default function ProductViewPage() {
@@ -23,14 +24,25 @@ export default function ProductViewPage() {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 
-  // FIXME: Finish the rendering of dropdown
-  // TODO: star rating
+  console.log(productInventory);
+
+  const renderDropdown = () => (
+    [...Array(productInventory + 1).keys()].map((i) => <MenuItem value={i}>{i}</MenuItem>)
+  );
 
   return (
     <Container size="md">
       <Grid container spacing={2} sx={{ mt: 3 }}>
         <Grid item sm={6}><img width="100%" src={productImage} /></Grid>
         <Grid container item md={6}>
+          <StarRatings
+            rating={productRating}
+            starRatedColor="yellow"
+            numberOfStars={5}
+            starDimension="15px"
+            starSpacing="2px"
+            name='rating'
+          />
           <Grid item xs={12}><h1>{productName}</h1></Grid>
           <Grid item xs={12}><h2>{productCost}</h2></Grid>
           <Grid item xs={12}><p>{productDescription}</p></Grid>
@@ -45,9 +57,7 @@ export default function ProductViewPage() {
                   label="Quantity"
                   // onChange={handleChange}
                 >
-                  <MenuItem value={1}>1</MenuItem>
-                  <MenuItem value={2}>2</MenuItem>
-                  <MenuItem value={3}>3</MenuItem>
+                  {renderDropdown()}
                 </Select>
               </FormControl>
             </Grid>
@@ -62,7 +72,6 @@ export default function ProductViewPage() {
             </Grid>
           </Grid>
         </Grid>
-        <p>{productInventory}</p>
         <p>{productRating}</p>
       </Grid>
     </Container>
