@@ -47,12 +47,14 @@ export default function CartPage() {
       });
   };
 
+
   const handlePageChange = (e) => {
     setPage(e.target.name);
   };
 
   useEffect(() => {
     const cart = JSON.parse(window.sessionStorage.getItem('cart'));
+
     getProduct(cart);
   }, [click]);
 
@@ -70,6 +72,7 @@ export default function CartPage() {
       totalPrice +=
         dummyDatas[i].productQuantity *
         Number(dummyDatas[i].productPrice.substring(1));
+
       itemCount += dummyDatas[i].productQuantity;
     }
     return (
@@ -116,6 +119,7 @@ export default function CartPage() {
         <Grid item xs>
           <Stack>
             <p>{data.productPrice}</p>
+
             <Button
               variant="outlined"
               value={data.id}
@@ -182,6 +186,7 @@ export default function CartPage() {
 }
 
 /*
+
 real dummy data
 {
   id: 123,
@@ -195,4 +200,5 @@ real dummy data
   farm_id: 1,
   reviews_count: 20,
 },
+
 */

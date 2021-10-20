@@ -16,5 +16,6 @@ module.exports = {
       reviews_count: 20,
     };
     res.status(200).json([data]);
+
   },
 };
