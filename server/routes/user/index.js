@@ -6,10 +6,12 @@ const {
   getAllTransactions,
   getTransaction,
   updateTransaction,
+  getAllUsers,
 } = require('../../controllers/user');
 
 const router = express.Router();
 
+router.get('/all', getAllUsers);
 router.get('/account-type', getUserAccountType);
 router.post('/account-type', getUserAccountType);
 router.get('/account-details', getAccountDetails);

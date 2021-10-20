@@ -41,6 +41,10 @@ const routes = {
         newStatus: Boolean,
       },
     },
+    ALL: {
+      ENDPOINT: '/all',
+      METHOD: ['GET'],
+    },
     ACCOUNT_TYPE: {
       ENDPOINT: '/account-type',
       METHOD: ['GET', 'POST'],
@@ -70,24 +74,24 @@ const routes = {
         userId: String,
       },
     },
-    TRANSACTION: {
-      ENDPOINT: '/transaction',
+  },
+  TRANSACTION: {
+    ENDPOINT: '/transaction',
+    PARAMS: {
+      transactionId: [String, Number],
+    },
+    METHOD: ['POST', 'GET'],
+    BODY: {
+      customer_id: Number,
+      cost: Number,
+      order_date: String,
+    },
+    ALL_TRANSACTIONS: {
+      ENDPOINT: '/all',
       PARAMS: {
-        transactionId: [String, Number],
+        userId: [String, Number],
       },
-      METHOD: ['POST', 'GET'],
-      BODY: {
-        customer_id: Number,
-        cost: Number,
-        order_date: String,
-      },
-      ALL_TRANSACTIONS: {
-        ENDPOINT: '/all',
-        PARAMS: {
-          userId: [String, Number],
-        },
-        METHOD: 'GET',
-      },
+      METHOD: 'GET',
     },
   },
 };

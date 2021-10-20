@@ -5,6 +5,7 @@ See [API Routes](./client/src/api/routes.js) or visit the base endpoint: `SERVER
 ---
 
 ```
+-------------
 .ENDPOINT => /products
 . .PARAMS: {
 . . page: Number, .
@@ -17,7 +18,7 @@ See [API Routes](./client/src/api/routes.js) or visit the base endpoint: `SERVER
 . .order_date: String
 . }
 
-. .ENDPOINT => /products/products
+. .ENDPOINT => /products/info
 . . .PARAMS: {
 . . . productId: ["Number","String"]
 . . }
@@ -32,18 +33,20 @@ See [API Routes](./client/src/api/routes.js) or visit the base endpoint: `SERVER
 . . }
 . . .METHOD: ["GET","POST"]
 
----
-
+-------------
 .ENDPOINT => /user
 
-. .ENDPOINT => /user/user
+. .ENDPOINT => /user/subscription-status
 . . .METHOD: POST
 . . .BODY: {
 . . . userId: String, .
 . . .newStatus: Boolean
 . . }
 
-. .ENDPOINT => /user/user
+. .ENDPOINT => /user/all
+. . .METHOD: ["GET"]
+
+. .ENDPOINT => /user/account-type
 . . .METHOD: ["GET","POST"]
 . . .BODY: {
 . . . accountType: ["customer","farmer","nutritionist",null]
@@ -52,7 +55,7 @@ See [API Routes](./client/src/api/routes.js) or visit the base endpoint: `SERVER
 . . . userId: String
 . . }
 
-. .ENDPOINT => /user/user
+. .ENDPOINT => /user/account-details
 . . .METHOD: ["GET","POST"]
 . . .BODY: {
 . . . firstName: ["String",null], .
@@ -70,20 +73,21 @@ See [API Routes](./client/src/api/routes.js) or visit the base endpoint: `SERVER
 . . . userId: String
 . . }
 
-. .ENDPOINT => /user/user
-. . .PARAMS: {
-. . . transactionId: ["String","Number"]
-. . }
-. . .METHOD: ["POST","GET"]
-. . .BODY: {
-. . . customer_id: Number, .
-. . .cost: Number, .
-. . .order_date: String
-. . }
+-------------
+.ENDPOINT => /transaction
+. .PARAMS: {
+. . transactionId: ["String","Number"]
+. }
+. .METHOD: ["POST","GET"]
+. .BODY: {
+. . customer_id: Number, .
+. .cost: Number, .
+. .order_date: String
+. }
 
-. . .ENDPOINT => /user/user/transaction
-. . . .PARAMS: {
-. . . . userId: ["String","Number"]
-. . . }
-. . . .METHOD: GET
+. .ENDPOINT => /transaction/all
+. . .PARAMS: {
+. . . userId: ["String","Number"]
+. . }
+. . .METHOD: GET
 ```

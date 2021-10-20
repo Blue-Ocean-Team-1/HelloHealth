@@ -56,7 +56,7 @@ const endpointObjToString = (endpoints, endpointObj, tabArr, tab) => {
       }
     } else {
       outputStr += endpointObjToString(
-        [...endpoints, endpointObj.ENDPOINT],
+        [...endpoints, endpointObj[key].ENDPOINT],
         endpointObj[key],
         [...tabArr, tab],
         tab
