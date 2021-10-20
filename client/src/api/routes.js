@@ -1,6 +1,14 @@
 const routes = {
   USER: {
     ENDPOINT: '/user',
+    SUBSCRIPTION_STATUS: {
+      ENDPOINT: '/subscription-status',
+      METHOD: 'POST',
+      BODY: {
+        userId: String,
+        newStatus: Boolean,
+      },
+    },
     ACCOUNT_TYPE: {
       ENDPOINT: '/account-type',
       METHOD: ['GET', 'POST'],
@@ -30,16 +38,23 @@ const routes = {
         userId: String,
       },
     },
-    TRANSACTION_HISTORY: {
-      ENDPOINT: '/transactions',
+    TRANSACTION: {
+      ENDPOINT: '/transaction',
       PARAMS: {
-        transactionId: String,
+        transactionId: [String, Number],
       },
-      METHOD: ['GET', 'POST'],
+      METHOD: ['POST', 'GET'],
       BODY: {
         customer_id: Number,
         cost: Number,
         order_date: String,
+      },
+      ALL_TRANSACTIONS: {
+        ENDPOINT: '/all',
+        PARAMS: {
+          userId: [String, Number],
+        },
+        METHOD: 'GET',
       },
     },
   },

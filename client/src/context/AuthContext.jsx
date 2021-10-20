@@ -11,6 +11,12 @@ export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState({});
   const [userIsLoggedIn, setUserIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [accountDetails, setAccountDetails] = useState({
+    referral_code: 9999,
+    credit_available: 20,
+    subscription_status: true,
+    transactions: [],
+  });
 
   const { userType, setUserType } = useMainContext();
 
@@ -22,12 +28,29 @@ export const AuthProvider = ({ children }) => {
             setUserType(userTypeString);
             setCurrentUser(user);
           });
+          userAPI.fetchAccountDetails(user.uid, (newDetails) => {
+            setAccountDetails((prev) => ({ ...prev, ...newDetails }));
+          });
+          userAPI.fetchAccountTransactions(user.uid, (newTransactions) => {
+            console.log('API:', newTransactions);
+            setAccountDetails((prev) => ({
+              ...prev,
+              transactions: newTransactions || [],
+            }));
+          });
         } else {
           setCurrentUser(null);
         }
       });
     }
   }, []);
+
+  const setSubscriptionState = (newStatus) => {
+    setAccountDetails((prevDetails) => ({
+      ...prevDetails,
+      subscription_status: newStatus,
+    }));
+  };
 
   const signInWithGoogle = (callback = () => {}) => {
     auth
@@ -95,10 +118,12 @@ export const AuthProvider = ({ children }) => {
     loading,
     sendPasswordResetEmail,
     currentUser,
+    accountDetails,
     loginUser,
     logoutUser,
     signupUser,
     signInWithGoogle,
+    setSubscriptionState,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
