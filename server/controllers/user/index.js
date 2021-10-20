@@ -95,4 +95,6 @@ module.exports = {
     // HERE
     res.status(201).send('Success');
   },
+  getChat: () => {},
+  postChat: () => {},
 };

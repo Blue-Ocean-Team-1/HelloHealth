@@ -1,32 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import { Launcher } from 'react-chat-window';
+import getChat from './getChat';
 
 export default function Chat() {
   const [messageList, setMessageList] = useState([]);
 
-  function sendMessage(text) {
-    if (text.length > 0) {
-      setMessageList([
-        ...messageList,
-        {
-          author: 'them',
-          type: 'text',
-          data: { text },
-        },
-      ]);
-    }
-  }
   function onMessageWasSent(message) {
     const reply = {
       author: 'Nutritionist',
       type: 'text',
       data: { text: "We have received your reply, you'll hear back soon." },
     };
-
-    setMessageList([...messageList, message, reply]);
+    setMessageList([...messageList, message]);
   }
-  useEffect(() => {
+  useEffect(async () => {
+    const chatHistory = getChat();
     const message = {
       author: 'Nutritionist',
       type: 'text',
@@ -34,7 +23,7 @@ export default function Chat() {
         text: "Welcome to the chat, please leave any questions for a nutritionist and we'll get back to you shortly.",
       },
     };
-    setMessageList([...messageList, message]);
+    setMessageList([...chatHistory, message]);
   }, []);
 
   return (
