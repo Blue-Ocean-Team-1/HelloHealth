@@ -51,4 +51,19 @@ module.exports = {
     // HERE
     res.status(200).json(dummyProduct);
   },
+  getProductPage: (req, res) => {
+    const { page, count } = req.query;
+
+    const startPage = page && typeof page === 'number' ? page : 1;
+    const startCount = count && typeof count === 'number' ? count : 20;
+
+    const products = [];
+    for (let i = 0; i < startCount; i += 1) {
+      products.push(dummyProduct);
+    }
+
+    // HERE
+    res.status(200).json(products);
+    // res.status(400).send('Invalid endpoint parameters');
+  },
 };
