@@ -1,6 +1,8 @@
 const axios = require('axios');
 const endpointSchema = require('../../config/endpointSchema');
 
+// cp ./client/src/api/routes.js ./server/config/endpointSchema.js
+
 const objToString = (obj, newLineTab, tab) => {
   const indent = `\n${newLineTab}${tab}`;
 
@@ -49,7 +51,7 @@ const endpointObjToString = (endpoints, endpointObj, tabArr, tab) => {
         outputStr += `.${tabIndent}${tab}${key}: ${objToString(
           obj,
           `${tabIndent}     .`,
-          tab,
+          tab
         )} \n`;
       }
     } else {
@@ -57,7 +59,7 @@ const endpointObjToString = (endpoints, endpointObj, tabArr, tab) => {
         [...endpoints, endpointObj.ENDPOINT],
         endpointObj[key],
         [...tabArr, tab],
-        tab,
+        tab
       );
     }
   });
@@ -74,7 +76,7 @@ module.exports = {
         [endpointSchema[key].ENDPOINT],
         endpointSchema[key],
         [],
-        '   .',
+        '   .'
       );
     });
 
