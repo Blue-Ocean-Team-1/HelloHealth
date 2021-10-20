@@ -11,14 +11,14 @@ export default function CartPage() {
 
   function getProduct(cart) {
     const data = Object.keys(cart);
-    axios
-      .get('/', data)
-      .then((res) => {
-        console.log('data pull from database');
-      })
-      .catch((err) => {
-        console.error(`error when try to pull data ${err}`);
-      });
+    // axios
+    //   .get('/', data)
+    //   .then((res) => {
+    //     console.log('data pull from database');
+    //   })
+    //   .catch((err) => {
+    //     console.error(`error when try to pull data ${err}`);
+    //   });
   }
 
   const handlePageChange = (e) => {
