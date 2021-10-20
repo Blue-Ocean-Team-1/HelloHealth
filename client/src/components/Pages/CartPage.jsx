@@ -1,19 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Grid, Stack } from '@mui/material';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import useMainContext from '../../context/MainContext.jsx';
+import { ACCOUNT, HOME, BOX, FARMS, CART } from '../../config/pageRoutes';
 
 export default function CartPage() {
   const [click, setClick] = useState(true);
+  const { setPage } = useMainContext();
 
-  // const getCart = () => {
-  //   const cart = JSON.parse(sessionStorage.getItem('cart'));
-  //   const itemsID = Object.keys(cart);
-  //   getProduct();
-  // };
+  function getProduct(cart) {
+    const data = Object.keys(cart);
+    axios
+      .get('/', data)
+      .then((res) => {
+        console.log('data pull from database');
+      })
+      .catch((err) => {
+        console.error(`error when try to pull data ${err}`);
+      });
+  }
+
+  const handlePageChange = (e) => {
+    setPage(e.target.name);
+  };
+
   useEffect(() => {
     const cart = JSON.parse(window.sessionStorage.getItem('cart'));
     // const itemsID = Object.keys(cart);
-    // getProduct(); // axios request
+    getProduct(cart);
     console.log(cart);
   }, [click]);
 
@@ -74,7 +89,8 @@ export default function CartPage() {
     );
   };
 
-  const renderItems = () => dummyDatas.map((data, index) => (
+  const renderItems = () =>
+    dummyDatas.map((data, index) => (
       <Grid
         container
         spacing={3}
@@ -108,7 +124,7 @@ export default function CartPage() {
           </Stack>
         </Grid>
       </Grid>
-  ));
+    ));
 
   return (
     <>
@@ -142,11 +158,19 @@ export default function CartPage() {
           alignItems="center"
         >
           <Grid item xs>
-            <Button variant="outlined">Browse Products</Button>
+            <Link to={HOME}>
+              <Button variant="outlined" onClick={handlePageChange} name="home">
+                Browse Products
+              </Button>
+            </Link>
           </Grid>
           <Grid item xs={6}></Grid>
           <Grid item xs>
-            <Button variant="outlined">More Boxes</Button>
+            <Link to={BOX}>
+              <Button variant="outlined" onClick={handlePageChange} name="box">
+                More Boxes
+              </Button>
+            </Link>
           </Grid>
         </Grid>
         {renderItems()}
