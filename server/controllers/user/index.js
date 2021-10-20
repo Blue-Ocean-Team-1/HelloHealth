@@ -95,6 +95,10 @@ module.exports = {
     // HERE
     res.status(201).send('Success');
   },
-  getChat: () => {},
-  postChat: () => {},
+  getChat: (req, res) => {
+    res.status(201).send('Success');
+  },
+  postChat: (req, res) => {
+    res.status(201).send('Success');
+  },
 };
