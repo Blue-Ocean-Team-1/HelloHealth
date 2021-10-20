@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-module.exports = (sequelize, DataTypes) => (
+module.exports = (sequelize, DataTypes) =>
   sequelize.define(
     'Product_Category',
     {
@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => (
         type: DataTypes.STRING,
         allowNull: false,
       },
-      product_id: {
+      productid: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
@@ -35,6 +35,5 @@ module.exports = (sequelize, DataTypes) => (
           fields: [{ name: 'id' }],
         },
       ],
-    },
-  )
-);
+    }
+  );

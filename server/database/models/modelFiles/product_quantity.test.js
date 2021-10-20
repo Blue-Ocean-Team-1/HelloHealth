@@ -5,15 +5,21 @@ const {
   checkPropertyExists,
 } = require('sequelize-test-helpers');
 
-const ExampleModel = require('./nutrition_facts');
+const ExampleModel = require('./product_quantity');
 
-const expectedFields = ['id', 'product_id', 'fact_type', 'fact_info'];
+const expectedFields = [
+  'id',
+  'productid',
+  'transaction_id',
+  'quantity',
+  'subscription_active',
+];
 
-describe('Nutrition_Facts Model', () => {
+describe('Product_Quantity Model', () => {
   const Example = ExampleModel(sequelize, dataTypes);
   const example = new Example();
 
-  checkModelName(Example)('Nutrition_Facts');
+  checkModelName(Example)('Product_Quantity');
 
   // it('should contain expected properties', () => {
   expectedFields.forEach(checkPropertyExists(example));
