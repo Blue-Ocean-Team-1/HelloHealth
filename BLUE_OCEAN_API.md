@@ -1,7 +1,10 @@
 # Blue Ocean API Endpoints
 
+See [API Routes](./client/src/api/routes.js) or visit the base endpoint: `SERVER_URL/`
+
 ---
 
+```
 .ENDPOINT => /products
 . .PARAMS: {
 . . page: Number, .
@@ -83,3 +86,4 @@
 . . . . userId: ["String","Number"]
 . . . }
 . . . .METHOD: GET
+```

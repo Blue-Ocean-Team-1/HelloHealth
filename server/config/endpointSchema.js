@@ -1,3 +1,5 @@
+// should mirror <rootDir>/client/src/api/routes.js
+
 const routes = {
   PRODUCTS: {
     ENDPOINT: '/products',
