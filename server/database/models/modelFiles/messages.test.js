@@ -25,7 +25,7 @@ describe('Messages Model', () => {
 
   checkModelName(Example)('Messages');
 
-  describe('should contain expected properties', () => {
-    expectedFields.forEach(checkPropertyExists(example));
-  });
+  // it('should contain expected properties', () => {
+  expectedFields.forEach(checkPropertyExists(example));
+  // });
 });

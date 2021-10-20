@@ -28,7 +28,7 @@ describe('Customers Model', () => {
   const Example = ExampleModel(sequelize, dataTypes);
   const example = new Example();
 
-  checkModelName(Example)('customers');
+  checkModelName(Example)('Customers');
 
   describe('should contain expected properties', () => {
     expectedFields.forEach(checkPropertyExists(example));
