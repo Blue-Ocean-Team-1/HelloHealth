@@ -14,6 +14,7 @@ export default function CartPage() {
     const cart = JSON.parse(window.sessionStorage.getItem('cart'));
     // const itemsID = Object.keys(cart);
     // getProduct(); // axios request
+    console.log(cart);
   }, [click]);
 
   const dummyDatas = [

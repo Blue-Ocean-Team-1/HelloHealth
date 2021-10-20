@@ -10,9 +10,9 @@ export default function AddToCart({ id, quantity }) {
       123: {id: 123, productQuantity: 1},
       124: {id: 124, productQuantity: 2},
     } */
-    if (window.sessionStorage.getItem('cart') === null) {
-      window.sessionStorage.setItem('cart', JSON.stringify({}));
-    }
+    // if (window.sessionStorage.getItem('cart') === null) {
+    //   window.sessionStorage.setItem('cart', JSON.stringify({}));
+    // }
 
     const cart = JSON.parse(window.sessionStorage.getItem('cart'));
 
