@@ -22,7 +22,9 @@ const envVarsSchema = Joi.object()
   })
   .unknown();
 
-const { value: envVars, error } = envVarsSchema.prefs({ errors: { label: 'key' } }).validate(enviromentObj);
+const { value: envVars, error } = envVarsSchema
+  .prefs({ errors: { label: 'key' } })
+  .validate(enviromentObj);
 
 if (error) {
   throw new Error(`Config validation error: ${error.message}`);
@@ -30,7 +32,7 @@ if (error) {
 
 const config = {
   NODE_ENV: envVars.NODE_ENV,
-  SERVER_URL: envVars.SERVER_URL,
+  SERVER_URL: envVars.VITE_SERVER_URL,
   firebaseConfig: {
     apiKey: envVars.VITE_APP_FIREBASE_apiKey,
     authDomain: envVars.VITE_APP_FIREBASE_authDomain,

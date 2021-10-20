@@ -182,9 +182,9 @@ export default function Nutrition() {
 
   return (
     <>
-      <Typography variant="h4">Nutrition</Typography>
+      {/* <Typography variant="h4">Nutrition</Typography> */}
       <Box>
-        <Grid container spacing={2}>
+        <Grid container spacing={0}>
           <Grid
             item
             xs={6}

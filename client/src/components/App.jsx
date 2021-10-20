@@ -13,6 +13,7 @@ import ProductViewPage from './Pages/ProductViewPage.jsx';
 import useMainContext from '../context/MainContext.jsx';
 import useAuth from '../context/AuthContext.jsx';
 import * as routeConstants from '../config/pageRoutes';
+import Footer from './Footer.jsx';
 
 export default function App() {
   const { page } = useMainContext();
@@ -21,7 +22,8 @@ export default function App() {
 
   // test endpoint and server connection
   useEffect(() => {
-    axios.get('http://localhost:8001/hello')
+    axios
+      .get('http://localhost:8001/hello')
       .then((result) => {
         console.log(result);
       })
@@ -43,11 +45,7 @@ export default function App() {
         <CartPage />
       </Route>
       <Route path={routeConstants.ACCOUNT}>
-        {currentUser ? (
-          <AccountPage />
-        ) : (
-          <LoginPage />
-        )}
+        {currentUser ? <AccountPage /> : <LoginPage />}
       </Route>
       <Route path={`${routeConstants.PRODUCT}`}>
         <ProductViewPage />
@@ -57,8 +55,13 @@ export default function App() {
 
   return (
     <>
-      <nav><Navigation /></nav>
-      <section>{renderPage()}</section>
+      <nav>
+        <Navigation />
+      </nav>
+      <section className="content">{renderPage()}</section>
+      <footer>
+        <Footer />
+      </footer>
     </>
   );
 }
