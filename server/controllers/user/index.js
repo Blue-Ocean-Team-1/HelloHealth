@@ -1,5 +1,7 @@
 const axios = require('axios');
 const config = require('../../config/config');
+// const database = require('../../database');
+// const UsersTable = database.
 
 // const fetch = (req, res, url, params, data, method) => (
 //   axios
