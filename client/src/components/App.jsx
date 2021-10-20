@@ -13,6 +13,7 @@ import ProductViewPage from './Pages/ProductViewPage.jsx';
 import useMainContext from '../context/MainContext.jsx';
 import useAuth from '../context/AuthContext.jsx';
 import * as routeConstants from '../config/pageRoutes';
+import Footer from './Footer.jsx';
 
 export default function App() {
   const { page } = useMainContext();
@@ -60,7 +61,10 @@ export default function App() {
       <nav>
         <Navigation />
       </nav>
-      <section>{renderPage()}</section>
+      <section className="content">{renderPage()}</section>
+      <footer>
+        <Footer />
+      </footer>
     </>
   );
 }
