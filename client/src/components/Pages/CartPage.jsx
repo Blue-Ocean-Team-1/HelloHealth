@@ -1,27 +1,45 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Grid, Stack } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 export default function CartPage() {
+  const [click, setClick] = useState(true);
+
+  // const getCart = () => {
+  //   const cart = JSON.parse(sessionStorage.getItem('cart'));
+  //   const itemsID = Object.keys(cart);
+  //   getProduct();
+  // };
+  useEffect(() => {
+    const cart = JSON.parse(window.sessionStorage.getItem('cart'));
+    // const itemsID = Object.keys(cart);
+    // getProduct(); // axios request
+  }, [click]);
+
   const dummyDatas = [
     {
       productId: 123,
-      productImage: 'https://i.kym-cdn.com/photos/images/newsfeed/001/879/958/fb1.gif',
+      productImage:
+        'https://i.kym-cdn.com/photos/images/newsfeed/001/879/958/fb1.gif',
       productName: 'JamCat',
       productQuantity: 1,
       productPrice: 14.99,
     },
     {
       productId: 124,
-      productImage: 'https://www.cnet.com/a/img/S8WsucQh6wWeUG1yrQi66jKNtto=/940x0/2020/09/22/ad4bd31b-cf8c-46f5-aa70-231df9acc041/longcat.jpg',
+      productImage:
+        'https://www.cnet.com/a/img/S8WsucQh6wWeUG1yrQi66jKNtto=/940x0/2020/09/22/ad4bd31b-cf8c-46f5-aa70-231df9acc041/longcat.jpg',
       productName: 'LongCat',
       productQuantity: 2,
       productPrice: 24.99,
     },
   ];
 
-  const removeItem = (index) => {
-    dummyDatas.splice(index, 1);
-    // not working on console.log right now, but should be working once the data is pass in.
+  const removeItem = (id) => {
+    const cart = JSON.parse(window.sessionStorage.getItem('cart'));
+    delete cart[id];
+    window.sessionStorage.setItem('cart', temp);
+    setClick(!click);
   };
 
   const changePage = (page) => {
@@ -37,26 +55,38 @@ export default function CartPage() {
       itemCount += dummyDatas[i].productQuantity;
     }
     return (
-      <Grid container spacing={3} direction="row" justifyContent="center" alignItems="center">
-        <Grid item xs >
+      <Grid
+        container
+        spacing={3}
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Grid item xs>
           <p>{`${itemCount} items`}</p>
         </Grid>
-        <Grid item xs={6}>
-        </Grid>
-        <Grid item xs >
+        <Grid item xs={6}></Grid>
+        <Grid item xs>
           <p>{`Total: $${totalPrice}`}</p>
         </Grid>
       </Grid>
     );
   };
 
-  const renderItems = () => (
-    dummyDatas.map((data, index) => (
-      <Grid container spacing={3} direction="row" justifyContent="center" alignItems="center" key={index}>
+  const renderItems = () => dummyDatas.map((data, index) => (
+      <Grid
+        container
+        spacing={3}
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+        key={index}
+      >
         <Grid item xs>
           <img
             style={{ maxWidth: 150, maxHeight: 150 }}
-            src={data.productImage}></img>
+            src={data.productImage}
+          ></img>
         </Grid>
         <Grid item xs>
           <Stack>
@@ -67,33 +97,53 @@ export default function CartPage() {
         <Grid item xs>
           <Stack>
             <p>{`$${data.productPrice}`}</p>
-            <Button variant="outlined" value={index} onClick={(e) => removeItem(Number(e.target.value))}>Remove</Button>
+            <Button
+              variant="outlined"
+              value={data.id}
+              onClick={(e) => removeItem(Number(e.target.value))}
+            >
+              Remove
+            </Button>
           </Stack>
         </Grid>
       </Grid>
-    ))
-  );
+  ));
 
   return (
     <>
-      <Stack spacing={2} direction="column" justifyContent="center" alignItems="center">
-        <Grid container spacing={3} direction="row" justifyContent="center" alignItems="center">
-          <Grid item xs >
+      <Stack
+        spacing={2}
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Grid
+          container
+          spacing={3}
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Grid item xs>
             <p>Cart page</p>
           </Grid>
-          <Grid item xs={6}>
-          </Grid>
-          <Grid item xs >
+          <Grid item xs={6}></Grid>
+          <Grid item xs>
             <p>Cart</p>
           </Grid>
         </Grid>
         {renderSummary()}
-        <Grid container spacing={3} direction="row" justifyContent="center" alignItems="center">
+        <Grid
+          container
+          spacing={3}
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+        >
           <Grid item xs>
             <Button variant="outlined">Browse Products</Button>
           </Grid>
-          <Grid item xs={6}>
-          </Grid>
+          <Grid item xs={6}></Grid>
           <Grid item xs>
             <Button variant="outlined">More Boxes</Button>
           </Grid>
