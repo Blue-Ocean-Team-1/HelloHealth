@@ -15,6 +15,20 @@ export const uploadUserAccountType = (typeString, callback = () => {}) => {
   });
 };
 
+export const fetchUserAccountType = (userId, callback = () => {}) => {
+  endpointMiddleware(
+    ['USER', 'ACCOUNT_TYPE'],
+    {
+      params: {
+        userId,
+      },
+    },
+    'GET',
+  ).then((res = {}) => {
+    callback(res.data);
+  });
+};
+
 export const fetchAccountDetails = (typeString, callback = () => {}) => {
   // TODO
 };

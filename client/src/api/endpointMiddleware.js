@@ -24,9 +24,14 @@ const validDataObject = (object, expectedObj) => {
     const expectedKey = keys[i];
 
     const expectedDataType = expectedObj[expectedKey];
-    if (expectedDataType instanceof Array) {
-      const bodyVal = object[expectedKey];
+    const bodyVal = object[expectedKey];
 
+    if (bodyVal === undefined) {
+      // eslint-disable-next-line no-continue
+      continue;
+    }
+
+    if (expectedDataType instanceof Array) {
       const oneValidType = expectedDataType.some((type) => {
         if (isConstructor(type)) {
           return bodyVal.constructor === type;
@@ -39,7 +44,7 @@ const validDataObject = (object, expectedObj) => {
 
       if (!oneValidType) {
         handleError(
-          `Body should have key "${expectedKey}" with type of "${expectedDataType}", found "${bodyVal}"`,
+          `Body should have key "${expectedKey}" with type of "${expectedDataType}", found "${bodyVal}"`
         );
       }
     } else {
@@ -69,8 +74,8 @@ const endpointMiddleware = (endpointKeys, data, method) => {
   let endpointObj = routes;
   endpointKeys.forEach((endpointKey) => {
     if (
-      endpointObj[endpointKey] === undefined
-      || endpointObj[endpointKey].ENDPOINT === undefined
+      endpointObj[endpointKey] === undefined ||
+      endpointObj[endpointKey].ENDPOINT === undefined
     ) {
       handleError(`Route config missing: ${endpointUrl} + ${endpointKey}`);
     }
@@ -100,8 +105,8 @@ const endpointMiddleware = (endpointKeys, data, method) => {
     if (!data.params) {
       handleError(
         `No parameters given, expected => ${JSON.stringify(
-          Object.keys(expectedParams),
-        )}`,
+          Object.keys(expectedParams)
+        )}`
       );
     } else if (validDataObject(data.params, expectedParams)) {
       // Should match key/value pairs
@@ -117,10 +122,28 @@ const endpointMiddleware = (endpointKeys, data, method) => {
   }
 
   const options = {
-    method: method.toLowerCase(),
+    method: method.toUpperCase(),
     url: endpointUrl,
-    data: requestBody,
+    data: {
+      requestBody,
+      test: 'FOO',
+      data: {
+        test: 'FOO',
+      },
+    },
   };
+
+  if (options.method === 'GET') {
+    return axios
+      .get(options.url, { params: requestBody.params })
+      .then((res) => res)
+      .catch((err) => {
+        console.log(err);
+        // error(err);
+        return 'bad response';
+      })
+      .then((response) => (response !== 'bad response' ? response : undefined));
+  }
 
   return axios(options)
     .then((res) => res)

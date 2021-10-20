@@ -3,9 +3,12 @@ const routes = {
     ENDPOINT: '/user',
     ACCOUNT_TYPE: {
       ENDPOINT: '/account-type',
-      METHOD: 'POST',
+      METHOD: ['GET', 'POST'],
       BODY: {
-        accountType: ['customer', 'farmer', 'nutritionist'],
+        accountType: ['customer', 'farmer', 'nutritionist', undefined],
+      },
+      PARAMS: {
+        userId: String,
       },
     },
     ACCOUNT_DETAILS: {
@@ -22,6 +25,9 @@ const routes = {
         referall_code_used: [Boolean, undefined],
         first_purchase_complete: [Boolean, undefined],
         credit_available: [Number, undefined],
+      },
+      PARAMS: {
+        userId: String,
       },
     },
     TRANSACTION_HISTORY: {

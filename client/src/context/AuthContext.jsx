@@ -2,6 +2,8 @@ import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { auth, googleProvider, facebookProvider } from '../config/firebase';
 import config from '../config/config';
+import useMainContext from './MainContext.jsx';
+import { user as userAPI } from '../api';
 
 export const AuthContext = React.createContext();
 
@@ -10,11 +12,16 @@ export const AuthProvider = ({ children }) => {
   const [userIsLoggedIn, setUserIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const { userType, setUserType } = useMainContext();
+
   useEffect(() => {
     if (config.NODE_ENV !== 'test') {
       auth.onAuthStateChanged((user) => {
         if (user) {
-          setCurrentUser(user);
+          userAPI.fetchUserAccountType(user.uid, (userTypeString) => {
+            setUserType(userTypeString);
+            setCurrentUser(user);
+          });
         } else {
           setCurrentUser(null);
         }
@@ -22,25 +29,31 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  const signInWithGoogle = (callback = () => { }) => {
-    auth.signInWithPopup(googleProvider).then((res) => {
-      console.log(res.user);
-      callback();
-    }).catch((error) => {
-      console.log(error.message);
-    });
+  const signInWithGoogle = (callback = () => {}) => {
+    auth
+      .signInWithPopup(googleProvider)
+      .then((res) => {
+        console.log(res.user);
+        callback();
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   };
 
-  const signInWithFacebook = (callback = () => { }) => {
-    auth.signInWithPopup(facebookProvider).then((res) => {
-      console.log(res.user);
-      callback();
-    }).catch((error) => {
-      console.log(error.message);
-    });
+  const signInWithFacebook = (callback = () => {}) => {
+    auth
+      .signInWithPopup(facebookProvider)
+      .then((res) => {
+        console.log(res.user);
+        callback();
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   };
 
-  const loginUser = async (email, password, callback = () => { }) => {
+  const loginUser = async (email, password, callback = () => {}) => {
     try {
       await auth.signInWithEmailAndPassword(email, password);
       callback();
@@ -50,7 +63,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const signupUser = async (name, email, password, callback = () => { }) => {
+  const signupUser = async (name, email, password, callback = () => {}) => {
     try {
       const res = await auth.createUserWithEmailAndPassword(email, password);
       const { user } = res;
@@ -71,7 +84,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logoutUser = (callback = () => { }) => {
+  const logoutUser = (callback = () => {}) => {
     auth.signOut();
     if (typeof callback === 'function') {
       callback();
