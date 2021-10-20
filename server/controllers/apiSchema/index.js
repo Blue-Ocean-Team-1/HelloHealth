@@ -13,9 +13,10 @@ const objToString = (obj, newLineTab, tab) => {
         const val = JSON.stringify(obj[keyString]);
 
         if (obj[keyString] instanceof Array) {
-          const v = obj[keyString].map((e) =>
-            typeof e === 'function' ? e.name : e
-          );
+          const v = obj[keyString].map((e) => {
+            const bool = typeof e === 'function' ? e.name : e;
+            return bool;
+          });
           return `${keyString}: ${JSON.stringify(v)}`;
         }
         return `${keyString}: ${val || obj[keyString].name}`;
@@ -48,7 +49,7 @@ const endpointObjToString = (endpoints, endpointObj, tabArr, tab) => {
         outputStr += `.${tabIndent}${tab}${key}: ${objToString(
           obj,
           `${tabIndent}     .`,
-          tab
+          tab,
         )} \n`;
       }
     } else {
@@ -56,7 +57,7 @@ const endpointObjToString = (endpoints, endpointObj, tabArr, tab) => {
         [...endpoints, endpointObj.ENDPOINT],
         endpointObj[key],
         [...tabArr, tab],
-        tab
+        tab,
       );
     }
   });
@@ -73,7 +74,7 @@ module.exports = {
         [endpointSchema[key].ENDPOINT],
         endpointSchema[key],
         [],
-        '   .'
+        '   .',
       );
     });
 
