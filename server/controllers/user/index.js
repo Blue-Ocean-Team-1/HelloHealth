@@ -96,7 +96,7 @@ module.exports = {
     res.status(201).send('Success');
   },
   getChat: (req, res) => {
-    res.status(201).send('Success');
+    res.status(201).send([]);
   },
   postChat: (req, res) => {
     res.status(201).send('Success');

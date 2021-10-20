@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Box from '@mui/material/Box';
 import { Launcher } from 'react-chat-window';
-// import getChat from './getChat';
 
 export default function Chat() {
   const [messageList, setMessageList] = useState([]);
@@ -15,17 +14,7 @@ export default function Chat() {
     };
     setMessageList([...messageList, message]);
   }
-  function handleClick() {
-    let chatHistory;
-    axios
-      .get('http://localhost:8001/chat')
-      .then((results) => {
-        chatHistory = results;
-        console.log(results);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+  useEffect(async () => {
     const message = {
       author: 'Nutritionist',
       type: 'text',
@@ -33,8 +22,15 @@ export default function Chat() {
         text: "Welcome to the chat, please leave any questions for a nutritionist and we'll get back to you shortly.",
       },
     };
-    // setMessageList([...chatHistory, message]);
-  }
+    axios
+      .get('http://localhost:8001/user/chat')
+      .then((results) => {
+        setMessageList([...results.data, message]);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
 
   return (
     <Box sx={{ 'div.sc-launcher': { zIndex: 100 } }}>
@@ -48,7 +44,6 @@ export default function Chat() {
         messageList={messageList}
         showEmoji
         mute
-        handleClick={handleClick}
       />
     </Box>
   );
