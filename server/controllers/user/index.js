@@ -27,7 +27,7 @@ module.exports = {
     const { userId } = req.query;
 
     // HERE
-    res.status(200).json('customer');
+    res.status(200).json('farmer');
 
     // UserModel.find({ userId })
     //   .then((items) => {
