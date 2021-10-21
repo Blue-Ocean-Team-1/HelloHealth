@@ -12,8 +12,9 @@ export default function Chat() {
       type: 'text',
       data: { text: "We have received your reply, you'll hear back soon." },
     };
-    setMessageList([...messageList, message]);
+    setMessageList([...messageList, message, reply]);
   }
+
   useEffect(async () => {
     const message = {
       author: 'Nutritionist',
@@ -31,6 +32,10 @@ export default function Chat() {
         console.error(err);
       });
   }, []);
+
+  useEffect(() => {
+    // axios post
+  }, [messageList]);
 
   return (
     <Box sx={{ 'div.sc-launcher': { zIndex: 100 } }}>

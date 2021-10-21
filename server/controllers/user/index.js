@@ -1,5 +1,7 @@
 const axios = require('axios');
+const { QueryTypes } = require('sequelize');
 const config = require('../../config/config');
+const { sequelize } = require('../../database');
 
 // const fetch = (req, res, url, params, data, method) => (
 //   axios
@@ -95,10 +97,30 @@ module.exports = {
     // HERE
     res.status(201).send('Success');
   },
-  getChat: (req, res) => {
-    res.status(201).send([]);
+  getChat: async (req, res) => {
+    const { id } = req.query;
+    // console.log('user_id: ', id);
+    try {
+      const queryString = `SELECT * FROM messages WHERE user_id='${id}'`;
+      const result = await sequelize.query(queryString, {
+        type: QueryTypes.SELECT,
+      });
+      res.status(201).send(result);
+    } catch (err) {
+      res.status(400).send(err);
+    }
   },
-  postChat: (req, res) => {
-    res.status(201).send('Success');
+  postChat: async (req, res) => {
+    const { message } = req.body;
+    const userId = req.body.user_id;
+    try {
+      const queryString = `INSERT INTO messages(user_id, message) VALUES ('${userId}', '${message}')`;
+      const result = await sequelize.query(queryString, {
+        type: QueryTypes.INSERT,
+      });
+      res.status(201).send('Success');
+    } catch (err) {
+      res.status(400).send(err);
+    }
   },
 };
