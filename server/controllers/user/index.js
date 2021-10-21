@@ -1,5 +1,7 @@
 const axios = require('axios');
+const { QueryTypes } = require('sequelize');
 const config = require('../../config/config');
+const { sequelize } = require('../../database');
 
 const database = require('../../database');
 
@@ -32,8 +34,8 @@ module.exports = {
 
     UserModel.findOne({ id: userId })
       .then((foundItem) => {
-        console.log(foundItem.customer_type);
-        res.status(200).json(foundItem.customer_type || 'customer');
+        const type = foundItem ? (foundItem.customer_type || 'customer') : 'customer';
+        res.status(200).json(type);
       })
       .catch((error) => {
         res.status(500).send(error.message);
@@ -136,6 +138,32 @@ module.exports = {
       res.status(201).json(users);
     } catch (err) {
       res.status(500).send(err);
+    }
+  },
+  getChat: async (req, res) => {
+    const { id } = req.query;
+    // console.log('user_id: ', id);
+    try {
+      const queryString = `SELECT * FROM messages WHERE user_id='${id}'`;
+      const result = await sequelize.query(queryString, {
+        type: QueryTypes.SELECT,
+      });
+      res.status(201).send(result);
+    } catch (err) {
+      res.status(400).send(err);
+    }
+  },
+  postChat: async (req, res) => {
+    const message = JSON.stringify(req.body.message);
+    const userId = req.body.user_id;
+    try {
+      const queryString = `INSERT INTO messages(user_id, message) VALUES ('${userId}', '${message}')`;
+      const result = await sequelize.query(queryString, {
+        type: QueryTypes.INSERT,
+      });
+      res.status(201).send('Success');
+    } catch (err) {
+      res.status(400).send(err);
     }
   },
 };
