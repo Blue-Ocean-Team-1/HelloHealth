@@ -17,7 +17,7 @@ import MealList from '../Product/MealList.jsx';
 
 export default function ProductViewPage() {
   const [showMessage, setShowMessage] = useState(false);
-  const { currentProduct } = useMainContext();
+  const { currentProduct, addProductToCart } = useMainContext();
   const { id } = currentProduct;
   const productName = currentProduct.product_name;
   const productDescription = currentProduct.product_description;
@@ -109,6 +109,7 @@ export default function ProductViewPage() {
                 variant="outlined"
                 color="success"
                 sx={{ mb: isSmallScreen ? '0px' : '11px' }}
+                onClick={() => addProductToCart(currentProduct)}
               >
                 Add to Cart
               </Button>
