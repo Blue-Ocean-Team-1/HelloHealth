@@ -11,6 +11,7 @@ import {
   CART,
   CHECKOUT,
 } from '../../config/pageRoutes';
+import ShippingPage from './ShippingPage/ShippingPage.jsx';
 
 export default function CartPage() {
   const [click, setClick] = useState(true);
