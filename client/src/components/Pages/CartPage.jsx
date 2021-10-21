@@ -4,7 +4,12 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import useMainContext from '../../context/MainContext.jsx';
 import {
-  ACCOUNT, HOME, BOX, FARMS, CART,
+  ACCOUNT,
+  HOME,
+  BOX,
+  FARMS,
+  CART,
+  CHECKOUT,
 } from '../../config/pageRoutes';
 import ShippingPage from './ShippingPage/ShippingPage.jsx';
 
@@ -71,9 +76,9 @@ export default function CartPage() {
     let totalPrice = 0;
     let itemCount = 0;
     for (let i = 0; i < dummyDatas.length; i += 1) {
-      totalPrice
-        += dummyDatas[i].productQuantity
-        * Number(dummyDatas[i].productPrice.substring(1));
+      totalPrice +=
+        dummyDatas[i].productQuantity *
+        Number(dummyDatas[i].productPrice.substring(1));
 
       itemCount += dummyDatas[i].productQuantity;
     }
@@ -96,7 +101,8 @@ export default function CartPage() {
     );
   };
 
-  const renderItems = () => dummyDatas.map((data, index) => (
+  const renderItems = () =>
+    dummyDatas.map((data, index) => (
       <Grid
         container
         spacing={3}
@@ -131,11 +137,10 @@ export default function CartPage() {
           </Stack>
         </Grid>
       </Grid>
-  ));
+    ));
 
   return (
     <>
-      <ShippingPage />
       <Stack
         spacing={2}
         direction="column"
@@ -182,6 +187,11 @@ export default function CartPage() {
           </Grid>
         </Grid>
         {renderItems()}
+        <Link to={CHECKOUT}>
+          <button name="checkout" onClick={handlePageChange}>
+            GO TO CHECKOUT
+          </button>
+        </Link>
       </Stack>
     </>
   );
