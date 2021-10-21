@@ -37,14 +37,12 @@ export default function Chat() {
     axios
       .get(`http://localhost:8001/user/chat?id=${currentUser.uid}`)
       .then((results) => {
-        // console.log(JSON.parse(results.data));
         results.data.forEach((entry) => {
           const message = JSON.parse(entry.message);
           const response = JSON.parse(entry.response);
           dbMessages.push(message);
           if (response) dbMessages.push(response);
         });
-        console.log(dbMessages);
         setMessageList([introMessage, ...dbMessages]);
       })
       .catch((err) => {
