@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Badge from '@mui/material/Badge';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -21,7 +22,7 @@ import { ACCOUNT, HOME, BOX, FARMS, CART } from '../config/pageRoutes';
 
 function Navigation() {
   const classes = useStyles();
-  const { setPage } = useMainContext();
+  const { setPage, productsInCart } = useMainContext();
   const { currentUser } = useAuth();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -122,7 +123,9 @@ function Navigation() {
             )}
             <Link to={CART}>
               <Button onClick={handlePageChange} name="cart">
-                <ShoppingCartIcon />
+                <Badge badgeContent={productsInCart.length} color="success">
+                  <ShoppingCartIcon />
+                </Badge>
               </Button>
             </Link>
           </Box>
