@@ -1,5 +1,27 @@
 const axios = require('axios');
+const { QueryTypes } = require('sequelize');
 const config = require('../../config/config');
+const { sequelize } = require('../../database');
+
+const database = require('../../database');
+
+const FarmsModel = database.farms;
+const ProductsModel = database.products_2;
+const NutritionModel = database.nutrition_facts;
+
+function updateOrCreate(model, where, newItem) {
+  // First try to find the record
+  return model.findOne({ where }).then((foundItem) => {
+    if (!foundItem) {
+      // Item not found, create a new one
+      return model.create(newItem).then((item) => ({ item, created: true }));
+    }
+    // Found an item, update it
+    return model
+      .update(newItem, { where })
+      .then((item) => ({ item, created: false }));
+  });
+}
 
 const allFarms = [
   {
@@ -88,116 +110,45 @@ const allFarms = [
 module.exports = {
   getAllFarms: (req, res) => {
     // HERE
-    res.status(200).json(allFarms);
+    // res.status(200).json(allFarms);
 
-    // UserModel.find({ userId })
-    //   .then((items) => {
-    //     res.status(200).json(items);
-    //   })
-    //   .catch((err) => {
-    //     res.status(500).send(err);
-    //     console.error(`Failed to find documents: ${err}`);
-    //   });
+    FarmsModel.findAll({})
+      .then((items) => {
+        console.log(items);
+        res.status(200).send(items);
+      })
+      .catch((err) => {
+        res.status(500).send(err);
+        console.error(`Failed to find documents: ${err}`);
+      });
   },
-  getOneFarm: (req, res) => {
-    if (req.params.id === undefined) {
-      res.status(400).send('Invalid endpoint parameters');
-      return;
+  getOneFarm: async (req, res) => {
+    try {
+      if (req.params.id === undefined) {
+        res.status(400).send('Invalid endpoint parameters');
+        return;
+      }
+      const { id } = req.params;
+      let result;
+      let oneFarms = await FarmsModel.findOne({ id });
+      const product = await ProductsModel.findAll({
+        where: { farm_id: id },
+      });
+
+      oneFarms = { ...oneFarms.dataValues, products: product };
+      console.log(oneFarms);
+      res.status(200).send(oneFarms);
+    } catch (err) {
+      res.status(500).send(err.message);
     }
-    const { id } = req.query;
-
     // HERE
-    res.status(200).json({
-      id: 11,
-      user_id: 'mdegnen0',
-      email: 'mdegnen0@admin.ch',
-      name: 'Marcus Degnen',
-      description:
-        "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-      profile_image:
-        'https://images.unsplash.com/photo-1507103011901-e954d6ec0988?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
-      farm_rating: 4,
-      video_link:
-        'https://www.youtube.com/watch?v=0q0TXV8PyNY&ab_channel=ExploreFarmLife',
-      products: [
-        {
-          id: 1,
-          product_name: 'Shrimp - 16/20, Iqf, Shell On',
-          product_description:
-            "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.",
-          product_cost: 24,
-          product_inventory: 9,
-          product_image:
-            'https://images.unsplash.com/photo-1601314002592-b8734bca6604?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1636&q=80',
-          product_rating: 2,
-          farm_id: 11,
-          nutritionFacts: {
-            serving_size: 5,
-            calories: 355,
-            caloriesFat: 166,
-            fat: 321,
-            fatPerc: 2,
-            satFat: 69,
-            satFatPerc: 17,
-            transFat: 92,
-            transFatPerc: 21,
-            protein: 291,
-            dietaryFiber: 172,
-            dietaryFiberPerc: 4,
-            carbohydrates: 161,
-            carbohydratesPerc: 10,
-            cholesterol: 36,
-            cholesterolPerc: 14,
-            sodium: 49,
-            sodiumPerc: 13,
-            sugars: 7,
-            sugarsPerc: 7,
-          },
-        },
-        {
-          id: 4,
-          product_name: 'Lid - Translucent, 3.5 And 6 Oz',
-          product_description:
-            'Pellentesque at nulla. Suspendisse potenti. Cras in purus eu magna vulputate luctus.',
-          product_cost: 23.81,
-          product_inventory: 4,
-          product_image:
-            'https://images.unsplash.com/photo-1496116218417-1a781b1c416c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2070&q=80',
-          product_rating: 4,
-          farm_id: 11,
-          nutritionFacts: {
-            serving_size: 5,
-            calories: 464,
-            caloriesFat: 206,
-            fat: 100,
-            fatPerc: 2,
-            satFat: 69,
-            satFatPerc: 17,
-            transFat: 92,
-            transFatPerc: 21,
-            protein: 291,
-            dietaryFiber: 172,
-            dietaryFiberPerc: 4,
-            carbohydrates: 161,
-            carbohydratesPerc: 10,
-            cholesterol: 36,
-            cholesterolPerc: 14,
-            sodium: 49,
-            sodiumPerc: 13,
-            sugars: 7,
-            sugarsPerc: 7,
-          },
-        },
-      ],
-    });
-
-    // UserModel.find({ userId })
-    //   .then((items) => {
-    //     res.status(200).json(items);
+    // UserModel.findOne({ id: userId })
+    //   .then((foundItem) => {
+    //     const type = foundItem ? (foundItem.customer_type || 'customer') : 'customer';
+    //     res.status(200).json(type);
     //   })
-    //   .catch((err) => {
-    //     res.status(500).send(err);
-    //     console.error(`Failed to find documents: ${err}`);
+    //   .catch((error) => {
+    //     res.status(500).send(error.message);
     //   });
   },
   getFarmProducts: (req, res) => {
