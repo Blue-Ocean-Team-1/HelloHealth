@@ -1,9 +1,10 @@
 import React from 'react';
+import ShippingPage from './ShippingPage/ShippingPage.jsx';
 
 export default function CartPage() {
   return (
     <>
-      <h1>CartPage</h1>
+      <ShippingPage />
     </>
   );
 }
