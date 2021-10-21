@@ -14,10 +14,13 @@ import StarRatings from 'react-star-ratings';
 import useMainContext from '../../context/MainContext.jsx';
 import Nutrition from '../Product/Nutrition.jsx';
 import MealList from '../Product/MealList.jsx';
+import AddToCart from './AddToCart.jsx';
 
 export default function ProductViewPage() {
   const [showMessage, setShowMessage] = useState(false);
-  const { currentProduct, addProductToCart } = useMainContext();
+  const [quantity, setQuantity] = useState(1);
+
+  const { currentProduct } = useMainContext();
   const { id } = currentProduct;
   const productName = currentProduct.product_name;
   const productDescription = currentProduct.product_description;
@@ -31,6 +34,10 @@ export default function ProductViewPage() {
 
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
+
+  const handleChange = (e) => {
+    setQuantity(e.target.value);
+  };
 
   const handleClick = (rating) => {
     setShowMessage(true);
@@ -89,30 +96,35 @@ export default function ProductViewPage() {
             <p>{productDescription}</p>
           </Grid>
           <Grid container item spacing={2}>
-            <Grid item sm={6}>
+            <Grid item sm={6} xs={12}>
               <FormControl fullWidth>
                 <InputLabel id="selectQuantity-label">Quantity</InputLabel>
                 <Select
                   labelId="selectQuantity-label"
                   id="selectQuantity"
-                  value={1}
+                  defaultValue={1}
                   label="Quantity"
-                  // onChange={handleChange}
+                  onChange={handleChange}
                 >
                   {renderDropdown()}
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item sm={6} sx={{ display: 'flex' }}>
-              <Button
+            <Grid item sm={6} xs={12} sx={{ display: 'flex' }}>
+              <Box
                 fullWidth
-                variant="outlined"
-                color="success"
-                sx={{ mb: isSmallScreen ? '0px' : '11px' }}
-                onClick={() => addProductToCart(currentProduct)}
+                sx={{
+                  width: '100%',
+                  display: 'flex',
+                  button: {
+                    mb: isSmallScreen ? '0px' : '4px',
+                    py: isSmallScreen ? '15px' : '0px',
+                    width: '100%',
+                  },
+                }}
               >
-                Add to Cart
-              </Button>
+                <AddToCart id={id} quantity={quantity} />
+              </Box>
             </Grid>
           </Grid>
         </Grid>
