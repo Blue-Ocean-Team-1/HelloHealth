@@ -7,7 +7,7 @@ const {
 
 const router = express.Router();
 
-router.get('/productInfo', getProductInfo);
+router.get('/CartInfo', getProductInfo);
 router.get('/total', getProductCount);
 router.get('/list', getProductList);
 
