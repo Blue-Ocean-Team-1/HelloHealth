@@ -101,8 +101,7 @@ export default function CartPage() {
     );
   };
 
-  const renderItems = () =>
-    dummyDatas.map((data, index) => (
+  const renderItems = () => dummyDatas.map((data, index) => (
       <Grid
         container
         spacing={3}
@@ -137,7 +136,7 @@ export default function CartPage() {
           </Stack>
         </Grid>
       </Grid>
-    ));
+  ));
 
   return (
     <>

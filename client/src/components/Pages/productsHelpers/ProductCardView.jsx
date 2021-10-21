@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import { Link } from 'react-router-dom';
 import useMainContext from '../../../context/MainContext.jsx';
+import AddToCart from '../AddToCart.jsx';
 
 import { PRODUCT } from '../../../config/pageRoutes';
 
@@ -20,7 +21,7 @@ export default function ProductCardView({ product }) {
   const productInventory = product.product_inventory;
   const productRating = product.product_rating;
 
-  const { setCurrentProduct } = useMainContext();
+  const { setCurrentProduct, addProductToCart } = useMainContext();
 
   const handleClick = () => {
     setCurrentProduct(product);
@@ -47,9 +48,7 @@ export default function ProductCardView({ product }) {
           </Typography>
         </CardContent>
         <CardActions sx={{ justifyContent: 'flex-end' }}>
-          <Button size="small" variant="outlined" color="success">
-            Add to Cart
-          </Button>
+          <AddToCart id={id} quantity={1} />
         </CardActions>
       </Card>
     </Grid>
