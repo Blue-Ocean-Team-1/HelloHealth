@@ -148,6 +148,7 @@ export default function CartPage() {
 
   return (
     <>
+<<<<<<< HEAD
       <Stack
         spacing={2}
         direction="column"
@@ -195,6 +196,9 @@ export default function CartPage() {
         </Grid>
         {renderItems()}
       </Stack>
+=======
+      <ShippingPage />
+>>>>>>> 9fc083d (Implemented Shipping page with loaded in with dummy data and hardcoded data)
     </>
   );
 }
