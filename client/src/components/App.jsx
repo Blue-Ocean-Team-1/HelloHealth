@@ -11,7 +11,6 @@ import AccountPage from './Pages/AccountPage.jsx';
 import LoginPage from './Pages/LoginPage/LoginPage.jsx';
 import ProductViewPage from './Pages/ProductViewPage.jsx';
 import Chat from './Chat/Chat.jsx';
-// import useAuth from '../context/AuthContext.jsx';
 import useMainContext from '../context/MainContext.jsx';
 import useAuth from '../context/AuthContext.jsx';
 import * as routeConstants from '../config/pageRoutes';
@@ -20,7 +19,6 @@ import Footer from './Footer.jsx';
 export default function App() {
   const { page } = useMainContext();
   const { currentUser } = useAuth();
-  console.log(currentUser);
 
   // test endpoint and server connection
   useEffect(() => {

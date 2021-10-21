@@ -2,36 +2,55 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Box from '@mui/material/Box';
 import { Launcher } from 'react-chat-window';
+import useAuth from '../../context/AuthContext.jsx';
 
 export default function Chat() {
   const [messageList, setMessageList] = useState([]);
+  const [newMessage, setNewMessage] = useState({});
+  const { currentUser } = useAuth();
 
   function onMessageWasSent(message) {
-    const reply = {
-      author: 'Nutritionist',
-      type: 'text',
-      data: { text: "We have received your reply, you'll hear back soon." },
+    setMessageList([...messageList, message]);
+    const params = {
+      message,
+      user_id: currentUser.uid,
     };
-    setMessageList([...messageList, message, reply]);
+    axios
+      .post('http://localhost:8001/user/chat', params)
+      .then((results) => {
+        console.log(results);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   useEffect(async () => {
-    const message = {
+    const introMessage = {
       author: 'Nutritionist',
       type: 'text',
       data: {
         text: "Welcome to the chat, please leave any questions for a nutritionist and we'll get back to you shortly.",
       },
     };
+    const dbMessages = [];
     axios
-      .get('http://localhost:8001/user/chat')
+      .get(`http://localhost:8001/user/chat?id=${currentUser.uid}`)
       .then((results) => {
-        setMessageList([...results.data, message]);
+        // console.log(JSON.parse(results.data));
+        results.data.forEach((entry) => {
+          const message = JSON.parse(entry.message);
+          const response = JSON.parse(entry.response);
+          dbMessages.push(message);
+          if (response) dbMessages.push(response);
+        });
+        console.log(dbMessages);
+        setMessageList([introMessage, ...dbMessages]);
       })
       .catch((err) => {
         console.error(err);
       });
-  }, []);
+  }, [currentUser]);
 
   useEffect(() => {
     // axios post

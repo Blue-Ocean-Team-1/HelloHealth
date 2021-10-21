@@ -111,7 +111,7 @@ module.exports = {
     }
   },
   postChat: async (req, res) => {
-    const { message } = req.body;
+    const message = JSON.stringify(req.body.message);
     const userId = req.body.user_id;
     try {
       const queryString = `INSERT INTO messages(user_id, message) VALUES ('${userId}', '${message}')`;
