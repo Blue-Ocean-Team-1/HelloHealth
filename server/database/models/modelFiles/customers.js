@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => sequelize.define(
   'customers',
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
       primaryKey: true,
     },
@@ -45,7 +45,7 @@ module.exports = (sequelize, DataTypes) => sequelize.define(
       allowNull: false,
     },
     'referral code': {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     referral_code_used: {

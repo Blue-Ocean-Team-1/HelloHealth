@@ -5,6 +5,8 @@ const database = require('../../database');
 
 const UserModel = database.customers;
 
+const strToInt = (str) => Number.parseFloat(str.replace('$', ''));
+
 function updateOrCreate(model, where, newItem) {
   // First try to find the record
   return model.findOne({ where }).then((foundItem) => {
@@ -22,7 +24,7 @@ function updateOrCreate(model, where, newItem) {
 module.exports = {
   getUserAccountType: (req, res) => {
     if (req.query.userId === undefined) {
-      res.status(400).send('Invalid endpoint parameters');
+      res.status(400).send('Invalid endpoint parameters "&userId=12345"');
       return;
     }
 
@@ -39,7 +41,7 @@ module.exports = {
   },
   getAccountDetails: (req, res) => {
     if (req.query.userId === undefined) {
-      res.status(400).send('Invalid endpoint parameters');
+      res.status(400).send('Invalid endpoint parameters "&userId=12345"');
       return;
     }
     const { userId } = req.query;
@@ -53,13 +55,15 @@ module.exports = {
       });
   },
   updateAccountDetails: (req, res) => {
-    const { user_id: userId } = req.query;
+    const newObj = { ...req.body };
+    newObj.credit_available = strToInt(req.body.credit_available);
 
-    updateOrCreate(UserModel, { id: req.body.userId }, req.body)
+    updateOrCreate(UserModel, { id: req.body.user_id }, newObj)
       .then(() => {
         res.status(201).json(req.body);
       })
       .catch((error) => {
+        console.log(error);
         res.status(500).send(error.message);
       });
   },

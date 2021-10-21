@@ -75,7 +75,7 @@ const routes = {
         credit_available: String,
       },
       PARAMS: {
-        userId: String,
+        userId: [String, undefined],
       },
     },
   },

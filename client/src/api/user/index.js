@@ -48,6 +48,7 @@ export const updateAccountDetails = (
   accountObj,
   callback = () => {},
 ) => {
+  // console.log(accountObj);
   endpointMiddleware(
     ['USER', 'ACCOUNT_DETAILS'],
     {

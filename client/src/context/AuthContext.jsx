@@ -31,7 +31,6 @@ export const AuthProvider = ({ children }) => {
           userAPI.fetchAccountDetails(user.uid, (newDetails) => {
             setAccountDetails((prev) => {
               const newObj = {
-                ...prev,
                 customer_type: 'customer',
                 ...newDetails,
                 user_id: user.uid,
@@ -43,7 +42,7 @@ export const AuthProvider = ({ children }) => {
                 City: 'Seattle',
                 State: 'WA',
                 'Zip Code': '98109',
-                'referral code': '12098214`',
+                'referral code': '12098214',
                 referral_code_used: false,
                 first_purchase_complete: false,
                 credit_available: '$50',
