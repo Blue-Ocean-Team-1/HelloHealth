@@ -28,14 +28,15 @@ export default function CartPage() {
 
   const dataParsing = (data, cart) => {
     const temp = [];
+    console.log(cart);
     for (let i = 0; i < data.length; i += 1) {
       const item = {};
       item.productId = data[i].id;
       item.productImage = data[i].product_image;
       item.productName = data[i].product_name;
       item.productPrice = data[i].product_cost;
-      // item.productQuantity = cart[data[i].id].productQuantity;
-      item.productQuantity = 3;
+      item.productQuantity = cart[data[i].id].productQuantity;
+      // item.productQuantity = 3;
       temp.push(item);
     }
     console.log(temp);
@@ -46,10 +47,13 @@ export default function CartPage() {
     const data = Object.keys(cart);
     if (data.length !== 0) {
       axios
-        .get(`http://localhost:8001/product/CartInfo?cartArray=${JSON.stringify(data)}`)
+        .get(
+          `http://localhost:8001/product/CartInfo?cartArray=${JSON.stringify(
+            data
+          )}`
+        )
         .then((res) => {
           console.log('data pull from database');
-          console.log(res.data);
           dataParsing(res.data, cart);
         })
         .catch((err) => {
