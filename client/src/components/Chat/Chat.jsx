@@ -52,10 +52,6 @@ export default function Chat() {
       });
   }, [currentUser]);
 
-  useEffect(() => {
-    // axios post
-  }, [messageList]);
-
   return (
     <Box sx={{ 'div.sc-launcher': { zIndex: 100 } }}>
       <Launcher
