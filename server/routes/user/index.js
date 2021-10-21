@@ -6,13 +6,10 @@ const {
   getAllTransactions,
   getTransaction,
   updateTransaction,
-<<<<<<< HEAD
   getAllUsers,
   updateAccountDetails,
-=======
   getChat,
   postChat,
->>>>>>> main
 } = require('../../controllers/user');
 
 const router = express.Router();

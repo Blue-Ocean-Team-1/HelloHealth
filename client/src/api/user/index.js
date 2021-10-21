@@ -79,7 +79,7 @@ export const updateSubscription = (userId, newStatus, callback = () => { }) => {
 
 export const fetchAccountTransactions = (userId, callback = () => { }) => {
   endpointMiddleware(
-    ['USER', 'TRANSACTION', 'ALL_TRANSACTIONS'],
+    ['TRANSACTION', 'ALL_TRANSACTIONS'],
     {
       params: {
         userId,
