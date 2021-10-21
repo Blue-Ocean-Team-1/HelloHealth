@@ -60,10 +60,6 @@ module.exports = (sequelize, DataTypes) => sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    // nutritionist_status: {
-    //   type: DataTypes.STRING,
-    //   allowNull: false,
-    // },
   },
   {
     sequelize,

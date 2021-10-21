@@ -16,7 +16,6 @@ import IconButton from '@mui/material/IconButton';
 import useStyles from './FarmAccountStyles';
 import FarmProductCard from '../../Product/FarmProductCard.jsx';
 import useMainContext from '../../../context/MainContext.jsx';
-import useAuthContext from '../../../context/AuthContext.jsx';
 import FarmEdit from './FarmEdit.jsx';
 import AddProduct from './AddProduct.jsx';
 import useAuth from '../../../context/AuthContext.jsx';
@@ -93,22 +92,9 @@ const initialState = {
 export default function FarmAccountPage({ setSelected, id }) {
   const [edit, setEdit] = useState(false);
   const { userType, setUserType } = useMainContext();
-<<<<<<< HEAD
-  const { logoutUser } = useAuthContext();
-
-  // const [farmer, setFarmer] = useState(true);
-  const classes = useStyles();
-  // const [products, setProducts] = useState(farmInfo.products);
-  const [info, setInfo] = useState(initialState);
-  const {
-    banner, products, about, rating, name, video,
-  } = info;
-=======
   const classes = useStyles();
   const [info, setInfo] = useState({ products: [] });
-  const {
-    banner, products, about, rating, name, video,
-  } = info;
+  const { banner, products, about, rating, name, video } = info;
 
   const { logoutUser } = useAuth();
 
@@ -118,7 +104,6 @@ export default function FarmAccountPage({ setSelected, id }) {
       .then(({ data }) => setInfo(data))
       .catch((err) => console.log(err));
   };
->>>>>>> main
 
   const handleEdit = (e) => {
     setInfo({ ...info, [e.target.name]: e.target.value });
@@ -198,7 +183,6 @@ export default function FarmAccountPage({ setSelected, id }) {
       {info.products.map((product, index) => (
         <FarmProductCard product={product} key={index} />
       ))}
-<<<<<<< HEAD
       {userType === 'farmer' && (
         <Box sx={{ m: 3, float: 'right' }}>
           <Button variant="contained" onClick={() => logoutUser()}>
@@ -206,9 +190,7 @@ export default function FarmAccountPage({ setSelected, id }) {
           </Button>
         </Box>
       )}
-=======
       {userType === 'farmer' ? <AddProduct /> : <></>}
->>>>>>> main
     </>
   );
 }
