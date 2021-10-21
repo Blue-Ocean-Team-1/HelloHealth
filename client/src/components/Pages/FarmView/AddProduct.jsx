@@ -23,7 +23,6 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-
 export default function AddProduct() {
   const [open, setOpen] = useState(false);
   const [submit, setSubmit] = useState(false);
@@ -112,20 +111,31 @@ export default function AddProduct() {
             ></div>
           </FormLabel>
           <FormLabel>
-            Product Image:{' '}
-            <input
-              type="file"
-              onChange={handleImagePreview}
-              accept=".jpg,.png"
+            Product Image URL:
+            <TextField
+              id="outlined-multiline-flexible"
+              multiline
+              maxRows={8}
+              fullWidth
+              value={image}
+              onChange={(e) => onType(e, setImage)}
             />
-            <div>
-              <img
-                style={{ objectFit: 'cover', width: '100px', height: '100px' }}
-                src={image}
-              />
-            </div>
-            <Button startIcon={<AddIcon />}>Add Products</Button>
           </FormLabel>
+          <div>
+            <img
+              style={{ objectFit: 'cover', width: '100px', height: '100px' }}
+              src={image}
+            />
+          </div>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              alignItems: 'flex-end',
+            }}
+          >
+            <Button startIcon={<AddIcon />}>Add Products</Button>
+          </div>
         </Box>
       </Modal>
     </div>
