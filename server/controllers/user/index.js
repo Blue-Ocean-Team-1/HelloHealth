@@ -53,9 +53,9 @@ module.exports = {
       });
   },
   updateAccountDetails: (req, res) => {
-    const { userId } = req.query;
+    const { user_id: userId } = req.query;
 
-    updateOrCreate(UserModel, { id: userId }, req.body)
+    updateOrCreate(UserModel, { id: req.body.userId }, req.body)
       .then(() => {
         res.status(201).json(req.body);
       })

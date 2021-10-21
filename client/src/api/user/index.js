@@ -43,6 +43,26 @@ export const fetchAccountDetails = (userId, callback = () => {}) => {
   });
 };
 
+export const updateAccountDetails = (
+  userId,
+  accountObj,
+  callback = () => {},
+) => {
+  endpointMiddleware(
+    ['USER', 'ACCOUNT_DETAILS'],
+    {
+      ...accountObj,
+      userId,
+      params: {
+        userId,
+      },
+    },
+    'POST',
+  ).then((res = {}) => {
+    callback(res.data);
+  });
+};
+
 export const updateSubscription = (userId, newStatus, callback = () => {}) => {
   endpointMiddleware(
     ['USER', 'SUBSCRIPTION_STATUS'],

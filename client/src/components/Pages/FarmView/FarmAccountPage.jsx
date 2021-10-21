@@ -14,6 +14,7 @@ import IconButton from '@mui/material/IconButton';
 import useStyles from './FarmAccountStyles';
 import FarmProductCard from '../../Product/FarmProductCard.jsx';
 import useMainContext from '../../../context/MainContext.jsx';
+import useAuthContext from '../../../context/AuthContext.jsx';
 import FarmEdit from './FarmEdit.jsx';
 
 const farmInfo = {
@@ -87,6 +88,8 @@ const initialState = {
 export default function FarmAccountPage() {
   const [edit, setEdit] = useState(false);
   const { userType, setUserType } = useMainContext();
+  const { logoutUser } = useAuthContext();
+
   // const [farmer, setFarmer] = useState(true);
   const classes = useStyles();
   // const [products, setProducts] = useState(farmInfo.products);
@@ -154,6 +157,13 @@ export default function FarmAccountPage() {
       {products.map((product, index) => (
         <FarmProductCard product={product} key={index} />
       ))}
+      {userType === 'farmer' && (
+        <Box sx={{ m: 3, float: 'right' }}>
+          <Button variant="contained" onClick={() => logoutUser()}>
+            Log Out
+          </Button>
+        </Box>
+      )}
     </>
   );
 }
