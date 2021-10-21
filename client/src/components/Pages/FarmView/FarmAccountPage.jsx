@@ -17,6 +17,8 @@ import useStyles from './FarmAccountStyles';
 import FarmProductCard from '../../Product/FarmProductCard.jsx';
 import useMainContext from '../../../context/MainContext.jsx';
 import FarmEdit from './FarmEdit.jsx';
+import AddProduct from './AddProduct.jsx';
+import useAuth from '../../../context/AuthContext.jsx';
 
 const farmInfo = {
   id: 11,
@@ -74,7 +76,8 @@ const centered = {
 };
 
 const text = {
-  padding: '10px',
+  paddingTop: '20px',
+  paddingBottom: '20px',
 };
 
 const initialState = {
@@ -95,6 +98,8 @@ export default function FarmAccountPage({ setSelected, id }) {
     banner, products, about, rating, name, video,
   } = info;
 
+  const { logoutUser } = useAuth();
+
   const getFarmDetail = () => {
     axios
       .get(`http://localhost:8001/farmers/one-farm/${id}`)
@@ -106,18 +111,32 @@ export default function FarmAccountPage({ setSelected, id }) {
     setInfo({ ...info, [e.target.name]: e.target.value });
   };
 
+  // eslint-disable-next-line consistent-return
+  const handleLogout = () => {
+    if (userType === 'farmer') {
+      return (
+        <Grid item xs={4} style={container}>
+          <Button onClick={() => logoutUser()}>Log Out</Button>
+        </Grid>
+      );
+    }
+  };
+
   useEffect(() => {
     getFarmDetail();
   }, []);
 
   return (
     <>
+      <Box sx={{ x: 2, float: 'right' }}></Box>
       <Grid container>
         <Grid item xs={4} style={container}>
           <Button startIcon={<ArrowBackIcon />} onClick={() => setSelected()}>
             Go Back
           </Button>
         </Grid>
+        <Grid item xs={4} style={container}></Grid>
+        {handleLogout()}
         <Grid item xs={12} style={container}>
           <img
             className={classes.banner}
@@ -153,11 +172,7 @@ export default function FarmAccountPage({ setSelected, id }) {
           </div>
           <div style={text}>
             <Typography>{info.description}</Typography>
-            {userType === 'farmer' ? (
-              <FarmEdit info={info.description} />
-            ) : (
-              <></>
-            )}
+            {userType === 'farmer' ? <FarmEdit info={info} /> : <></>}
           </div>
         </Grid>
       </Grid>
@@ -170,6 +185,7 @@ export default function FarmAccountPage({ setSelected, id }) {
       {info.products.map((product, index) => (
         <FarmProductCard product={product} key={index} />
       ))}
+      {userType === 'farmer' ? <AddProduct /> : <></>}
     </>
   );
 }

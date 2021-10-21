@@ -69,7 +69,12 @@ export default function FarmsPage() {
             alignItems="center"
             justifyContent="center"
           >
-            <Typography variant="h3">HelloHealth Farmers</Typography>
+            <Typography
+              variant="h3"
+              style={{ marginTop: '25px', marginBottom: '25px' }}
+            >
+              HelloHealth Farmers
+            </Typography>
           </Grid>
           <Grid
             container
