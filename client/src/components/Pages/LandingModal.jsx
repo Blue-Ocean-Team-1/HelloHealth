@@ -35,6 +35,7 @@ export default function LandingModal({ showModal, setShowModal }) {
           </Typography>
           <Button
             variant="contained"
+            name="enter"
             size="large"
             sx={{ mt: 2, backgroundColor: '#264653', color: '#FFF' }}
             onClick={handleClose}
