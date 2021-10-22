@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
@@ -14,22 +15,73 @@ import useStyles from '../Product/nutritionStyles';
 
 export default function BoxPage() {
   const [boxList, setBoxList] = useState([
-    { name: 'carrots', quantity: 5, description: 'lorum in ' },
-    { name: 'peppers', quantity: 5, description: 'lorum ipsom somethin ' },
-    { name: 'tomatoes', quantity: 5, description: 'lorum ipsom somethin ' },
-    { name: 'onions', quantity: 1, description: 'lorum ipsom somethin ' },
-    { name: 'steak', quantity: 5, description: 'lorum ipsom somethin ' },
-    { name: 'carrots', quantity: 5, description: 'lorum ipsom somethin ' },
-    { name: 'peppers', quantity: 5, description: 'lorum ipsom somethin ' },
-    { name: 'tomatoes', quantity: 5, description: 'lorum ipsom somethin ' },
-    { name: 'onions', quantity: 1, description: 'lorum ipsom somethin ' },
-    { name: 'steak', quantity: 5, description: 'lorum ipsom somethin ' },
+    {
+      name: 'carrots',
+      quantity: 5,
+      description: 'Beautiful california carrots',
+    },
+    {
+      name: 'peppers',
+      quantity: 5,
+      description: 'Grown in the heart of Silicon Valley',
+    },
+    {
+      name: 'tomatoes',
+      quantity: 5,
+      description: 'Vine ripen tomatoes fresh from the garden',
+    },
+    {
+      name: 'onions',
+      quantity: 1,
+      description: 'The sweetest onions in America.',
+    },
+    {
+      name: 'steak',
+      quantity: 5,
+      description: 'Happy Cows equals delicious meat!',
+    },
   ]);
+  const [boxOptions, setBoxOptions] = useState([]);
+
   const classes = useStyles();
+
+  const getBoxes = () => {
+    const config = {
+      method: 'get',
+      url: 'http://localhost:8001/boxes/getBoxes',
+      headers: {},
+    };
+
+    axios(config)
+      .then((response) => {
+        setBoxOptions(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getBoxes();
+  }, []);
 
   function renderRow(props) {
     const { index, style } = props;
 
+    /**
+      {
+        "id": 9999,
+        "product_name": "small-box",
+        "product_description": "Offering a box of the finest beef in California.",
+        "product_cost": "$59.99",
+        "product_inventory": 99,
+        "product_image": "https://goldbelly.imgix.net/uploads/showcase_media_asset/image/114310/new-york-strip-and-filet-mignon-prime-steak-gift-box.98e97fd3bcbdb666e0e14e2ff7978b6f.jpg?ixlib=react-9.0.2&auto=format&ar=1%3A1&w=1946",
+        "product_rating": "5",
+        "farm_id": "5",
+        "reviews_count": 100
+    },
+     */
     return (
       <>
         <ListItem style={style} key={index} component="div" disablePadding>
@@ -63,12 +115,9 @@ export default function BoxPage() {
           boxShadow: 3,
         }}
       >
-        <h1 style={{ paddingLeft: '0.65em' }}>Box Name:</h1>
+        <h1 style={{ paddingLeft: '0.65em' }}>This Week's Box</h1>
         <p style={{ paddingLeft: '1em' }}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.
+          {boxOptions.length > 0 && boxOptions[0].product_description}
         </p>
         <List
           sx={{
