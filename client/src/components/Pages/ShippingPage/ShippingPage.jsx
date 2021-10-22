@@ -20,10 +20,11 @@ const ShippingPage = () => {
   const [expectedExpressDate, setExpectedExpressDate] = useState('');
   const [expectedStandardDate, setExpectedStandardDate] = useState('');
   const [chosenBoxDeliveryDate, setChosenBoxDeliveryDate] = useState('');
-  const [chosenProductDeliveryDate, setChosenProductDeliveryDate] = useState('');
+  const [chosenProductDeliveryDate, setChosenProductDeliveryDate] =
+    useState('');
   const [userId, setUserId] = useState('');
   const [userInfo, setUserInfo] = useState({});
-  const [firstName, setFirstName] = useState(currentUser.displayName);
+  const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [address, setAddress] = useState('');
   const [city, setCity] = useState('');
@@ -106,17 +107,17 @@ const ShippingPage = () => {
     let recurringPrice = 0;
     for (let i = 0; i < cartInfo.length; i += 1) {
       if (
-        cartInfo[i].productId === 9999
-        || cartInfo[i].productId === 10000
-        || cartInfo[i].productId === 10001
+        cartInfo[i].productId === 9999 ||
+        cartInfo[i].productId === 10000 ||
+        cartInfo[i].productId === 10001
       ) {
-        recurringPrice
-          += cartInfo[i].productQuantity
-          * Number(cartInfo[i].productPrice.substring(1));
+        recurringPrice +=
+          cartInfo[i].productQuantity *
+          Number(cartInfo[i].productPrice.substring(1));
       } else {
-        productsPrice
-          += cartInfo[i].productQuantity
-          * Number(cartInfo[i].productPrice.substring(1));
+        productsPrice +=
+          cartInfo[i].productQuantity *
+          Number(cartInfo[i].productPrice.substring(1));
       }
     }
     setProductsCost(productsPrice);
@@ -232,7 +233,9 @@ const ShippingPage = () => {
     getSelectDates();
     getShippingCost();
     const cartItems = JSON.parse(window.sessionStorage.getItem('cart'));
-    getProducts(cartItems);
+    if (cartInfo.length < 1) {
+      getProducts(cartItems);
+    }
     renderSummary();
   }, [
     cartInfo,
@@ -244,7 +247,10 @@ const ShippingPage = () => {
 
   useEffect(() => {
     renderSummary();
-    getUserInfo();
+
+    if (currentUser) {
+      getUserInfo();
+    }
     console.log('current', currentUser);
   }, []);
 
@@ -505,13 +511,13 @@ const ShippingPage = () => {
           <span>Reccuring Cost:</span>
         </Grid>
         <Grid item align="center" xs={6}>
-          <span>${reccuringCost}</span>
+          <span>${reccuringCost.toFixed(2)}</span>
         </Grid>
         <Grid item align="start" xs={6}>
           <span>Produce Cost:</span>
         </Grid>
         <Grid item align="center" xs={6}>
-          <span>${productsCost}</span>
+          <span>${productsCost.toFixed(2)}</span>
         </Grid>
         <Grid item align="start" xs={6}>
           <span>Shipping:</span>
