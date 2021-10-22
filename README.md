@@ -2,7 +2,7 @@
 
 # HelloHealth
 
-> HelloHealth is a web app that connects consumers to local farms.
+> HelloHealth is a web app that connects consumers to local farms. Browse products purchase the weekly meal-kit box.
 
 ## Contributors
 
@@ -24,7 +24,7 @@ The project was completed in a week based on specifications provided by an exter
 ### Setup
 
 ```sh
-$ cp .env.sample .env # update VITE_SERVER_URL
+$ cp .env.sample .env
 $ npm install
 $ npm run server-start
 $ npm run vite:dev
