@@ -103,7 +103,7 @@ export default function ProductsPage() {
     ));
   return (
     <Container maxWidth="xl">
-      <h1>{`Products Page > ${page}`}</h1>
+      <h3>{`Products Page > ${page}`}</h3>
       <Grid container item justifyContent="flex-start" spacing={2}>
         {renderProductList(currentProductsList)}
       </Grid>
