@@ -35,33 +35,43 @@ function FarmProductCard({ product }) {
     setQuantity(e.target.value);
   };
 
-  const renderButton = () => (
-    <div>
-      <div className={productClass.text}>
-        <NutritionModal productId={product.id} nutrition={nutrition} />
+  const renderButton = () => {
+    if (userType === 'farmer' && currentUser) {
+      return (
+        <div style={{ display: 'flex' }}>
+          <NutritionModal productId={product.id} nutrition={nutrition} />
+          <ProductEdit product={product} />
+        </div>
+      );
+    }
+    return (
+      <div>
+        <div className={productClass.text}>
+          <NutritionModal productId={product.id} nutrition={nutrition} />
+        </div>
+        <FormControl fullWidth>
+          <InputLabel id="demo-simple-select-label">Qty: </InputLabel>
+          <Select
+            value={quantity}
+            label="Qty"
+            defaultValue={quantity}
+            onChange={handleQuantityChange}
+          >
+            <MenuItem name={'1'} value={'1'}>
+              1
+            </MenuItem>
+            <MenuItem name={'2'} value={'2'}>
+              2
+            </MenuItem>
+            <MenuItem name={'3'} value={'3'}>
+              3
+            </MenuItem>
+          </Select>
+        </FormControl>
+        <Button startIcon={<AddShoppingCartIcon />}>Add to Cart</Button>
       </div>
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Qty: </InputLabel>
-        <Select
-          value={quantity}
-          label="Qty"
-          defaultValue={quantity}
-          onChange={handleQuantityChange}
-        >
-          <MenuItem name={'1'} value={'1'}>
-            1
-          </MenuItem>
-          <MenuItem name={'2'} value={'2'}>
-            2
-          </MenuItem>
-          <MenuItem name={'3'} value={'3'}>
-            3
-          </MenuItem>
-        </Select>
-      </FormControl>
-      <Button startIcon={<AddShoppingCartIcon />}>Add to Cart</Button>
-    </div>
-  );
+    );
+  };
 
   return (
     <Grid container spacing={0} className={productClass.productItem}>
