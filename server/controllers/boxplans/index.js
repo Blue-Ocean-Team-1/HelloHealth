@@ -36,7 +36,7 @@ module.exports = {
 
   getItemsList: async (req, res) => {
     try {
-      const queryString = `SELECT a.box_id, p.product_name, a.product_quantity FROM products AS p INNER JOIN box_plans as a on (a.product_id) = p.id WHERE a.box_size='${req.query.size}'`;
+      const queryString = `SELECT a.box_id, p.product_name, a.product_quantity, p.product_description FROM products AS p INNER JOIN box_plans as a on (a.product_id) = p.id WHERE a.box_size='${req.query.size}'`;
       const result = await sequelize.query(queryString, {
         type: QueryTypes.SELECT,
       });
