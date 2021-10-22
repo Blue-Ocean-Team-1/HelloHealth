@@ -112,7 +112,6 @@ const LoginPage = () => {
     } else {
       signupUser(name, email, password, (user) => {
         history.push(HOME);
-        console.log(`SIGNING UP, saving ${typeSelection} for account`);
         userAPI.uploadUserAccountType(
           user.uid,
           typeSelection,
@@ -150,8 +149,20 @@ const LoginPage = () => {
   };
 
   return (
-    <Container>
-      <Paper container elevation={4}>
+    <Container
+      sx={{
+        button: {
+          backgroundColor: '#264653',
+          '&:hover': {
+            backgroundColor: '#f4a261',
+          },
+          color: '#fff',
+          border: 'none',
+          padding: '10px',
+        },
+      }}
+    >
+      <Paper container elevation={4} style={{ backgroundColor: '#eee' }}>
         {!userType ? (
           <Grid container alignItems="center" justifyContent="center">
             <Grid style={{ margin: '2em' }}>
@@ -172,7 +183,7 @@ const LoginPage = () => {
                   </Grid>
 
                   <Select
-                    sx={{ mt: 2 }}
+                    sx={{ mt: 2, backgroundColor: '#fff', color: '#000' }}
                     labelId="demo-simple-select-label"
                     label="Customer Type"
                     value={typeSelection}
@@ -201,7 +212,10 @@ const LoginPage = () => {
             <Grid style={{ margin: '2em' }}>
               <Button
                 size="small"
-                onClick={() => setUserType('')}
+                onClick={() => {
+                  setUserType('');
+                  localStorage.setItem('userType', '');
+                }}
                 variant="contained"
                 sx={{ mt: 3 }}
               >

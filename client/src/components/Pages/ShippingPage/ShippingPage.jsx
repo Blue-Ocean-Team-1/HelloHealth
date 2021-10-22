@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
@@ -64,7 +65,6 @@ const ShippingPage = () => {
           )}`,
         )
         .then((res) => {
-          console.log('data pull from database');
           dataParsing(res.data, cart);
         })
         .catch((err) => {
@@ -257,7 +257,7 @@ const ShippingPage = () => {
   const NewShippingAddress = () => {
     if (newAddressClicked) {
       return (
-        <>
+        <Container>
           <Grid
             container
             spacing={2}
@@ -399,14 +399,14 @@ const ShippingPage = () => {
               />
             </Grid>
           </Grid>
-        </>
+        </Container>
       );
     }
     return null;
   };
 
   return (
-    <>
+    <Container>
       <h1>Delivery Information:</h1>
 
       <Grid
@@ -445,7 +445,11 @@ const ShippingPage = () => {
           style={{ paddingTop: '0.4em', margin: 'auto' }}
         >
           {!newAddressClicked && (
-            <Button variant="contained" onClick={handleNewShipAddress}>
+            <Button
+              variant="contained"
+              onClick={handleNewShipAddress}
+              sx={{ backgroundColor: '#264653' }}
+            >
               SHIP TO DIFFERENT ADDRESS
             </Button>
           )}
@@ -455,7 +459,11 @@ const ShippingPage = () => {
 
         <Grid item style={{ paddingTop: '0.4em', margin: 'auto' }}>
           {newAddressClicked && (
-            <Button variant="contained" onClick={handleNewShipAddress}>
+            <Button
+              variant="contained"
+              onClick={handleNewShipAddress}
+              sx={{ backgroundColor: '#264653' }}
+            >
               Cancel
             </Button>
           )}
@@ -559,7 +567,11 @@ const ShippingPage = () => {
 
       <Grid container>
         <Grid item style={{ paddingTop: '0.4em', margin: 'auto' }}>
-          <Button onClick={handleOpen} variant="contained">
+          <Button
+            onClick={handleOpen}
+            variant="contained"
+            sx={{ backgroundColor: '#264653' }}
+          >
             Complete Checkout
           </Button>
         </Grid>
@@ -600,7 +612,7 @@ const ShippingPage = () => {
           )}
         </Box>
       </Modal>
-    </>
+    </Container>
   );
 };
 
