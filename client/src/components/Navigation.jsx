@@ -125,13 +125,13 @@ function Navigation() {
             </Link>
             {currentUser ? (
               <Link to={ACCOUNT}>
-                <Button name="farms" variant="contained">
+                <Button name="account" variant="contained">
                   Account
                 </Button>
               </Link>
             ) : (
               <Link to={ACCOUNT}>
-                <Button name="farms" variant="contained">
+                <Button name="login" variant="contained">
                   Log In
                 </Button>
               </Link>
