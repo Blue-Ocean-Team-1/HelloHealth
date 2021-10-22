@@ -217,12 +217,6 @@ export default function BoxPage() {
         <MealList boxOptions={boxOptions} handleSizeChange={handleSizeChange} />
         <Grid container>
           <Grid item xs={12} align="center" paddingTop="1rem">
-            {/* <Button
-              className={classes.addToCart}
-              startIcon={<AddShoppingCartIcon />}
-            >
-              Add to Cart
-            </Button> */}
             <AddToCart id={selectedProductId} quantity={1} />
           </Grid>
         </Grid>

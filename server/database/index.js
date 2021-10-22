@@ -47,6 +47,7 @@ db.product_quantity = require('./models/modelFiles/product_quantity')(
   Sequelize,
 );
 db.products = require('./models/modelFiles/products')(sequelize, Sequelize);
+db.products_2 = require('./models/modelFiles/products_2')(sequelize, Sequelize);
 db.transactions = require('./models/modelFiles/transactions')(
   sequelize,
   Sequelize,

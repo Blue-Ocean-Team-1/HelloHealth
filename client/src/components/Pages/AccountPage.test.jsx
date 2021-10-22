@@ -13,6 +13,6 @@ describe('<AccountPage />', () => {
   });
 
   it('renders UserAccountPage by default', () => {
-    expect(screen.getByText('Account Details')).toBeTruthy();
+    expect(screen.getByText(/Products Page/)).toBeTruthy();
   });
 });

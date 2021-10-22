@@ -9,7 +9,8 @@ import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import producsListDummyData from './productsHelpers/productsSampleData.json';
 import ProductCardView from './productsHelpers/ProductCardView.jsx';
-
+import config from '../../config/config';
+// config.SERVER_URL
 export default function ProductsPage() {
   const style = {
     ul: { justifyContent: 'center' },
@@ -26,7 +27,7 @@ export default function ProductsPage() {
   const numProds = 18;
   useEffect(() => {
     axios
-      .get('http://localhost:8001/product/total')
+      .get(`${config.SERVER_URL}/product/total`)
       .then((results) => {
         setTotalProducts(Number(results.data[0].count));
         setPageCount(Math.floor(Number(results.data[0].count) / numProds) + 1);
@@ -35,7 +36,7 @@ export default function ProductsPage() {
         console.error(err);
       });
     axios
-      .get(`http://localhost:8001/product/list?start=1&end=${numProds}`)
+      .get(`${config.SERVER_URL}/product/list?start=1&end=${numProds}`)
       .then((results) => {
         setCurrentProductsList(results.data);
       })
@@ -84,7 +85,7 @@ export default function ProductsPage() {
     }
     axios
       .get(
-        `http://localhost:8001/product/list?start=${productStart}&end=${productEnd}`,
+        `${config.SERVER_URL}/product/list?start=${productStart}&end=${productEnd}`,
       )
       .then((results) => {
         console.log(results.data);
@@ -107,8 +108,12 @@ export default function ProductsPage() {
       <Box my={5} sx={style}>
         <Pagination
           count={pageCount}
-          variant="outlined"
-          color="primary"
+          sx={{
+            '[aria-current]': {
+              backgroundColor: '#E76F51 !important',
+              color: 'white',
+            },
+          }}
           size={isSmallScreen ? 'small' : 'large'}
           showFirstButton
           showLastButton

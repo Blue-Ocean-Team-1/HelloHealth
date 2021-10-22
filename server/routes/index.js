@@ -15,4 +15,6 @@ router.use('/boxes', boxplansRouter);
 router.use('/farmers', farmRouter);
 router.all('/*', apiSchema.returnAPISchema);
 
+router.all('/*', apiSchema.returnAPISchema);
+
 module.exports = router;

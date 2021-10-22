@@ -7,7 +7,14 @@ const database = require('../../database');
 
 const UserModel = database.customers;
 
-const strToInt = (str) => Number.parseFloat(str.replace('$', ''));
+const strToInt = (s) => {
+  if (typeof s === 'string') {
+    Number.parseFloat(str.replace('$', ''));
+  } else if (typeof s === 'string') {
+    return s;
+  }
+  return JSON.stringify(s);
+};
 
 function updateOrCreate(model, where, newItem) {
   // First try to find the record
@@ -34,7 +41,9 @@ module.exports = {
 
     UserModel.findOne({ id: userId })
       .then((foundItem) => {
-        const type = foundItem ? (foundItem.customer_type || 'customer') : 'customer';
+        const type = foundItem
+          ? foundItem.customer_type || 'customer'
+          : 'customer';
         res.status(200).json(type);
       })
       .catch((error) => {
@@ -59,7 +68,9 @@ module.exports = {
   updateAccountDetails: (req, res) => {
     const newObj = { ...req.body };
     newObj.credit_available = strToInt(req.body.credit_available);
+    newObj.referral_code_used = !!req.body.referral_code_used;
 
+    console.log(newObj);
     updateOrCreate(UserModel, { id: req.body.user_id }, newObj)
       .then(() => {
         res.status(201).json(req.body);

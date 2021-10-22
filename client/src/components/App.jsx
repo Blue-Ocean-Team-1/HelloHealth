@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Switch, Route } from 'react-router-dom';
-
+import useStyles from './styles';
 import Navigation from './Navigation.jsx';
 import ProductsPage from './Pages/ProductsPage.jsx';
 import BoxPage from './Pages/BoxPage.jsx';
@@ -15,20 +15,17 @@ import Chat from './Chat/Chat.jsx';
 import useMainContext from '../context/MainContext.jsx';
 import useAuth from '../context/AuthContext.jsx';
 import * as routeConstants from '../config/pageRoutes';
+import LandingModal from './Pages/LandingModal.jsx';
 import Footer from './Footer.jsx';
 
 export default function App() {
   const { page } = useMainContext();
   const { currentUser } = useAuth();
+  const [showModal, setShowModal] = useState(true);
 
+  const classes = useStyles();
   // test endpoint and server connection
   useEffect(() => {
-    axios
-      .get('http://localhost:8001/hello')
-      .then((result) => {
-        console.log(result);
-      })
-      .catch((err) => console.error(err));
     if (window.sessionStorage.getItem('cart') === null) {
       window.sessionStorage.setItem('cart', JSON.stringify({}));
     }
@@ -61,11 +58,14 @@ export default function App() {
   );
 
   return (
-    <>
+    <div className={classes.global}>
       <nav>
         <Navigation />
       </nav>
-      <section className="content">{renderPage()}</section>
+      <section className="content" style={{ minHeight: '80vh' }}>
+        <LandingModal showModal={showModal} setShowModal={setShowModal} />
+        {renderPage()}
+      </section>
       {currentUser ? (
         <section>
           <Chat />
@@ -74,6 +74,6 @@ export default function App() {
         ''
       )}
       <Footer />
-    </>
+    </div>
   );
 }

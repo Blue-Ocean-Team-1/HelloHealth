@@ -20,11 +20,6 @@ module.exports = (sequelize, DataTypes) => sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    'default?': {
-      type: Sequelize.BOOLEAN,
-      allowNull: false,
-      defaultValue: true,
-    },
   },
   {
     sequelize,
