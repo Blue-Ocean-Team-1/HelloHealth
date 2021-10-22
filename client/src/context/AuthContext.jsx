@@ -36,8 +36,8 @@ export const AuthProvider = ({ children }) => {
                 user_id: user.uid,
                 id: user.uid,
                 email: user.email,
-                'first name': user.displayName,
-                'last name': user.displayName,
+                'first name': user.displayName || 'John',
+                'last name': user.displayName || 'Doe',
                 Address: 'Sample Address',
                 City: 'Seattle',
                 State: 'WA',
@@ -128,6 +128,7 @@ export const AuthProvider = ({ children }) => {
 
   const logoutUser = (callback = () => {}) => {
     auth.signOut();
+    setUserType('');
     if (typeof callback === 'function') {
       callback();
     }
