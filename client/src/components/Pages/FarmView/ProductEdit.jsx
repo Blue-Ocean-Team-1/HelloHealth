@@ -10,6 +10,7 @@ import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 import TextField from '@mui/material/TextField';
 import Nutrition from '../../Product/Nutrition.jsx';
+import config from '../../../config/config';
 
 const style = {
   position: 'absolute',
@@ -46,7 +47,7 @@ export default function ProductEdit({ product, getFarmDetail, farmId }) {
 
   const handleUpdate = (updateColumn, updateValue) => {
     axios
-      .post('http://localhost:8001/farmers/updateProducts', {
+      .post(`${config.SERVER_URL}/farmers/updateProducts`, {
         id: product.id,
         updateVal: updateValue,
         updateCol: updateColumn,
