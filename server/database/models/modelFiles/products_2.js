@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) =>
         allowNull: false,
       },
       farm_id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       reviews_count: {
