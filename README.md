@@ -38,6 +38,17 @@ $ npm run build
 
 See [Endpoint Schema](./BLUE_OCEAN_API.md).
 
+## Screenshots
+
+![Home Page](./resources/images/home_page.png)
+![Product Page](./resources/images/product_page.png)
+![User Type Page](./resources/images/customer_type_page.png)
+![Login Page](./resources/images/login_page.png)
+![Account Page](./resources/images/user_account_page.png)
+![Box Page](./resources/images/box_page.png)
+![Farm Page](./resources/images/farm_page.png)
+![Farmers Page](./resources/images/farmers_page.png)
+
 ## Tech Stack
 
 #### Languages
