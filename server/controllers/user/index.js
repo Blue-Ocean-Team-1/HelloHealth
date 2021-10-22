@@ -62,10 +62,45 @@ module.exports = {
       { where: { id: userId } },
     )
       .then((foundItem) => {
+        console.log(
+          '\n\nAPI saved accoutType:',
+          foundItem.customer_type,
+          ' - on GET\n\n',
+        );
         res.status(200).json(foundItem);
       })
       .catch((error) => {
         res.status(500).send(error.message);
+      });
+  },
+  updateUserAccountType: (req, res) => {
+    const { accountType, userId } = req.body;
+
+    const newObj = {
+      customer_type: accountType,
+      user_id: userId,
+      id: userId,
+      email: `${userId}@gmail.com`,
+      'first name': 'John',
+      'last name': 'Doe',
+      Address: 'Sample Address',
+      City: 'Seattle',
+      State: 'WA',
+      'Zip Code': '98109',
+      'referral code': '12098214',
+      referral_code_used: false,
+      first_purchase_complete: false,
+      credit_available: 50,
+    };
+
+    updateOrCreate(UserModel, { id: userId }, newObj)
+      .then((result) => {
+        console.log('\n\nAPI saved accoutType:', accountType, '\n\n');
+        res.status(201).json(accountType);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).send(err);
       });
   },
   updateAccountDetails: (req, res) => {
@@ -73,7 +108,6 @@ module.exports = {
     newObj.credit_available = strToInt(req.body.credit_available);
     newObj.referral_code_used = !!req.body.referral_code_used;
 
-    console.log(newObj);
     updateOrCreate(UserModel, { id: req.body.user_id }, newObj)
       .then(() => {
         res.status(201).json(req.body);

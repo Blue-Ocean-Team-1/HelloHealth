@@ -1,17 +1,27 @@
 import axios from 'axios';
 import endpointMiddleware from '../endpointMiddleware';
 
-export const uploadUserAccountType = (typeString, callback = () => {}) => {
+export const uploadUserAccountType = (
+  userId,
+  typeString,
+  callback = () => {},
+) => {
   endpointMiddleware(
     ['USER', 'ACCOUNT_TYPE'],
     {
       accountType: typeString,
+      userId,
+      params: {
+        userId,
+      },
     },
     'POST',
   ).then((res) => {
-    // HERE, decide how to handle account type result
-    console.log(res);
-    callback(res);
+    if (res) {
+      callback(res.data);
+    } else {
+      console.log(res);
+    }
   });
 };
 

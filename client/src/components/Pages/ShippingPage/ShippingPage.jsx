@@ -12,25 +12,6 @@ import FormControl from '@mui/material/FormControl';
 import NativeSelect from '@mui/material/NativeSelect';
 import useAuth from '../../../context/AuthContext.jsx';
 
-/*
-{
-    "id": "nSpQlkuMmldf5QEINUs8FK6YZA03",
-    "user_id": "nSpQlkuMmldf5QEINUs8FK6YZA03",
-    "email": "sample@gmail.com",
-    "first name": "John",
-    "last name": "Doe",
-    "Address": "Sample Address",
-    "City": "Seattle",
-    "customer_type": "customer",
-    "State": "WA",
-    "Zip Code": 98109,
-    "referral code": "12098214",
-    "referral_code_used": "true",
-    "first_purchase_complete": "false",
-    "credit_available": 50
-}
-*/
-
 const ShippingPage = () => {
   const { currentUser, accountDetails } = useAuth();
   const [open, setOpen] = useState(false);
@@ -39,8 +20,7 @@ const ShippingPage = () => {
   const [expectedExpressDate, setExpectedExpressDate] = useState('');
   const [expectedStandardDate, setExpectedStandardDate] = useState('');
   const [chosenBoxDeliveryDate, setChosenBoxDeliveryDate] = useState('');
-  const [chosenProductDeliveryDate, setChosenProductDeliveryDate] =
-    useState('');
+  const [chosenProductDeliveryDate, setChosenProductDeliveryDate] = useState('');
   const [userId, setUserId] = useState('');
   const [userInfo, setUserInfo] = useState({});
   const [firstName, setFirstName] = useState(currentUser.displayName);
@@ -79,8 +59,8 @@ const ShippingPage = () => {
       axios
         .get(
           `http://localhost:8001/product/CartInfo?cartArray=${JSON.stringify(
-            data
-          )}`
+            data,
+          )}`,
         )
         .then((res) => {
           console.log('data pull from database');
@@ -126,17 +106,17 @@ const ShippingPage = () => {
     let recurringPrice = 0;
     for (let i = 0; i < cartInfo.length; i += 1) {
       if (
-        cartInfo[i].productId === 9999 ||
-        cartInfo[i].productId === 10000 ||
-        cartInfo[i].productId === 10001
+        cartInfo[i].productId === 9999
+        || cartInfo[i].productId === 10000
+        || cartInfo[i].productId === 10001
       ) {
-        recurringPrice +=
-          cartInfo[i].productQuantity *
-          Number(cartInfo[i].productPrice.substring(1));
+        recurringPrice
+          += cartInfo[i].productQuantity
+          * Number(cartInfo[i].productPrice.substring(1));
       } else {
-        productsPrice +=
-          cartInfo[i].productQuantity *
-          Number(cartInfo[i].productPrice.substring(1));
+        productsPrice
+          += cartInfo[i].productQuantity
+          * Number(cartInfo[i].productPrice.substring(1));
       }
     }
     setProductsCost(productsPrice);
@@ -163,7 +143,7 @@ const ShippingPage = () => {
       selectShipDate.setDate(selectShipDate.getDate() + i + 4);
       const humanReadableDate = selectShipDate.toLocaleDateString(
         'en-US',
-        options
+        options,
       );
       dates.push(humanReadableDate);
     }
@@ -181,7 +161,7 @@ const ShippingPage = () => {
 
     const humanReadableDate = expressShipDate.toLocaleDateString(
       'en-US',
-      options
+      options,
     );
     setExpectedExpressDate(humanReadableDate);
   };
@@ -192,7 +172,7 @@ const ShippingPage = () => {
     standardShipDate.setDate(standardShipDate.getDate() + 6);
     const humanReadableDate = standardShipDate.toLocaleDateString(
       'en-US',
-      options
+      options,
     );
     setExpectedStandardDate(humanReadableDate);
   };
@@ -251,7 +231,6 @@ const ShippingPage = () => {
     getDay();
     getSelectDates();
     getShippingCost();
-
     const cartItems = JSON.parse(window.sessionStorage.getItem('cart'));
     getProducts(cartItems);
     renderSummary();
