@@ -20,8 +20,8 @@ export default function MealCard({
 
   return (
     <>
-      {console.log('size', size)}
       <Card sx={{ minWidth: 125 }} value={size}>
+        {/* HERE: CardActionArea => "div" */}
         <CardActionArea>
           <CardMedia
             component="img"
@@ -80,7 +80,7 @@ export default function MealCard({
               </Grid>
             </Grid>
           </CardContent>
-        </CardActionArea>
+        </div>
         <CardActions>
           <Grid container spacing={0} direction="column" alignItems="center">
             {selectedSize === size ? (
