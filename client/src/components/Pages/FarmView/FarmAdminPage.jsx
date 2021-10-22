@@ -43,10 +43,14 @@ const text = {
 
 export default function FarmAdminPage({ setSelected, id }) {
   const [edit, setEdit] = useState(false);
+  const [clicked, setClicked] = useState(true);
   const { userType, setUserType } = useMainContext();
   const classes = useStyles();
   const [info, setInfo] = useState({ products: [] });
-  const { banner, products, about, rating, name, video } = info;
+  const [refresh, setRefresh] = useState(true);
+  const {
+    banner, products, about, rating, name, video,
+  } = info;
 
   const { logoutUser, currentUser } = useAuth();
 
@@ -59,6 +63,9 @@ export default function FarmAdminPage({ setSelected, id }) {
 
   const handleEdit = (e) => {
     setInfo({ ...info, [e.target.name]: e.target.value });
+  };
+  const update = () => {
+    setRefresh((prev) => !prev);
   };
 
   // const handleLogoutClick = () => {
@@ -80,7 +87,7 @@ export default function FarmAdminPage({ setSelected, id }) {
 
   useEffect(() => {
     getFarmDetail();
-  }, []);
+  }, [id, refresh]);
 
   return (
     <>
@@ -138,7 +145,7 @@ export default function FarmAdminPage({ setSelected, id }) {
         Browse Products
       </Typography>
       {info.products.map((product, index) => (
-        <FarmAdminProductCard product={product} key={index} />
+        <FarmAdminProductCard update={update} product={product} key={index} />
       ))}
       {userType === 'farmer' && currentUser && (
         <Box sx={{ m: 3, float: 'right' }}>
@@ -152,7 +159,7 @@ export default function FarmAdminPage({ setSelected, id }) {
           </Button>
         </Box>
       )}
-      {userType === 'farmer' && currentUser ? <AddProduct /> : <></>}
+      {userType === 'farmer' && currentUser ? <AddProduct id={id} /> : <></>}
     </>
   );
 }

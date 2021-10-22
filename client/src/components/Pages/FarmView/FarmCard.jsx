@@ -50,7 +50,7 @@ function FarmCard({ farm, cardClick }) {
         <CardHeader
           avatar={
             <Avatar
-              onClick={() => cardClick(farm.id)}
+              onClick={() => cardClick(farm.user_id)}
               sx={{ bgcolor: blue[500] }}
               aria-label="recipe"
             >
@@ -64,7 +64,7 @@ function FarmCard({ farm, cardClick }) {
           height="194"
           image={farm.profile_image}
           alt="profileImage"
-          onClick={() => cardClick(farm.id)}
+          onClick={() => cardClick(farm.user_id)}
         />
         <CardContent>
           <StarRatings

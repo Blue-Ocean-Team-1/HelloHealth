@@ -18,6 +18,7 @@ export default function FarmsPage() {
   const { selected, setSelected, showFarms } = useMainContext();
 
   const cardClick = (id) => {
+    console.log(id);
     setAllFarms(false);
     setSelected(id);
   };
@@ -85,7 +86,7 @@ export default function FarmsPage() {
             justifyContent="center"
           >
             {renderedItems.map((farm) => (
-              <FarmCard cardClick={cardClick} key={farm.id} farm={farm} />
+              <FarmCard cardClick={cardClick} key={farm.user_id} farm={farm} />
             ))}
           </Grid>
           <Grid

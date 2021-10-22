@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -23,15 +23,19 @@ const style = {
   p: 4,
 };
 
-export default function ProductEdit({ info, product }) {
+export default function ProductEdit({ info, product, update }) {
   const [open, setOpen] = useState(false);
   const [submit, setSubmit] = useState(false);
   const [image, setImage] = useState(product.product_image);
   const [name, setName] = useState(product.product_name);
   const [description, setDescription] = useState(product.product_description);
+  // const test = () => window.location.reload(false);
 
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    // test();
+  };
 
   const onType = (e, set) => {
     set(e.target.value);
@@ -40,6 +44,21 @@ export default function ProductEdit({ info, product }) {
   const handleImagePreview = (e) => {
     setImage(URL.createObjectURL(e.target.files[0]));
   };
+
+  const handleUpdate = (updateColumn, updateValue) => {
+    axios
+      .post('http://localhost:8001/farmers/updateProducts', {
+        id: product.id,
+        updateVal: updateValue,
+        updateCol: updateColumn,
+      })
+      .then(() => console.log('updated!'))
+      .catch((err) => console.log(err));
+  };
+
+  // useEffect(() => {
+  //   getFarmDetail();
+  // }, [refresh]);
 
   return (
     <div>
@@ -58,6 +77,7 @@ export default function ProductEdit({ info, product }) {
             <TextField
               id="banner-image"
               value={name}
+              name={'product_name'}
               multiline
               maxRows={1}
               fullWidth
@@ -71,7 +91,13 @@ export default function ProductEdit({ info, product }) {
               alignItems: 'flex-end',
             }}
           >
-            <Button>Update</Button>
+            <Button
+              onClick={(e) => {
+                handleUpdate('product_name', name);
+              }}
+            >
+              Update
+            </Button>
           </div>
           <FormLabel>
             Description:
@@ -82,6 +108,7 @@ export default function ProductEdit({ info, product }) {
               fullWidth
               placeholder={description}
               value={description}
+              name={'product_description'}
               onChange={(e) => onType(e, setDescription)}
             />
             <div
@@ -91,7 +118,13 @@ export default function ProductEdit({ info, product }) {
                 alignItems: 'flex-end',
               }}
             >
-              <Button>Update</Button>
+              <Button
+                onClick={(e) => {
+                  handleUpdate('product_description', description);
+                }}
+              >
+                Update
+              </Button>
             </div>
           </FormLabel>
           <FormLabel>
@@ -102,6 +135,7 @@ export default function ProductEdit({ info, product }) {
               maxRows={8}
               fullWidth
               value={image}
+              name={'product_image'}
               onChange={(e) => onType(e, setImage)}
             />
           </FormLabel>
@@ -126,7 +160,13 @@ export default function ProductEdit({ info, product }) {
               alignItems: 'flex-end',
             }}
           >
-            <Button>Update</Button>
+            <Button
+              onClick={(e) => {
+                handleUpdate('product_image', image);
+              }}
+            >
+              Update
+            </Button>
           </div>
         </Box>
       </Modal>
