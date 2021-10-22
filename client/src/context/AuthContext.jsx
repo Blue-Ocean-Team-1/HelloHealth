@@ -23,11 +23,21 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     if (config.NODE_ENV !== 'test') {
       auth.onAuthStateChanged((user) => {
+        setCurrentUser(user);
+
         if (user) {
-          userAPI.fetchUserAccountType(user.uid, (userTypeString) => {
-            setUserType(userTypeString);
-            setCurrentUser(user);
-          });
+          if (!userType) {
+            userAPI.fetchUserAccountType(user.uid, (userTypeString) => {
+              console.log(`API found ${userTypeString} for userType`);
+
+              setUserType(userTypeString);
+              setCurrentUser(user);
+              setAccountDetails((prev) => ({
+                ...prev,
+                customer_type: userTypeString,
+              }));
+            });
+          }
           userAPI.fetchAccountDetails(user.uid, (newDetails) => {
             setAccountDetails((prev) => {
               const newObj = {
@@ -49,6 +59,7 @@ export const AuthProvider = ({ children }) => {
               };
 
               userAPI.updateAccountDetails(user.uid, newObj);
+              return newObj;
             });
           });
           userAPI.fetchAccountTransactions(user.uid, (newTransactions) => {
@@ -71,7 +82,7 @@ export const AuthProvider = ({ children }) => {
     }));
   };
 
-  const signInWithGoogle = (callback = () => { }) => {
+  const signInWithGoogle = (callback = () => {}) => {
     auth
       .signInWithPopup(googleProvider)
       .then((res) => {
@@ -83,7 +94,7 @@ export const AuthProvider = ({ children }) => {
       });
   };
 
-  const signInWithFacebook = (callback = () => { }) => {
+  const signInWithFacebook = (callback = () => {}) => {
     auth
       .signInWithPopup(facebookProvider)
       .then((res) => {
@@ -95,7 +106,7 @@ export const AuthProvider = ({ children }) => {
       });
   };
 
-  const loginUser = async (email, password, callback = () => { }) => {
+  const loginUser = async (email, password, callback = () => {}) => {
     try {
       await auth.signInWithEmailAndPassword(email, password);
       callback();
@@ -105,11 +116,11 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const signupUser = async (name, email, password, callback = () => { }) => {
+  const signupUser = async (name, email, password, callback = () => {}) => {
     try {
       const res = await auth.createUserWithEmailAndPassword(email, password);
       const { user } = res;
-      callback();
+      callback(user);
     } catch (err) {
       console.error(err);
       alert(err.message);
@@ -126,7 +137,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logoutUser = (callback = () => { }) => {
+  const logoutUser = (callback = () => {}) => {
     auth.signOut();
     setUserType('');
     if (typeof callback === 'function') {
