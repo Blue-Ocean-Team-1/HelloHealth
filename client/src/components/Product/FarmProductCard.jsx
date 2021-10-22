@@ -94,7 +94,7 @@ function FarmProductCard({ product }) {
         <Typography style={text}>
           <b>What makes this item fresh?</b>
         </Typography>
-        <Typography>{description}</Typography>
+        <Typography>{product.product_description}</Typography>
         <Grid alignSelf="flex-end">
           <Typography variant="h5">
             <b>${product.product_cost}</b>
