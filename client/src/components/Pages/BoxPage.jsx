@@ -68,7 +68,7 @@ export default function BoxPage() {
 
   const getBoxItems = (selectedSize) => {
     if (selectedSize === '') {
-      setBoxSizeList(null);
+      setBoxSizeList('Small');
       return;
     }
 
@@ -92,7 +92,7 @@ export default function BoxPage() {
 
   const handleSizeChange = (size) => {
     if (size === null) {
-      setSelectedSizePlan('');
+      setSelectedSizePlan('Small');
     } else if (size === 'Small') {
       setSelectedSizePlan(size);
       setSelectedProductId(9999);
