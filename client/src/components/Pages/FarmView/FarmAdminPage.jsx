@@ -69,12 +69,6 @@ export default function FarmAdminPage({ setSelected, id }) {
     setRefresh((prev) => !prev);
   };
 
-  // const handleLogoutClick = () => {
-  //   const history = useHistory();
-  //   logoutUser();
-  //   history.push('/');
-  // };
-
   // eslint-disable-next-line consistent-return
   const handleLogout = () => {
     if (userType === 'farmer' && currentUser) {
@@ -92,10 +86,19 @@ export default function FarmAdminPage({ setSelected, id }) {
 
   return (
     <>
-      <Box sx={{ x: 2, float: 'right' }}></Box>
       <Grid container>
-        <Grid item xs={4} style={container}></Grid>
-        {handleLogout()}
+        {userType === 'farmer' && currentUser && (
+          <Box sx={{ m: 3, float: 'right' }}>
+            <Button
+              variant="contained"
+              onClick={() => {
+                logoutUser();
+              }}
+            >
+              Log Out
+            </Button>
+          </Box>
+        )}
         <Grid item xs={12} style={container}>
           <img
             className={classes.banner}
@@ -153,18 +156,6 @@ export default function FarmAdminPage({ setSelected, id }) {
           key={index}
         />
       ))}
-      {userType === 'farmer' && currentUser && (
-        <Box sx={{ m: 3, float: 'right' }}>
-          <Button
-            variant="contained"
-            onClick={() => {
-              logoutUser();
-            }}
-          >
-            Log Out
-          </Button>
-        </Box>
-      )}
       {userType === 'farmer' && currentUser ? (
         <AddProduct getFarmDetail={getFarmDetail} id={id} />
       ) : (
