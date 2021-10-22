@@ -3,7 +3,15 @@ import { Button, Grid, Stack } from '@mui/material';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import useMainContext from '../../context/MainContext.jsx';
-import { ACCOUNT, HOME, BOX, FARMS, CART } from '../../config/pageRoutes';
+import {
+  ACCOUNT,
+  HOME,
+  BOX,
+  FARMS,
+  CART,
+  CHECKOUT,
+} from '../../config/pageRoutes';
+import ShippingPage from './ShippingPage/ShippingPage.jsx';
 
 export default function CartPage() {
   const [click, setClick] = useState(true);
@@ -41,8 +49,8 @@ export default function CartPage() {
       axios
         .get(
           `http://localhost:8001/product/CartInfo?cartArray=${JSON.stringify(
-            data
-          )}`
+            data,
+          )}`,
         )
         .then((res) => {
           console.log('data pull from database');
@@ -86,9 +94,9 @@ export default function CartPage() {
     let totalPrice = 0;
     let itemCount = 0;
     for (let i = 0; i < dummyDatas.length; i += 1) {
-      totalPrice +=
-        dummyDatas[i].productQuantity *
-        Number(dummyDatas[i].productPrice.substring(1));
+      totalPrice
+        += dummyDatas[i].productQuantity
+        * Number(dummyDatas[i].productPrice.substring(1));
 
       itemCount += dummyDatas[i].productQuantity;
     }
@@ -111,8 +119,7 @@ export default function CartPage() {
     );
   };
 
-  const renderItems = () =>
-    dummyDatas.map((data, index) => (
+  const renderItems = () => dummyDatas.map((data, index) => (
       <Grid
         container
         spacing={3}
@@ -147,7 +154,7 @@ export default function CartPage() {
           </Stack>
         </Grid>
       </Grid>
-    ));
+  ));
 
   return (
     <>
@@ -197,6 +204,11 @@ export default function CartPage() {
           </Grid>
         </Grid>
         {renderItems()}
+        <Link to={CHECKOUT}>
+          <button name="checkout" onClick={handlePageChange}>
+            GO TO CHECKOUT
+          </button>
+        </Link>
       </Stack>
     </>
   );
