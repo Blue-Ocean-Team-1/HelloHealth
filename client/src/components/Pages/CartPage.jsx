@@ -14,6 +14,7 @@ import {
   CHECKOUT,
 } from '../../config/pageRoutes';
 import ShippingPage from './ShippingPage/ShippingPage.jsx';
+import config from '../../config/config';
 
 export default function CartPage() {
   const [click, setClick] = useState(true);
@@ -50,7 +51,7 @@ export default function CartPage() {
     if (data.length !== 0) {
       axios
         .get(
-          `http://localhost:8001/product/CartInfo?cartArray=${JSON.stringify(
+          `${config.SERVER_URL}/product/CartInfo?cartArray=${JSON.stringify(
             data
           )}`
         )
@@ -133,7 +134,7 @@ export default function CartPage() {
         key={index}
         style={{
           borderBottom: '1px solid black',
-          paddingBottom: '25px',
+          padding: '20px',
           marginTop: '0px',
           backgroundColor: index % 2 === 0 ? 'transparent' : '#eee',
         }}

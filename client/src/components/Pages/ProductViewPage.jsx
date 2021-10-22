@@ -15,6 +15,7 @@ import useMainContext from '../../context/MainContext.jsx';
 import Nutrition from '../Product/Nutrition.jsx';
 import MealList from '../Product/MealList.jsx';
 import AddToCart from './AddToCart.jsx';
+import config from '../../config/config';
 
 export default function ProductViewPage() {
   const [showMessage, setShowMessage] = useState(false);
@@ -51,7 +52,7 @@ export default function ProductViewPage() {
       custRating: rating,
     };
     axios
-      .post('http://localhost:8001/product/productRating', params)
+      .post(`${config.SERVER_URL}/product/productRating`, params)
       .then((results) => {
         console.log(results);
       })

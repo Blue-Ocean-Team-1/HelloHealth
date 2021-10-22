@@ -9,6 +9,7 @@ import axios from 'axios';
 import FarmAccountPage from './FarmView/FarmAccountPage.jsx';
 import FarmCard from './FarmView/FarmCard.jsx';
 import useMainContext from '../../context/MainContext.jsx';
+import config from '../../config/config';
 
 export default function FarmsPage() {
   const [farms, setFarms] = useState([]);
@@ -29,7 +30,7 @@ export default function FarmsPage() {
 
   const getFarms = (pageSelected) => {
     axios
-      .get('http://localhost:8001/farmers/farms')
+      .get(`${config.SERVER_URL}/farmers/farms`)
       .then(({ data }) => {
         setFarms(data);
         const items = pageSelected * 6;
