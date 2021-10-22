@@ -22,7 +22,7 @@ export default function MealCard({
     <>
       <Card sx={{ minWidth: 125 }} value={size}>
         {/* HERE: CardActionArea => "div" */}
-        <CardActionArea>
+        <div>
           <CardMedia
             component="img"
             height="140"
