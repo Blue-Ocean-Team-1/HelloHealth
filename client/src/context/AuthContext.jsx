@@ -32,7 +32,6 @@ export const AuthProvider = ({ children }) => {
             setAccountDetails((prev) => {
               const newObj = {
                 customer_type: 'customer',
-                ...newDetails,
                 user_id: user.uid,
                 id: user.uid,
                 email: user.email,
@@ -46,6 +45,7 @@ export const AuthProvider = ({ children }) => {
                 referral_code_used: false,
                 first_purchase_complete: false,
                 credit_available: '$50',
+                ...newDetails,
               };
 
               userAPI.updateAccountDetails(user.uid, newObj);
@@ -71,7 +71,7 @@ export const AuthProvider = ({ children }) => {
     }));
   };
 
-  const signInWithGoogle = (callback = () => {}) => {
+  const signInWithGoogle = (callback = () => { }) => {
     auth
       .signInWithPopup(googleProvider)
       .then((res) => {
@@ -83,7 +83,7 @@ export const AuthProvider = ({ children }) => {
       });
   };
 
-  const signInWithFacebook = (callback = () => {}) => {
+  const signInWithFacebook = (callback = () => { }) => {
     auth
       .signInWithPopup(facebookProvider)
       .then((res) => {
@@ -95,7 +95,7 @@ export const AuthProvider = ({ children }) => {
       });
   };
 
-  const loginUser = async (email, password, callback = () => {}) => {
+  const loginUser = async (email, password, callback = () => { }) => {
     try {
       await auth.signInWithEmailAndPassword(email, password);
       callback();
@@ -105,7 +105,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const signupUser = async (name, email, password, callback = () => {}) => {
+  const signupUser = async (name, email, password, callback = () => { }) => {
     try {
       const res = await auth.createUserWithEmailAndPassword(email, password);
       const { user } = res;
@@ -126,7 +126,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const logoutUser = (callback = () => {}) => {
+  const logoutUser = (callback = () => { }) => {
     auth.signOut();
     setUserType('');
     if (typeof callback === 'function') {

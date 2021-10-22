@@ -42,6 +42,7 @@ const UserAccountPage = () => {
     });
   };
 
+  const validTransactions = transactions instanceof Array ? transactions : [];
   return (
     <Box style={{ padding: '0.1em', margin: '-1em' }}>
       <Box sx={{ x: 2, float: 'right' }}>
@@ -85,13 +86,13 @@ const UserAccountPage = () => {
           <h3>Transactions</h3>
         </Grid>
 
-        {transactions.length === 0 ? (
+        {validTransactions.length === 0 ? (
           <Grid item>
             <p>No transactions found..</p>
           </Grid>
         ) : (
           <>
-            {transactions.map(({ id, price }) => (
+            {validTransactions.map(({ id, price }) => (
               <Box component={Grid} container item key={id}>
                 <Box component={Typography} sx={{ p: '0.2em' }}>
                   Transaction ID: {id}
