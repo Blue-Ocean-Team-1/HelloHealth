@@ -40,11 +40,6 @@ export default function ProductEdit({ product, getFarmDetail, farmId }) {
     set(e.target.value);
   };
 
-  const ApplyButton = () => {
-    getFarmDetail(farmId);
-    setOpen(false);
-  };
-
   const handleImagePreview = (e) => {
     setImage(URL.createObjectURL(e.target.files[0]));
   };
@@ -57,14 +52,11 @@ export default function ProductEdit({ product, getFarmDetail, farmId }) {
         updateCol: updateColumn,
       })
       .then(() => {
+        getFarmDetail(farmId);
         console.log('updated!');
       })
       .catch((err) => console.log(err));
   };
-
-  // useEffect(() => {
-  //   getFarmDetail();
-  // }, [refresh]);
 
   return (
     <div>
@@ -78,6 +70,18 @@ export default function ProductEdit({ product, getFarmDetail, farmId }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+          <Typography variant="h4">Edit Product</Typography>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              alignItems: 'flex-end',
+            }}
+          >
+            <Button variant="contained" onClick={handleClose}>
+              Close
+            </Button>
+          </div>
           <FormLabel>
             Name:
             <TextField
@@ -173,15 +177,6 @@ export default function ProductEdit({ product, getFarmDetail, farmId }) {
             >
               Update
             </Button>
-          </div>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'flex-end',
-              alignItems: 'flex-end',
-            }}
-          >
-            <Button onClick={ApplyButton}>Apply</Button>
           </div>
         </Box>
       </Modal>

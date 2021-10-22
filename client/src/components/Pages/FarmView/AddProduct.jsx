@@ -27,7 +27,7 @@ export default function AddProduct({ id, getFarmDetail }) {
   const [open, setOpen] = useState(false);
   const [submit, setSubmit] = useState(false);
   const [image, setImage] = useState(
-    'https://images.unsplash.com/photo-1558818498-28c1e002b655?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1887&q=80'
+    'https://images.unsplash.com/photo-1558818498-28c1e002b655?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1887&q=80',
   );
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -82,6 +82,7 @@ export default function AddProduct({ id, getFarmDetail }) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+          <Typography variant="h4">Add Product</Typography>
           <FormLabel>
             Name:
             <TextField

@@ -134,7 +134,7 @@ export default function FarmAdminPage({ setSelected, id }) {
           <div style={text}>
             <Typography>{info.description}</Typography>
             {userType === 'farmer' && currentUser ? (
-              <FarmEdit info={info} />
+              <FarmEdit getFarmDetail={getFarmDetail} info={info} />
             ) : (
               <></>
             )}

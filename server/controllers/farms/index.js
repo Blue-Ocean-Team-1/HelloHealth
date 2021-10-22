@@ -93,13 +93,11 @@ module.exports = {
     }
   },
   updateProduct: async (req, res) => {
-    console.log('here');
     try {
       const { updateCol, updateVal, id } = req.body;
-      console.log(updateCol, updateVal, id);
       const queryVal = `UPDATE products_2 SET ${updateCol} = '${updateVal}' WHERE id = ${id}`;
       const data = await sequelize.query(queryVal, { model: ProductsModel });
-      res.status(200).send('good job');
+      res.status(200).send('Products Updated!');
     } catch (error) {
       res.status(500).send(error.message);
     }
@@ -108,7 +106,13 @@ module.exports = {
     // eslint-disable-next-line no-empty
     try {
       // eslint-disable-next-line no-empty
-    } catch (error) {}
+      const { updateCol, updateVal, id } = req.body;
+      const queryVal = `UPDATE farms SET ${updateCol} = '${updateVal}' WHERE user_id = '${id}'`;
+      const data = await sequelize.query(queryVal, { model: FarmsModel });
+      res.status(200).send('Farm Info Updated!');
+    } catch (error) {
+      res.status(500).send(error.message);
+    }
   },
   deleteProduct: async (req, res) => {
     try {
