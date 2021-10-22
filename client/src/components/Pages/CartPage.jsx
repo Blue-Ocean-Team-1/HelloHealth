@@ -3,9 +3,7 @@ import { Button, Grid, Stack } from '@mui/material';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import useMainContext from '../../context/MainContext.jsx';
-import {
-  ACCOUNT, HOME, BOX, FARMS, CART,
-} from '../../config/pageRoutes';
+import { ACCOUNT, HOME, BOX, FARMS, CART } from '../../config/pageRoutes';
 
 export default function CartPage() {
   const [click, setClick] = useState(true);
@@ -22,14 +20,15 @@ export default function CartPage() {
 
   const dataParsing = (data, cart) => {
     const temp = [];
+    console.log(cart);
     for (let i = 0; i < data.length; i += 1) {
       const item = {};
       item.productId = data[i].id;
       item.productImage = data[i].product_image;
       item.productName = data[i].product_name;
       item.productPrice = data[i].product_cost;
-      // item.productQuantity = cart[data[i].id].productQuantity;
-      item.productQuantity = 3;
+      item.productQuantity = cart[data[i].id].productQuantity;
+      // item.productQuantity = 3;
       temp.push(item);
     }
     console.log(temp);
@@ -38,17 +37,32 @@ export default function CartPage() {
 
   const getProduct = (cart) => {
     const data = Object.keys(cart);
-    axios
-      .get('http://localhost:8001/product/CartInfo')
-      .then((res) => {
-        console.log('data pull from database');
-        dataParsing(res.data, cart);
-      })
-      .catch((err) => {
-        console.error(`error when try to pull data ${err}`);
-      });
+    if (data.length !== 0) {
+      axios
+        .get(
+          `http://localhost:8001/product/CartInfo?cartArray=${JSON.stringify(
+            data
+          )}`
+        )
+        .then((res) => {
+          console.log('data pull from database');
+          dataParsing(res.data, cart);
+        })
+        .catch((err) => {
+          console.error(`error when try to pull data ${err}`);
+        });
+    } else {
+      setDummyDatas([
+        {
+          productId: 0,
+          productImage: '',
+          productName: '',
+          productQuantity: 0,
+          productPrice: '',
+        },
+      ]);
+    }
   };
-
 
   const handlePageChange = (e) => {
     setPage(e.target.name);
@@ -61,9 +75,10 @@ export default function CartPage() {
   }, [click]);
 
   const removeItem = (id) => {
+    console.log(id);
     const cart = JSON.parse(window.sessionStorage.getItem('cart'));
     delete cart[id];
-    window.sessionStorage.setItem('cart', temp);
+    window.sessionStorage.setItem('cart', JSON.stringify(cart));
     setClick(!click);
   };
 
@@ -90,13 +105,14 @@ export default function CartPage() {
         </Grid>
         <Grid item xs={6}></Grid>
         <Grid item xs>
-          <p>{`Total: $${totalPrice}`}</p>
+          <p>{`Total: $${totalPrice.toFixed(2)}`}</p>
         </Grid>
       </Grid>
     );
   };
 
-  const renderItems = () => dummyDatas.map((data, index) => (
+  const renderItems = () =>
+    dummyDatas.map((data, index) => (
       <Grid
         container
         spacing={3}
@@ -123,7 +139,7 @@ export default function CartPage() {
 
             <Button
               variant="outlined"
-              value={data.id}
+              value={data.productId}
               onClick={(e) => removeItem(Number(e.target.value))}
             >
               Remove
@@ -131,7 +147,7 @@ export default function CartPage() {
           </Stack>
         </Grid>
       </Grid>
-  ));
+    ));
 
   return (
     <>
