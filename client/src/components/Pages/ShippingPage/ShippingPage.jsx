@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -8,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import NativeSelect from '@mui/material/NativeSelect';
+import useAuth from '../../../context/AuthContext.jsx';
 
 const dummyAddress = {
   first_name: 'Joe',
@@ -38,9 +40,81 @@ const ShippingPage = () => {
   const [email, setEmail] = useState(dummyAddress.email);
   const [deliveryInstructions, setDeliveryInstructions] = useState('N/A');
   const [noteForAllergies, setNoteForAllergies] = useState('');
+  const [productsCost, setProductsCost] = useState(0);
+  const [reccuringCost, setReccuringCost] = useState(0);
+  const [shippingCost, setShippingCost] = useState(0);
+  const [cartInfo, setCartInfo] = useState([]);
+
+  const { currentUser, accountDetails } = useAuth();
+
+  const dataParsing = (data, cart) => {
+    const temp = [];
+    console.log(cart);
+    for (let i = 0; i < data.length; i += 1) {
+      const item = {};
+      item.productId = data[i].id;
+      item.productImage = data[i].product_image;
+      item.productName = data[i].product_name;
+      item.productPrice = data[i].product_cost;
+      item.productQuantity = cart[data[i].id].productQuantity;
+      temp.push(item);
+    }
+    setCartInfo(temp);
+  };
+
+  const getProducts = (cart) => {
+    const data = Object.keys(cart);
+    if (data.length !== 0) {
+      axios
+        .get(
+          `http://localhost:8001/product/CartInfo?cartArray=${JSON.stringify(
+            data,
+          )}`,
+        )
+        .then((res) => {
+          console.log('data pull from database');
+          dataParsing(res.data, cart);
+        })
+        .catch((err) => {
+          console.error(`error when try to pull data ${err}`);
+        });
+    } else {
+      setCartInfo([
+        {
+          productId: 0,
+          productImage: '',
+          productName: '',
+          productQuantity: 0,
+          productPrice: '',
+        },
+      ]);
+    }
+  };
 
   const handleOpen = () => {
     setOpen(true);
+  };
+
+  const renderSummary = () => {
+    let productsPrice = 0;
+    let recurringPrice = 0;
+    for (let i = 0; i < cartInfo.length; i += 1) {
+      if (
+        cartInfo[i].productId === 9999
+        || cartInfo[i].productId === 10000
+        || cartInfo[i].productId === 10001
+      ) {
+        recurringPrice
+          += cartInfo[i].productQuantity
+          * Number(cartInfo[i].productPrice.substring(1));
+      } else {
+        productsPrice
+          += cartInfo[i].productQuantity
+          * Number(cartInfo[i].productPrice.substring(1));
+      }
+    }
+    setProductsCost(productsPrice);
+    setReccuringCost(recurringPrice);
   };
 
   const handleClose = () => {
@@ -109,9 +183,33 @@ const ShippingPage = () => {
     getStandardShipDate();
   };
 
+  const getShippingCost = () => {
+    if (chosenProductDeliveryDate === expectedStandardDate) {
+      setShippingCost(5.99);
+    } else if (chosenProductDeliveryDate === expectedExpressDate) {
+      setShippingCost(11.99);
+    } else {
+      setShippingCost(0);
+    }
+  };
+
   useEffect(() => {
     getDay();
     getSelectDates();
+    getShippingCost();
+    const cartItems = JSON.parse(window.sessionStorage.getItem('cart'));
+    getProducts(cartItems);
+    renderSummary();
+  }, [
+    cartInfo,
+    productsCost,
+    reccuringCost,
+    shippingCost,
+    chosenProductDeliveryDate,
+  ]);
+
+  useEffect(() => {
+    renderSummary();
   }, []);
 
   const NewShippingAddress = () => {
@@ -371,26 +469,28 @@ const ShippingPage = () => {
           <span>Reccuring Cost:</span>
         </Grid>
         <Grid item align="center" xs={6}>
-          <span>$9.99</span>
+          <span>${reccuringCost}</span>
         </Grid>
         <Grid item align="start" xs={6}>
           <span>Produce Cost:</span>
         </Grid>
         <Grid item align="center" xs={6}>
-          <span>$9.99</span>
+          <span>${productsCost}</span>
         </Grid>
         <Grid item align="start" xs={6}>
           <span>Shipping:</span>
         </Grid>
         <Grid item align="center" xs={6}>
-          <span>$9.99</span>
+          <span>${shippingCost}</span>
         </Grid>
         <Grid item align="center" borderBottom="1px solid black" xs={12}></Grid>
         <Grid item align="start" xs={6}>
           <span>Total Cost:</span>
         </Grid>
         <Grid item align="center" xs={6}>
-          <span>$9.99</span>
+          <span>
+            ${(productsCost + reccuringCost + shippingCost).toFixed(2)}
+          </span>
         </Grid>
 
         <Grid item xs={12} md={6}>
