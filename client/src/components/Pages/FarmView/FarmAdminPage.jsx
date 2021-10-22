@@ -20,6 +20,7 @@ import useMainContext from '../../../context/MainContext.jsx';
 import FarmEdit from './FarmEdit.jsx';
 import AddProduct from './AddProduct.jsx';
 import useAuth from '../../../context/AuthContext.jsx';
+import config from '../../../config/config';
 
 const container = {
   position: 'relative',
@@ -56,11 +57,8 @@ export default function FarmAdminPage({ setSelected, id }) {
 
   const getFarmDetail = (productId) => {
     axios
-      .get(`http://localhost:8001/farmers/one-farm/${productId}`)
-      .then(({ data }) => {
-        console.log(data);
-        setInfo(data);
-      })
+      .get(`${config.SERVER_URL}/farmers/one-farm/${productId}`)
+      .then(({ data }) => setInfo(data))
       .catch((err) => console.log(err));
   };
 
