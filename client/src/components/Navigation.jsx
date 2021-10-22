@@ -97,6 +97,9 @@ function Navigation() {
             <MenuItem onClick={handleClose}>
               <Link to={ACCOUNT}>Account</Link>
             </MenuItem>
+            <MenuItem onClick={handleClose}>
+              <Link to={CART}>Cart</Link>
+            </MenuItem>
           </Menu>
 
           <Box
