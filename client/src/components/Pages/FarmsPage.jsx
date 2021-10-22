@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
+import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Pagination from '@mui/material/Pagination';
@@ -64,7 +65,7 @@ export default function FarmsPage() {
   const renderCondition = () => {
     if (!selected) {
       return (
-        <>
+        <Container>
           <Grid
             container
             align="center"
@@ -98,10 +99,16 @@ export default function FarmsPage() {
               <Pagination
                 count={Math.floor(farms.length / 6) + 1}
                 onChange={handlePageChange}
+                sx={{
+                  '[aria-current]': {
+                    backgroundColor: '#E76F51 !important',
+                    color: 'white',
+                  },
+                }}
               />
             </Stack>
           </Grid>
-        </>
+        </Container>
       );
     }
     return <FarmAccountPage setSelected={showFarms} id={selected} />;

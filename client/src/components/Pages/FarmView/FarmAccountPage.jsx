@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
+import Container from '@mui/material/Container';
 import axios from 'axios';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -84,7 +85,7 @@ export default function FarmAccountPage({ setSelected, id }) {
   }, []);
 
   return (
-    <>
+    <Container>
       <Box sx={{ x: 2, float: 'right' }}></Box>
       <Grid container>
         <Grid item xs={4} style={container}>
@@ -159,6 +160,6 @@ export default function FarmAccountPage({ setSelected, id }) {
         </Box>
       )}
       {userType === 'farmer' && currentUser ? <AddProduct /> : <></>}
-    </>
+    </Container>
   );
 }

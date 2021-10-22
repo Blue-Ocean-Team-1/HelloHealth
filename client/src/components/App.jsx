@@ -62,7 +62,7 @@ export default function App() {
       <nav>
         <Navigation />
       </nav>
-      <section className="content">
+      <section className="content" style={{ minHeight: '80vh' }}>
         <LandingModal showModal={showModal} setShowModal={setShowModal} />
         {renderPage()}
       </section>
