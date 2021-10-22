@@ -29,7 +29,8 @@ const ShippingPage = () => {
   const [expectedExpressDate, setExpectedExpressDate] = useState('');
   const [expectedStandardDate, setExpectedStandardDate] = useState('');
   const [chosenBoxDeliveryDate, setChosenBoxDeliveryDate] = useState('');
-  const [chosenProductDeliveryDate, setChosenProductDeliveryDate] = useState('');
+  const [chosenProductDeliveryDate, setChosenProductDeliveryDate] =
+    useState('');
   const [userId, setUserId] = useState('');
   const [firstName, setFirstName] = useState(dummyAddress.first_name);
   const [lastName, setLastName] = useState(dummyAddress.last_name);
@@ -72,7 +73,6 @@ const ShippingPage = () => {
           )}`,
         )
         .then((res) => {
-          console.log('data pull from database');
           dataParsing(res.data, cart);
         })
         .catch((err) => {
@@ -100,17 +100,17 @@ const ShippingPage = () => {
     let recurringPrice = 0;
     for (let i = 0; i < cartInfo.length; i += 1) {
       if (
-        cartInfo[i].productId === 9999
-        || cartInfo[i].productId === 10000
-        || cartInfo[i].productId === 10001
+        cartInfo[i].productId === 9999 ||
+        cartInfo[i].productId === 10000 ||
+        cartInfo[i].productId === 10001
       ) {
-        recurringPrice
-          += cartInfo[i].productQuantity
-          * Number(cartInfo[i].productPrice.substring(1));
+        recurringPrice +=
+          cartInfo[i].productQuantity *
+          Number(cartInfo[i].productPrice.substring(1));
       } else {
-        productsPrice
-          += cartInfo[i].productQuantity
-          * Number(cartInfo[i].productPrice.substring(1));
+        productsPrice +=
+          cartInfo[i].productQuantity *
+          Number(cartInfo[i].productPrice.substring(1));
       }
     }
     setProductsCost(productsPrice);
