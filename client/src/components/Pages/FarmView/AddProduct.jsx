@@ -23,11 +23,11 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-export default function AddProduct({ id }) {
+export default function AddProduct({ id, getFarmDetail }) {
   const [open, setOpen] = useState(false);
   const [submit, setSubmit] = useState(false);
   const [image, setImage] = useState(
-    'https://images.unsplash.com/photo-1558818498-28c1e002b655?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1887&q=80',
+    'https://images.unsplash.com/photo-1558818498-28c1e002b655?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1887&q=80'
   );
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -58,6 +58,7 @@ export default function AddProduct({ id }) {
         id: randomId(),
       })
       .then(() => {
+        getFarmDetail(id);
         setOpen(false);
         setName('');
         setDescription('');

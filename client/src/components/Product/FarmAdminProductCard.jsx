@@ -24,7 +24,7 @@ const text = {
   paddingBottom: '10px',
 };
 
-function FarmAdminProductCard({ product, update }) {
+function FarmAdminProductCard({ product, farmId, getFarmDetail }) {
   const [quantity, setQuantity] = useState(1);
   const [name, setName] = useState(product.product_name);
   const [description, setDescription] = useState(product.product_description);
@@ -41,6 +41,7 @@ function FarmAdminProductCard({ product, update }) {
       .delete(`http://localhost:8001/farmers/deleteProducts/${product.id}`)
       .then(() => {
         console.log('Item Deleted');
+        getFarmDetail(farmId);
       })
       .catch((err) => {
         console.log(err);
@@ -52,7 +53,11 @@ function FarmAdminProductCard({ product, update }) {
       return (
         <div style={{ display: 'flex' }}>
           <NutritionModal productId={product.id} nutrition={nutrition} />
-          <ProductEdit update={update} product={product} />
+          <ProductEdit
+            getFarmDetail={getFarmDetail}
+            farmId={farmId}
+            product={product}
+          />
           <Button onClick={handleDelete} startIcon={<DeleteIcon />}>
             Delete
           </Button>

@@ -23,7 +23,7 @@ const style = {
   p: 4,
 };
 
-export default function ProductEdit({ info, product, update }) {
+export default function ProductEdit({ product, getFarmDetail, farmId }) {
   const [open, setOpen] = useState(false);
   const [submit, setSubmit] = useState(false);
   const [image, setImage] = useState(product.product_image);
@@ -34,11 +34,15 @@ export default function ProductEdit({ info, product, update }) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
-    // test();
   };
 
   const onType = (e, set) => {
     set(e.target.value);
+  };
+
+  const ApplyButton = () => {
+    getFarmDetail(farmId);
+    setOpen(false);
   };
 
   const handleImagePreview = (e) => {
@@ -52,7 +56,9 @@ export default function ProductEdit({ info, product, update }) {
         updateVal: updateValue,
         updateCol: updateColumn,
       })
-      .then(() => console.log('updated!'))
+      .then(() => {
+        console.log('updated!');
+      })
       .catch((err) => console.log(err));
   };
 
@@ -167,6 +173,15 @@ export default function ProductEdit({ info, product, update }) {
             >
               Update
             </Button>
+          </div>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              alignItems: 'flex-end',
+            }}
+          >
+            <Button onClick={ApplyButton}>Apply</Button>
           </div>
         </Box>
       </Modal>

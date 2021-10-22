@@ -54,10 +54,13 @@ export default function FarmAdminPage({ setSelected, id }) {
 
   const { logoutUser, currentUser } = useAuth();
 
-  const getFarmDetail = () => {
+  const getFarmDetail = (productId) => {
     axios
-      .get(`http://localhost:8001/farmers/one-farm/${id}`)
-      .then(({ data }) => setInfo(data))
+      .get(`http://localhost:8001/farmers/one-farm/${productId}`)
+      .then(({ data }) => {
+        console.log(data);
+        setInfo(data);
+      })
       .catch((err) => console.log(err));
   };
 
@@ -86,8 +89,8 @@ export default function FarmAdminPage({ setSelected, id }) {
   };
 
   useEffect(() => {
-    getFarmDetail();
-  }, [id, refresh]);
+    getFarmDetail(id);
+  }, [id]);
 
   return (
     <>
@@ -145,7 +148,12 @@ export default function FarmAdminPage({ setSelected, id }) {
         Browse Products
       </Typography>
       {info.products.map((product, index) => (
-        <FarmAdminProductCard update={update} product={product} key={index} />
+        <FarmAdminProductCard
+          getFarmDetail={getFarmDetail}
+          farmId={id}
+          product={product}
+          key={index}
+        />
       ))}
       {userType === 'farmer' && currentUser && (
         <Box sx={{ m: 3, float: 'right' }}>
@@ -159,7 +167,11 @@ export default function FarmAdminPage({ setSelected, id }) {
           </Button>
         </Box>
       )}
-      {userType === 'farmer' && currentUser ? <AddProduct id={id} /> : <></>}
+      {userType === 'farmer' && currentUser ? (
+        <AddProduct getFarmDetail={getFarmDetail} id={id} />
+      ) : (
+        <></>
+      )}
     </>
   );
 }

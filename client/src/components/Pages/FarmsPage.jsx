@@ -86,7 +86,7 @@ export default function FarmsPage() {
             justifyContent="center"
           >
             {renderedItems.map((farm) => (
-              <FarmCard cardClick={cardClick} key={farm.user_id} farm={farm} />
+              <FarmCard cardClick={cardClick} key={farm.id} farm={farm} />
             ))}
           </Grid>
           <Grid
