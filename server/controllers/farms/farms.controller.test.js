@@ -1,16 +1,18 @@
-const userController = require('./index');
+const farmsController = require('./index');
 
-describe('User API Controller', () => {
+jest.useFakeTimers();
+
+describe('farms API Controller', () => {
   const req = { query: {}, body: {} };
 
   it('should contain controller functions', () => {
-    Object.keys(userController).forEach((key) => {
-      expect(typeof userController[key] === 'function');
+    Object.keys(farmsController).forEach((key) => {
+      expect(typeof farmsController[key] === 'function');
     });
   });
 
   it('should accept and invoke (res, req)', () => {
-    Object.keys(userController).forEach((key) => {
+    Object.keys(farmsController).forEach((key) => {
       const status = jest.fn(() => ({
         send: () => {},
         json: () => {},
@@ -20,7 +22,7 @@ describe('User API Controller', () => {
         status,
       };
 
-      userController[key](req, res);
+      farmsController[key](req, res);
       expect(status.mock.calls.length).toBeDefined();
     });
   });

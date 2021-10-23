@@ -1,4 +1,5 @@
 module.exports = {
+  maxWorkers: 99,
   collectCoverage: true,
   coverageReporters: ['json', 'html', 'lcov'],
   coveragePathIgnorePatterns: [

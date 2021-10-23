@@ -1,16 +1,18 @@
-const userController = require('./index');
+const boxController = require('./index');
 
-describe('User API Controller', () => {
+jest.useFakeTimers();
+
+describe('box API Controller', () => {
   const req = { query: {}, body: {} };
 
   it('should contain controller functions', () => {
-    Object.keys(userController).forEach((key) => {
-      expect(typeof userController[key] === 'function');
+    Object.keys(boxController).forEach((key) => {
+      expect(typeof boxController[key] === 'function');
     });
   });
 
   it('should accept and invoke (res, req)', () => {
-    Object.keys(userController).forEach((key) => {
+    Object.keys(boxController).forEach((key) => {
       const status = jest.fn(() => ({
         send: () => {},
         json: () => {},
@@ -20,7 +22,7 @@ describe('User API Controller', () => {
         status,
       };
 
-      userController[key](req, res);
+      boxController[key](req, res);
       expect(status.mock.calls.length).toBeDefined();
     });
   });

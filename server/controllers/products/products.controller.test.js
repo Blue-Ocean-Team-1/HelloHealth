@@ -1,16 +1,16 @@
-const userController = require('./index');
+const productsController = require('./index');
 
-describe('User API Controller', () => {
+describe('Products API Controller', () => {
   const req = { query: {}, body: {} };
 
   it('should contain controller functions', () => {
-    Object.keys(userController).forEach((key) => {
-      expect(typeof userController[key] === 'function');
+    Object.keys(productsController).forEach((key) => {
+      expect(typeof productsController[key] === 'function');
     });
   });
 
   it('should accept and invoke (res, req)', () => {
-    Object.keys(userController).forEach((key) => {
+    Object.keys(productsController).forEach((key) => {
       const status = jest.fn(() => ({
         send: () => {},
         json: () => {},
@@ -20,7 +20,7 @@ describe('User API Controller', () => {
         status,
       };
 
-      userController[key](req, res);
+      productsController[key](req, res);
       expect(status.mock.calls.length).toBeDefined();
     });
   });
