@@ -11,16 +11,12 @@ module.exports = {
     {
       displayName: 'DOM',
       testEnvironment: 'jsdom',
-      setupFilesAfterEnv: ['<rootDir>/client/src/utils/test-utils.js'],
+      setupFilesAfterEnv: ['<rootDir>/client/test-utils/setupSuite.js'],
       // 'extensionsToTreatAsEsm': ['.jsx'],
       testMatch: ['<rootDir>/client/**/*.test.js?(x)'],
       setupFiles: ['dotenv/config'],
       modulePaths: ['/client/src/'],
       moduleDirectories: ['node_modules', 'client/src'],
-      watchPlugins: [
-        'jest-watch-typeahead/filename',
-        'jest-watch-typeahead/testname',
-      ],
       moduleFileExtensions: ['js'],
       moduleNameMapper: {
         '\\.(css|less)$': '<rootDir>/client/src/__mocks__/styleMock.js',
