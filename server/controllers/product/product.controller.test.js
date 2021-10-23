@@ -10,4 +10,24 @@ describe('product API Controller', () => {
       expect(typeof productController[key] === 'function');
     });
   });
+
+  // it('should accept and invoke (res, req)', () => {
+  //   Object.keys(productController).forEach((key) => {
+  //     const status = jest.fn(() => ({
+  //       send: () => { },
+  //       json: () => { },
+  //     }));
+
+  //     const res = {
+  //       status,
+  //     };
+
+  //     try {
+  //       productController[key](req, res);
+  //       expect(status.mock.calls.length).toBeDefined();
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   });
+  // });
 });

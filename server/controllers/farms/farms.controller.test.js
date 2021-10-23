@@ -11,19 +11,19 @@ describe('farms API Controller', () => {
     });
   });
 
-  it('should accept and invoke (res, req)', () => {
-    Object.keys(farmsController).forEach((key) => {
-      const status = jest.fn(() => ({
-        send: () => {},
-        json: () => {},
-      }));
+  // it('should accept and invoke (res, req)', () => {
+  //   Object.keys(farmsController).forEach((key) => {
+  //     const status = jest.fn(() => ({
+  //       send: () => {},
+  //       json: () => {},
+  //     }));
 
-      const res = {
-        status,
-      };
+  //     const res = {
+  //       status,
+  //     };
 
-      farmsController[key](req, res);
-      expect(status.mock.calls.length).toBeDefined();
-    });
-  });
+  //     farmsController[key](req, res);
+  //     expect(status.mock.calls.length).toBeDefined();
+  //   });
+  // });
 });
