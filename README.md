@@ -40,6 +40,7 @@ See [Endpoint Schema](./BLUE_OCEAN_API.md).
 
 ## Screenshots
 
+![Demo GIF](./resources/images/demo.gif)
 ![Home Page](./resources/images/home_page.png)
 ![Product Page](./resources/images/product_page.png)
 ![User Type Page](./resources/images/customer_type_page.png)
