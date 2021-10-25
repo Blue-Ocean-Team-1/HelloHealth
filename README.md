@@ -82,17 +82,14 @@ See [Endpoint Schema](./BLUE_OCEAN_API.md).
 
 #### Account Type Selection
 
-- Choose a Customer, Farmer, or Nutritionist account
-
-![User Type Page](./resources/images/customer_type_page.png)
-
 #### Login / Sign up
 
+- Choose a Customer, Farmer, or Nutritionist account
 - Browse the app and product catalog without being logged in
 - Create an account or login Email/Password, Google, or Facebook
 - Access live chat with a nutritionist
 
-![Login Page](./resources/images/login_page.png)
+![Login Page](./resources/images/login_page.gif)
 
 #### Account Details
 
